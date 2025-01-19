@@ -1,0 +1,32 @@
+Package: ambiR
+Type: Package
+Title: Calculate AZTI’s Marine Biotic Index
+Version: 0.1.0
+Authors@R: c( 
+    person("Ciarán J.", "Murray", , "cjm@niva-dk.dk", role = c("aut", "cre", "cph"),
+    comment = c(ORCID = "0000-0003-0260-2008")),
+    person("Ángel", "Borja", , "aborja@azti.es", role = "aut",
+    comment = c(ORCID = "0000-0003-1601-2025")),
+    person("Jørgen L. S.", "Hansen", , "joh@ecos.au.dk", role = "aut"))
+Maintainer: Ciarán Murray <cjm@niva-dk.dk>
+Description: This package implements calculations of AZTI’s Marine Biotic Index  _AMBI_, as well as the Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12): 1100-1114_.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat (>= 3.0.0),
+    usethis,
+    devtools
+Config/testthat/edition: 3
+RoxygenNote: 7.3.2
+Depends: 
+    R (>= 3.5)
+Imports: 
+    dplyr,
+    tidyr,
+    cli,
+    magrittr,
+    utils
+Roxygen: list(markdown = TRUE)
+URL: https://niva-denmark.github.io/ambiR/, https://github.com/niva-denmark/ambiR/, https://niva-denmark.github.io/ambiR/
+BugReports: https://github.com/niva-denmark/ambiR/issues
