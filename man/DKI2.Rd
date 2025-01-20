@@ -24,8 +24,7 @@ DKI2(AMBI, H, N, psal)
 \item{psal}{salinity}
 }
 \value{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{       DKI index
-}\if{html}{\out{</div>}}
+\code{DKI} index value
 }
 \description{
 This function calculates a salinity-normalised version of the Danish quality
@@ -55,7 +54,8 @@ e.g. within a \code{\link[dplyr:mutate]{dplyr::mutate()}} function call. See the
 
 DKI2(AMBI = 1.61, H = 2.36, N = 25, psal = 21.4)
 
-# Example workflow for calculating DKI (v2) from species counts
+
+# ------ Example workflow for calculating DKI (v2) from species counts ----
 
 # calculate AMBI index
 dfAMBI <- AMBI(test_data, by = c("station"), var_rep = "replicate")[["AMBI"]]
@@ -66,7 +66,7 @@ dfAMBI
 # add salinity values - these are realistic but invented values
 dfAMBI <- dplyr::mutate(dfAMBI, psal=ifelse(station == 1, 21.3, 26.5))
 
-# calculate DKI
+# calculate DKI from AMBI results
 dfAMBI <- dplyr::mutate(dfAMBI, DKI=DKI2(AMBI, H, N, psal))
 
 }

@@ -37,8 +37,7 @@ DKI(AMBI, H, N, S, H_max = 5)
 \item{H_max}{maximum H' used to normalise AMBI, \emph{default 5}}
 }
 \value{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{       DKI index
-}\if{html}{\out{</div>}}
+\code{DKI} index value
 }
 \description{
 Calculates the Danish quality index DKI (v1)
@@ -61,7 +60,8 @@ e.g. within a \code{\link[dplyr:mutate]{dplyr::mutate()}} function call. See the
 
 DKI(AMBI = 1.61, H = 2.36, N = 25, S = 6)
 
-# Example workflow for calculating DKI from species counts
+
+# ------ Example workflow for calculating DKI from species counts ----
 
 # calculate AMBI index
 dfAMBI <- AMBI(test_data, by = c("station"), var_rep="replicate")[["AMBI"]]
@@ -69,7 +69,7 @@ dfAMBI <- AMBI(test_data, by = c("station"), var_rep="replicate")[["AMBI"]]
 # show AMBI results
 dfAMBI
 
-# calculate DKI
+# calculate DKI from AMBI results
 dplyr::mutate(dfAMBI, DKI = DKI(AMBI, H, N, S))
 
 }
