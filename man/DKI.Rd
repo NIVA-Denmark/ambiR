@@ -42,8 +42,13 @@ DKI(AMBI, H, N, S, H_max = 5)
 \description{
 Calculates the Danish quality index DKI (v1)
 
+The DKI is based on AMBI and can only be calculated after first calculating
+\emph{AMBI}, the AZTI Marine Biotic Index, and \emph{H'}, the Shannon diversity index.
+Both indices are included in output from the function \code{\link[=AMBI]{AMBI()}}.
+
 The function uses an estimated maximum value of H' \code{H_max} in Danish waters
-as a reference value to normalise DKI.
+as a reference value to normalise DKI. If this value is not specified as an
+argument, the function uses the default value (5.0)
 }
 \details{
 The \code{\link[=AMBI]{AMBI()}} and \code{\link[=Hdash]{Hdash()}} functions take a dataframe of observations as an

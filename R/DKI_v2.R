@@ -6,6 +6,7 @@
 #'
 #' The DKI is based on AMBI and can only be calculated after first calculating
 #' *AMBI*, the AZTI Marine Biotic Index, and *H'*, the Shannon diversity index.
+#' Both indices are included in output from the function [AMBI()].
 #'
 #' This function uses linear relationships between salinity and limits for `AMBI`
 #' and `Hdash` to normalise the index.

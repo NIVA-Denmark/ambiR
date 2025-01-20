@@ -32,6 +32,7 @@ index (DKI)
 
 The DKI is based on AMBI and can only be calculated after first calculating
 \emph{AMBI}, the AZTI Marine Biotic Index, and \emph{H'}, the Shannon diversity index.
+Both indices are included in output from the function \code{\link[=AMBI]{AMBI()}}.
 
 This function uses linear relationships between salinity and limits for \code{AMBI}
 and \code{Hdash} to normalise the index.
