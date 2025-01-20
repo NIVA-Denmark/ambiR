@@ -89,7 +89,7 @@ to the European Water Framework Directive. - Marine Pollution Bulletin 55:42-52.
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>       DKI index</span></code></pre><p></p></div>
+    <p><code>DKI</code> index value</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -113,7 +113,8 @@ e.g. within a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" 
 <span class="r-in"><span><span class="fu">DKI</span><span class="op">(</span>AMBI <span class="op">=</span> <span class="fl">1.61</span>, H <span class="op">=</span> <span class="fl">2.36</span>, N <span class="op">=</span> <span class="fl">25</span>, S <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.55683</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example workflow for calculating DKI from species counts</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ------ Example workflow for calculating DKI from species counts ----</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># calculate AMBI index</span></span></span>
 <span class="r-in"><span><span class="va">dfAMBI</span> <span class="op">&lt;-</span> <span class="fu"><a href="AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">test_data</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, var_rep<span class="op">=</span><span class="st">"replicate"</span><span class="op">)</span><span class="op">[[</span><span class="st">"AMBI"</span><span class="op">]</span><span class="op">]</span></span></span>
@@ -127,7 +128,7 @@ e.g. within a <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" 
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>       2  1.89  3.54    22     0    80 0.4   0.138 0.3   0.15   0.012<span style="text-decoration: underline;">5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>       3  4.12  2.50     9     0    24 0     0.125 0.292 0.083<span style="text-decoration: underline;">3</span> 0.5   </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># calculate DKI</span></span></span>
+<span class="r-in"><span><span class="co"># calculate DKI from AMBI results</span></span></span>
 <span class="r-in"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">dfAMBI</span>, DKI <span class="op">=</span> <span class="fu">DKI</span><span class="op">(</span><span class="va">AMBI</span>, <span class="va">H</span>, <span class="va">N</span>, <span class="va">S</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 12</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   station  AMBI     H     S   fNA     N     I    II   III     IV      V   DKI</span>
