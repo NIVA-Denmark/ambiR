@@ -93,6 +93,10 @@ species = c("Acidostoma neglectum",
              count = c(2, 4, 5, 3, 7))
 
 AMBI(df, by = c("station"))
+#> Warning: station 1: The percentage of individuals not assigned to a group is higher than
+#> 20% [33.3%].
+#> Warning: station 1: The (not null) number of species is less than 3 [2].
+#> Warning: station 1: The (not null) number of individuals is less than 6 [4].
 #> $AMBI
 #> # A tibble: 2 × 11
 #>   station  AMBI     H     S   fNA     N     I    II   III    IV     V
