@@ -365,11 +365,22 @@ ambi_warnings <- function(df, by){
     select(-warningtype) %>%
     filter(!is.na(warning))
 
+
 #   df <- df %>%
 #     dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
 #     dplyr::summarise(warning = paste0(warning, collapse = "\n"))
 
+  nc <- ncol(df)
   if(nrow(df)>0){
+    for(i in 1:nrow(df)){
+      info <- rep(NA_character_, nc-1)
+      for(j in 1:(nc-1)){
+        info[j] <- paste0(names(df)[j], " ", df[i, j])
+      }
+      info <- paste0(info, collapse = ", ")
+      cli::cli_warn(paste0(info,": ",df[i, "warning"]))
+    }
+
     return(df)
   }else{
     return(NULL)
