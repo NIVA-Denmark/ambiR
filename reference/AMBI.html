@@ -48,7 +48,8 @@ and calculates the AMBI index.</p>
 <span>  var_species <span class="op">=</span> <span class="st">"species"</span>,</span>
 <span>  var_count <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>  df_species <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  var_group_AMBI <span class="op">=</span> <span class="st">"group"</span></span>
+<span>  var_group_AMBI <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">F</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -103,6 +104,15 @@ containing the groups for the AMBI index calculations. These
 should be specified as integer values from 1 to 7. Any other
 values will be ignored. If <code>df_species</code> is not specified
 then <code>var_group_AMBI</code> will be ignored.</p></dd>
+
+
+<dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
+<dd><p>warnings about low numbers of species and/or individuals
+are contained in the <code>warnings</code> dataframwe. By default
+(<code>quiet = FALSE</code>) these warnings are also shown in the console.
+If the function is called with the parameter <code>quiet = TRUE</code>
+then warnings will not be displayed in the console.</p>
+<p>function will show warnings in the console when</p></dd>
 
 </dl></div>
     <div class="section level2">
