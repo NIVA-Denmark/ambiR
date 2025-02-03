@@ -51,12 +51,10 @@ values will be ignored. If \code{df_species} is not specified
 then \code{var_group_AMBI} will be ignored.}
 
 \item{quiet}{warnings about low numbers of species and/or individuals
-are contained in the \code{warnings} dataframwe. By default
+are contained in the \code{warnings} dataframe. By default
 (\code{quiet = FALSE}) these warnings are also shown in the console.
 If the function is called with the parameter \code{quiet = TRUE}
-then warnings will not be displayed in the console.
-
-function will show warnings in the console when}
+then warnings will not be displayed in the console.}
 }
 \value{
 a list of three dataframes:
