@@ -17,7 +17,8 @@ AMBI(
   var_species = "species",
   var_count = "count",
   df_species = NULL,
-  var_group_AMBI = "group"
+  var_group_AMBI = "group",
+  quiet = F
 )
 }
 \arguments{
@@ -48,6 +49,14 @@ containing the groups for the AMBI index calculations. These
 should be specified as integer values from 1 to 7. Any other
 values will be ignored. If \code{df_species} is not specified
 then \code{var_group_AMBI} will be ignored.}
+
+\item{quiet}{warnings about low numbers of species and/or individuals
+are contained in the \code{warnings} dataframwe. By default
+(\code{quiet = FALSE}) these warnings are also shown in the console.
+If the function is called with the parameter \code{quiet = TRUE}
+then warnings will not be displayed in the console.
+
+function will show warnings in the console when}
 }
 \value{
 a list of three dataframes:

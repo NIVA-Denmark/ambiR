@@ -82,6 +82,15 @@
 #'                    values will be ignored. If `df_species` is not specified
 #'                    then `var_group_AMBI` will be ignored.
 #'
+#' @param quiet       warnings about low numbers of species and/or individuals
+#'                    are contained in the `warnings` dataframwe. By default
+#'                    (`quiet = FALSE`) these warnings are also shown in the console.
+#'                    If the function is called with the parameter `quiet = TRUE`
+#'                    then warnings will not be displayed in the console.
+#'
+#' function will show warnings in the console when
+#'
+#'
 #' @return a list of three dataframes:
 #'
 #'  * `AMBI` : results of the AMBI index calculations. For each unique
@@ -140,7 +149,8 @@ AMBI <- function(df, by=NULL,
                  var_species="species",
                  var_count="count",
                  df_species = NULL,
-                 var_group_AMBI = "group"
+                 var_group_AMBI = "group",
+                 quiet=F
 ){
 
   H <- N <- NNA <- fGroup <- fNA <- NULL
@@ -327,7 +337,7 @@ AMBI <- function(df, by=NULL,
   df <- df %>%
     relocate(H, S, .after = AMBI)
 
-  dfwarn <- ambi_warnings(df, by)
+  dfwarn <- ambi_warnings(df, by, quiet=quiet)
 
   return(list(AMBI=df, matched=df_matched, warnings=dfwarn))
 }
@@ -338,7 +348,7 @@ roman <- function(n, roman_numbers=c("I","II","III","IV","V")){
   }
 
 # auxiliary function to give warnings for numbers of individuals and species
-ambi_warnings <- function(df, by){
+ambi_warnings <- function(df, by, quiet=F){
 
   fNA <- S <- N <- warnpctNA <- warnS <- warnN <- warningtype <- NULL
 
@@ -372,15 +382,16 @@ ambi_warnings <- function(df, by){
 
   nc <- ncol(df)
   if(nrow(df)>0){
-    for(i in 1:nrow(df)){
-      info <- rep(NA_character_, nc-1)
-      for(j in 1:(nc-1)){
-        info[j] <- paste0(names(df)[j], " ", df[i, j])
+    if(quiet!=T){
+      for(i in 1:nrow(df)){
+        info <- rep(NA_character_, nc-1)
+        for(j in 1:(nc-1)){
+          info[j] <- paste0(names(df)[j], " ", df[i, j])
+        }
+        info <- paste0(info, collapse = ", ")
+        cli::cli_warn(paste0(info,": ",df[i, "warning"]))
       }
-      info <- paste0(info, collapse = ", ")
-      cli::cli_warn(paste0(info,": ",df[i, "warning"]))
     }
-
     return(df)
   }else{
     return(NULL)
