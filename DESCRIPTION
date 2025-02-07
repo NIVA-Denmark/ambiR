@@ -30,3 +30,4 @@ Imports:
 Roxygen: list(markdown = TRUE)
 URL: https://niva-denmark.github.io/ambiR/, https://github.com/niva-denmark/ambiR/, https://niva-denmark.github.io/ambiR/
 BugReports: https://github.com/niva-denmark/ambiR/issues
+Config/Needs/website: rmarkdown
