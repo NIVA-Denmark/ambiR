@@ -18,6 +18,10 @@ and calculates the AMBI index."></head><body>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/start.html">Get started</a></li>
+  </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/niva-denmark/ambiR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -49,7 +53,8 @@ and calculates the AMBI index.</p>
 <span>  var_count <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>  df_species <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  var_group_AMBI <span class="op">=</span> <span class="st">"group"</span>,</span>
-<span>  quiet <span class="op">=</span> <span class="cn">F</span></span>
+<span>  quiet <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  interactive <span class="op">=</span> <span class="cn">F</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -95,7 +100,8 @@ groups without any consideration of replicates.</p></dd>
 <dd><p><em>optional</em> dataframe of user-specified species groups. By default,
 the function matches species in <code>df</code> with the official species
 list from AZTI. If a dataframe with a user-defined list of
-species is provided here, then this will be used instead.</p></dd>
+species is provided here, then a check will first be made
+against this list before searching the AZTI species list.</p></dd>
 
 
 <dt id="arg-var-group-ambi">var_group_AMBI<a class="anchor" aria-label="anchor" href="#arg-var-group-ambi"></a></dt>
@@ -112,6 +118,16 @@ are contained in the <code>warnings</code> dataframe. By default
 (<code>quiet = FALSE</code>) these warnings are also shown in the console.
 If the function is called with the parameter <code>quiet = TRUE</code>
 then warnings will not be displayed in the console.</p></dd>
+
+
+<dt id="arg-interactive">interactive<a class="anchor" aria-label="anchor" href="#arg-interactive"></a></dt>
+<dd><p>(default <code>FALSE</code>) if a species name in the input data is not
+found in the AZTI species list, then this will be seen in
+the output dataframe <code>match</code>. If <em>interactive</em> mode is
+selected, the user will be given the opportunity to assign
+<em>manually</em> a species group (<em>I, II, III, IV, V</em>) or to
+mark the species as <em>not assigned</em> to a species group (see
+details).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -143,7 +159,12 @@ variables a warning where</p><ul><li><p>The percentage of individuals not assign
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Species can be matched to one of five groups, the distribution of individuals between the groups
+
+<div class="section">
+<h3 id="ambi-method">AMBI method<a class="anchor" aria-label="anchor" href="#ambi-method"></a></h3>
+
+
+<p>Species can be matched to one of five groups, the distribution of individuals between the groups
 reflecting different levels of stress on the ecosystem.</p><ul><li><p><em>Group I</em>. Species very sensitive to organic enrichment
 and present under unpolluted conditions (initial state). They include the
 specialist carnivores and some deposit- feeding <em>tubicolous polychaetes</em>.</p></li>
@@ -169,7 +190,59 @@ pollution stress, provides a BI with eight levels, from 0 to 7</p>
 <li><p>The (not null) number of species is less than 3</p></li>
 <li><p>The (not null) number of individuals is less than 6</p></li>
 </ul><p>In these cases the function will still perform the calculations but will
-also return a warning:</p>
+also return a warning.(see below)</p>
+</div>
+
+<div class="section">
+<h3 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a></h3>
+
+
+<p>The output of the function consists of a list of three dataframes:</p><ul><li><p><code>AMBI</code> containing the calculated <code>AMBI</code> index, as well as other information.</p></li>
+<li><p><code>match</code> showing the species matches used</p></li>
+<li><p><code>warnings</code> containing any warnings generated regarding numbers of of species
+or numbers of individuals</p></li>
+</ul></div>
+
+<div class="section">
+<h3 id="quiet-mode"><em>quiet</em> mode<a class="anchor" aria-label="anchor" href="#quiet-mode"></a></h3>
+
+
+<p>By default, any warnings generated be shown in the console as well as
+being stored in the output. If the function is called with the
+argument <code>quiet = TRUE</code> then warnings in the console will be suppressed.</p>
+</div>
+
+<div class="section">
+<h3 id="species-matching-and-interactive-mode">Species matching and <em>interactive</em> mode<a class="anchor" aria-label="anchor" href="#species-matching-and-interactive-mode"></a></h3>
+
+
+<p>By default, the function will first check for a species list supplied in the
+function call using the argument <code>df_species</code>. If this is specified, the species
+names in the input data will be matched with this list first. If no alternative
+species list is provided (this is the default situation) then the function will
+go directly  to matching with the AZTI species list.</p>
+<p>Any species names in the input for which a match was not found in a user-provided
+species list are then matched with names in the AZTI list. After this, if no
+match is found then the species will be recorded with a an <code>NA</code>value for species group.</p>
+<p>By checking the output from the first function call, the user can identify species
+names not matched and if necessary provide a user-defined list to specify the
+species group before running the function a second time <em><em>example needed!</em></em></p>
+<p>If the function is called with the argument <code>interactive = TRUE</code> then the user
+will be asked to assign a species group (<em>I, II, III, IV, V</em>) for any species
+names which were not identified. The user does this by typing <em>1, 2, 3, 4</em> or
+<em>5</em> and pressing <em>Enter</em>. Alternatively, the user can type <em>0</em> to mark the species
+as recognized but not assigned to a group. By typing <em>Enter</em> without
+any number the species will be recorded as unidentified (<code>NA</code>). This is the
+same result which would have been returned when calling the function in
+non-interactive mode. There are two other options: <em>s</em> will display a list of
+10 species names which occur close to the unrecognized name when names are sorted
+in alphabetical order. Entering <em>s</em> a second time will display the next 10 names,
+and so on. Finally, entering <em>x</em> will abort the interactive species assignment.
+Any species groups assigned manually at this point wil be discarded and the
+calculations will process as in the non-interactive mode.</p>
+<p>Any user-provided group information will be recorded in the <code>match</code> results.</p>
+</div>
+
     </div>
 
     <div class="section level2">
