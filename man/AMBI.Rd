@@ -18,7 +18,8 @@ AMBI(
   var_count = "count",
   df_species = NULL,
   var_group_AMBI = "group",
-  quiet = F
+  quiet = F,
+  interactive = F
 )
 }
 \arguments{
@@ -42,7 +43,8 @@ groups without any consideration of replicates.}
 \item{df_species}{\emph{optional} dataframe of user-specified species groups. By default,
 the function matches species in \code{df} with the official species
 list from AZTI. If a dataframe with a user-defined list of
-species is provided here, then this will be used instead.}
+species is provided here, then a check will first be made
+against this list before searching the AZTI species list.}
 
 \item{var_group_AMBI}{\emph{optional} name of the column in \code{df_species}
 containing the groups for the AMBI index calculations. These
@@ -55,6 +57,14 @@ are contained in the \code{warnings} dataframe. By default
 (\code{quiet = FALSE}) these warnings are also shown in the console.
 If the function is called with the parameter \code{quiet = TRUE}
 then warnings will not be displayed in the console.}
+
+\item{interactive}{(default \code{FALSE}) if a species name in the input data is not
+found in the AZTI species list, then this will be seen in
+the output dataframe \code{match}. If \emph{interactive} mode is
+selected, the user will be given the opportunity to assign
+\emph{manually} a species group (\emph{I, II, III, IV, V}) or to
+mark the species as \emph{not assigned} to a species group (see
+details).}
 }
 \value{
 a list of three dataframes:
@@ -100,6 +110,8 @@ Matches a list of species counts with the AMBI species list
 and calculates the AMBI index.
 }
 \details{
+\subsection{AMBI method}{
+
 Species can be matched to one of five groups, the distribution of individuals between the groups
 reflecting different levels of stress on the ecosystem.
 \itemize{
@@ -138,7 +150,59 @@ Under certain circumstances, the AMBI index should not be used:
 }
 
 In these cases the function will still perform the calculations but will
-also return a warning:
+also return a warning.(see below)
+}
+
+\subsection{Results}{
+
+The output of the function consists of a list of three dataframes:
+\itemize{
+\item \code{AMBI} containing the calculated \code{AMBI} index, as well as other information.
+\item \code{match} showing the species matches used
+\item \code{warnings} containing any warnings generated regarding numbers of of species
+or numbers of individuals
+}
+}
+
+\subsection{\emph{quiet} mode}{
+
+By default, any warnings generated be shown in the console as well as
+being stored in the output. If the function is called with the
+argument \code{quiet = TRUE} then warnings in the console will be suppressed.
+}
+
+\subsection{Species matching and \emph{interactive} mode}{
+
+By default, the function will first check for a species list supplied in the
+function call using the argument \code{df_species}. If this is specified, the species
+names in the input data will be matched with this list first. If no alternative
+species list is provided (this is the default situation) then the function will
+go directly  to matching with the AZTI species list.
+
+Any species names in the input for which a match was not found in a user-provided
+species list are then matched with names in the AZTI list. After this, if no
+match is found then the species will be recorded with a an \code{NA}value for species group.
+
+By checking the output from the first function call, the user can identify species
+names not matched and if necessary provide a user-defined list to specify the
+species group before running the function a second time \emph{\emph{example needed!}}
+
+If the function is called with the argument \code{interactive = TRUE} then the user
+will be asked to assign a species group (\emph{I, II, III, IV, V}) for any species
+names which were not identified. The user does this by typing \emph{1, 2, 3, 4} or
+\emph{5} and pressing \emph{Enter}. Alternatively, the user can type \emph{0} to mark the species
+as recognized but not assigned to a group. By typing \emph{Enter} without
+any number the species will be recorded as unidentified (\code{NA}). This is the
+same result which would have been returned when calling the function in
+non-interactive mode. There are two other options: \emph{s} will display a list of
+10 species names which occur close to the unrecognized name when names are sorted
+in alphabetical order. Entering \emph{s} a second time will display the next 10 names,
+and so on. Finally, entering \emph{x} will abort the interactive species assignment.
+Any species groups assigned manually at this point wil be discarded and the
+calculations will process as in the non-interactive mode.
+
+Any user-provided group information will be recorded in the \code{match} results.
+}
 }
 \examples{
 
