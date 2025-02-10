@@ -563,7 +563,7 @@ get_user_entry <- function(i, name, list, df_species,
   cli::cli_h2("{i} {.emph {name}}")
 
   msg <- c("enter an integer value from {.emph 0} to {.emph {length(list)}} or press {.emph Enter} to skip. ",
-           "{.emph ", col_green("s"), "} - see similar names.",
+           "{.emph ", col_green("s"), "} - see similar names. ",
            "{.emph ", col_red("x"), "} - abort interactive assignment.")
 
   list_ok <- c(0, list_ok)
@@ -611,8 +611,13 @@ get_user_entry <- function(i, name, list, df_species,
         msg_ok <- "{.emph {name}} - {selected}"
         cli::cli_alert_success(msg_ok)
       }else{
+        if(tolower(x)!="s"){
+          cli_div(theme = list(span.emph = list(color = "red")))
+          cli::cli_alert_danger("invalid selection: {.emph {x}}")
+          cli::cli_end()
+        }
         cli_div(theme = list(span.emph = list(color = "blue")))
-        cli::cli_alert_warning(msg)
+        cli::cli_alert_info(msg)
         cli::cli_end()
         x <- NA
       }
