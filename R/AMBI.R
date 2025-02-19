@@ -79,7 +79,7 @@
 #'
 #' By checking the output from the first function call, the user can identify species
 #' names not matched and if necessary provide a user-defined list to specify the
-#' species group before running the function a second time *_example needed!_*
+#' species group before running the function a second time _*example needed! *_
 #'
 #' If the function is called with the argument `interactive = TRUE` then the user
 #' will be asked to assign a species group (_I, II, III, IV, V_) for any species
