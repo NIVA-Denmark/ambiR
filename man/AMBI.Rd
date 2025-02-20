@@ -60,7 +60,7 @@ then warnings will not be displayed in the console.}
 
 \item{interactive}{(default \code{FALSE}) if a species name in the input data is not
 found in the AZTI species list, then this will be seen in
-the output dataframe \code{match}. If \emph{interactive} mode is
+the output dataframe \code{matched}. If \emph{interactive} mode is
 selected, the user will be given the opportunity to assign
 \emph{manually} a species group (\emph{I, II, III, IV, V}) or to
 mark the species as \emph{not assigned} to a species group (see
@@ -81,21 +81,21 @@ a species in the AZTI species with \emph{Group 0}. Note that this is
 different from the number of rows where no match was found. These
 are excluded from the totals.
 }
-\item \code{match} : the original dataframe with columns added from the species list.
-For a user-specified list provided \code{df_species}, all columns will be included.
-For the default AZTI species list the following additional columns will be
-included:
+\item \code{matched} : the original dataframe with columns added from the species list.
+Contains the following columns:
 \itemize{
-\item \code{group} : showing the species group
+\item \code{group} : showing the species group. Any species/taxa in \code{df} which were not
+matched will have an \code{NA} value in this column.
 \item \code{RA} : indicating that the species is
 \emph{reallocatable} according to the AZTI list. That is, it could be re-assigned to
 a different species group.
+\item \code{source} : this column is included only if a user-specified list was
+provided \code{df_species}, or if species groups were assigned interactively.
+An \emph{'I'} in this column indicates that the group was assigned interactively.
+A \emph{'U'} shows that the group information came from a user-provided species
+list. An \emph{NA} value indicates that no interactive or user-provided changes
+were applied.
 }
-}
-
-any species/taxa in \code{df} which do not have a match in \code{df_species} will have
-have \emph{NA} in these columns.
-\itemize{
 \item \code{warnings} : a dataframe showing warnings for any combination of \code{by}
 variables a warning where
 \itemize{
@@ -158,7 +158,7 @@ also return a warning.(see below)
 The output of the function consists of a list of three dataframes:
 \itemize{
 \item \code{AMBI} containing the calculated \code{AMBI} index, as well as other information.
-\item \code{match} showing the species matches used
+\item \code{matched} showing the species matches used
 \item \code{warnings} containing any warnings generated regarding numbers of of species
 or numbers of individuals
 }
@@ -185,7 +185,9 @@ match is found then the species will be recorded with a an \code{NA}value for sp
 
 By checking the output from the first function call, the user can identify species
 names not matched and if necessary provide a user-defined list to specify the
-species group before running the function a second time \emph{\emph{example needed!}}
+species group before running the function a second time
+
+\emph{TO DO: example needed!}
 
 If the function is called with the argument \code{interactive = TRUE} then the user
 will be asked to assign a species group (\emph{I, II, III, IV, V}) for any species
@@ -201,7 +203,7 @@ and so on. Finally, entering \emph{x} will abort the interactive species assignm
 Any species groups assigned manually at this point wil be discarded and the
 calculations will process as in the non-interactive mode.
 
-Any user-provided group information will be recorded in the \code{match} results.
+Any user-provided group information will be recorded in the \code{matched} results.
 }
 }
 \examples{
