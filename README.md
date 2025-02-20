@@ -73,8 +73,8 @@ You can install the development version of ambiR from
 [GitHub](https://github.com/niva-denmark/ambiR/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("niva-denmark/ambiR")
+# install.packages("devtools")
+devtools::install_github("NIVA-Denmark/ambiR")
 ```
 
 ## Examples
