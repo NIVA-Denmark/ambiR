@@ -55,7 +55,7 @@
 #' The output of the function consists of a list of three dataframes:
 #'
 #'  * `AMBI` containing the calculated `AMBI` index, as well as other information.
-#'  * `match` showing the species matches used
+#'  * `matched` showing the species matches used
 #'  * `warnings` containing any warnings generated regarding numbers of of species
 #'  or numbers of individuals
 #'
@@ -79,7 +79,9 @@
 #'
 #' By checking the output from the first function call, the user can identify species
 #' names not matched and if necessary provide a user-defined list to specify the
-#' species group before running the function a second time _*example needed! *_
+#' species group before running the function a second time
+#'
+#' _TO DO: example needed!_
 #'
 #' If the function is called with the argument `interactive = TRUE` then the user
 #' will be asked to assign a species group (_I, II, III, IV, V_) for any species
@@ -95,7 +97,7 @@
 #' Any species groups assigned manually at this point wil be discarded and the
 #' calculations will process as in the non-interactive mode.
 #'
-#' Any user-provided group information will be recorded in the `match` results.
+#' Any user-provided group information will be recorded in the `matched` results.
 #'
 #' @source
 #' Borja, A., Franco, J., Pérez, V. (2000) A marine biotic index to establish the
@@ -141,7 +143,7 @@
 #'
 #' @param interactive (default `FALSE`) if a species name in the input data is not
 #'                     found in the AZTI species list, then this will be seen in
-#'                     the output dataframe `match`. If _interactive_ mode is
+#'                     the output dataframe `matched`. If _interactive_ mode is
 #'                     selected, the user will be given the opportunity to assign
 #'                     _manually_ a species group (_I, II, III, IV, V_) or to
 #'                     mark the species as _not assigned_ to a species group (see
@@ -160,17 +162,19 @@
 #'      different from the number of rows where no match was found. These
 #'      are excluded from the totals.
 #'
-#'  * `match` : the original dataframe with columns added from the species list.
-#'  For a user-specified list provided `df_species`, all columns will be included.
-#'  For the default AZTI species list the following additional columns will be
-#'  included:
-#'    - `group` : showing the species group
+#'  * `matched` : the original dataframe with columns added from the species list.
+#'  Contains the following columns:
+#'    - `group` : showing the species group. Any species/taxa in `df` which were not
+#'    matched will have an `NA` value in this column.
 #'    -  `RA` : indicating that the species is
 #'  _reallocatable_ according to the AZTI list. That is, it could be re-assigned to
 #'  a different species group.
-#'
-#'  any species/taxa in `df` which do not have a match in `df_species` will have
-#'  have _NA_ in these columns.
+#'    - `source` : this column is included only if a user-specified list was
+#'    provided `df_species`, or if species groups were assigned interactively.
+#'    An _'I'_ in this column indicates that the group was assigned interactively.
+#'    A _'U'_ shows that the group information came from a user-provided species
+#'    list. An _NA_ value indicates that no interactive or user-provided changes
+#'    were applied.
 #'
 #'  * `warnings` : a dataframe showing warnings for any combination of `by`
 #'  variables a warning where
