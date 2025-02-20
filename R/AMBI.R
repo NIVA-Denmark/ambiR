@@ -269,6 +269,27 @@ AMBI <- function(df, by=NULL,
 
     df_species <- df_species %>%
       distinct(across(dplyr::all_of(c(var_species,var_group_AMBI))))
+
+    df_dup <- df_species %>%
+      species_check_duplicates(var_species=var_species,
+                               var_group_AMBI=var_group_AMBI)
+
+    if(nrow(df_dup)>0){
+
+          duplicates <- df_dup %>%
+            mutate(duplicates=paste0(!!as.name(var_species),
+                                     " [Groups ", groups, "]")) %>%
+            pull("duplicates")
+
+      # allow user to correct this is if running interactively?
+
+      msg <- paste0(duplicates, collapse=", ")
+      msg <- paste0("More than one user-assigned species group was specified for ",
+                    ifelse(length(duplicates)>1, length(duplicates), "a"),
+                    " species: ", msg)
+      stop(msg)
+    }
+
     df_species <- df_species %>%
       mutate(source="U") %>%
       bind_rows(df_ambi) %>%
@@ -497,6 +518,40 @@ AMBI <- function(df, by=NULL,
 }
 
 # ----------------- auxiliary functions -----------------
+
+
+species_check_duplicates <- function(df,
+                                     var_species,
+                                     var_group_AMBI){
+
+  df <- df %>%
+    dplyr::distinct(across(dplyr::all_of(c(var_species, var_group_AMBI))))
+
+  duplicates <- df %>%
+    dplyr::group_by(across(dplyr::all_of(var_species))) %>%
+    dplyr::summarise(n=n(), .groups="drop") %>%
+    filter(n>1) %>%
+    select(-n) %>%
+    pull(var_species)
+
+  if(length(duplicates)>0){
+    df <- df %>%
+      filter(!!as.name(var_species) %in% duplicates) %>%
+      arrange(across(dplyr::all_of(c(var_species, var_group_AMBI))))
+
+    df <- df %>%
+      group_by(across(dplyr::all_of(var_species))) %>%
+      dplyr::summarise(groups = paste0(!!as.name(var_group_AMBI), collapse=", "),
+                       n=n(), .groups="drop")
+
+
+  }else{
+    df <- data.frame()
+  }
+
+  return(df)
+
+}
 
 
 list_similar <- function(df, species, n0, n, var_species, var_group_AMBI){
