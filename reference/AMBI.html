@@ -123,7 +123,7 @@ then warnings will not be displayed in the console.</p></dd>
 <dt id="arg-interactive">interactive<a class="anchor" aria-label="anchor" href="#arg-interactive"></a></dt>
 <dd><p>(default <code>FALSE</code>) if a species name in the input data is not
 found in the AZTI species list, then this will be seen in
-the output dataframe <code>match</code>. If <em>interactive</em> mode is
+the output dataframe <code>matched</code>. If <em>interactive</em> mode is
 selected, the user will be given the opportunity to assign
 <em>manually</em> a species group (<em>I, II, III, IV, V</em>) or to
 mark the species as <em>not assigned</em> to a species group (see
@@ -142,16 +142,20 @@ a species in the AZTI species with <em>Group 0</em>. Note that this is
 different from the number of rows where no match was found. These
 are excluded from the totals.</p></li>
 </ul></li>
-<li><p><code>match</code> : the original dataframe with columns added from the species list.
-For a user-specified list provided <code>df_species</code>, all columns will be included.
-For the default AZTI species list the following additional columns will be
-included:</p><ul><li><p><code>group</code> : showing the species group</p></li>
+<li><p><code>matched</code> : the original dataframe with columns added from the species list.
+Contains the following columns:</p><ul><li><p><code>group</code> : showing the species group. Any species/taxa in <code>df</code> which were not
+matched will have an <code>NA</code> value in this column.</p></li>
 <li><p><code>RA</code> : indicating that the species is
 <em>reallocatable</em> according to the AZTI list. That is, it could be re-assigned to
 a different species group.</p></li>
+<li><p><code>source</code> : this column is included only if a user-specified list was
+provided <code>df_species</code>, or if species groups were assigned interactively.
+An <em>'I'</em> in this column indicates that the group was assigned interactively.
+A <em>'U'</em> shows that the group information came from a user-provided species
+list. An <em>NA</em> value indicates that no interactive or user-provided changes
+were applied.</p></li>
 </ul></li>
-</ul><p>any species/taxa in <code>df</code> which do not have a match in <code>df_species</code> will have
-have <em>NA</em> in these columns.</p><ul><li><p><code>warnings</code> : a dataframe showing warnings for any combination of <code>by</code>
+<li><p><code>warnings</code> : a dataframe showing warnings for any combination of <code>by</code>
 variables a warning where</p><ul><li><p>The percentage of individuals not assigned to a group is higher than 20%</p></li>
 <li><p>The (not null) number of species is less than 3</p></li>
 <li><p>The (not null) number of individuals is less than 6</p></li>
@@ -198,7 +202,7 @@ also return a warning.(see below)</p>
 
 
 <p>The output of the function consists of a list of three dataframes:</p><ul><li><p><code>AMBI</code> containing the calculated <code>AMBI</code> index, as well as other information.</p></li>
-<li><p><code>match</code> showing the species matches used</p></li>
+<li><p><code>matched</code> showing the species matches used</p></li>
 <li><p><code>warnings</code> containing any warnings generated regarding numbers of of species
 or numbers of individuals</p></li>
 </ul></div>
@@ -226,7 +230,8 @@ species list are then matched with names in the AZTI list. After this, if no
 match is found then the species will be recorded with a an <code>NA</code>value for species group.</p>
 <p>By checking the output from the first function call, the user can identify species
 names not matched and if necessary provide a user-defined list to specify the
-species group before running the function a second time <em><em>example needed!</em></em></p>
+species group before running the function a second time</p>
+<p><em>TO DO: example needed!</em></p>
 <p>If the function is called with the argument <code>interactive = TRUE</code> then the user
 will be asked to assign a species group (<em>I, II, III, IV, V</em>) for any species
 names which were not identified. The user does this by typing <em>1, 2, 3, 4</em> or
@@ -240,7 +245,7 @@ in alphabetical order. Entering <em>s</em> a second time will display the next 1
 and so on. Finally, entering <em>x</em> will abort the interactive species assignment.
 Any species groups assigned manually at this point wil be discarded and the
 calculations will process as in the non-interactive mode.</p>
-<p>Any user-provided group information will be recorded in the <code>match</code> results.</p>
+<p>Any user-provided group information will be recorded in the <code>matched</code> results.</p>
 </div>
 
     </div>
