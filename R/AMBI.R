@@ -268,6 +268,8 @@ AMBI <- function(df, by=NULL,
     }
 
     df_species <- df_species %>%
+      distinct(across(dplyr::all_of(c(var_species,var_group_AMBI))))
+    df_species <- df_species %>%
       mutate(source="U") %>%
       bind_rows(df_ambi) %>%
       dplyr::group_by(dplyr::across(dplyr::all_of(var_species))) %>%
