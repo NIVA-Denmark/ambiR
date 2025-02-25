@@ -59,6 +59,11 @@ Hdash <- function(df, by=NULL,
 
   group_var <- p <- plnp <- species <- NULL
 
+  if(!"data.frame" %in% class(df)){
+    msg <- paste0("Hdash() was expecting the argument df to be a data.frame. You provided a an object of class '", class(df),"'")
+    stop(msg)
+  }
+
   for(var in c(by, var_species, var_count)){
     missing <- c()
     if(!var %in% names(df)){
@@ -83,6 +88,11 @@ Hdash <- function(df, by=NULL,
 
     }else{
       # !is.null(df_species)
+
+      if(!"data.frame" %in% class(df_species)){
+        msg <- paste0("Hdash() was expecting the argument df_species to be a data.frame. You provided an object of class '", class(df_species),"'")
+        stop(msg)
+      }
 
       # matching using a user-specified species list
       missing <- c()

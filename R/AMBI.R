@@ -6,10 +6,12 @@
 #'
 #' @details
 #'
+#' The theory behind the AMBI index calculations and details of the method.
+#'
 #' ## AMBI method
 #'
-#' Species can be matched to one of five groups, the distribution of individuals between the groups
-#' reflecting different levels of stress on the ecosystem.
+#' Species can be matched to one of five groups, the distribution of individuals
+#' between the groups reflecting different levels of stress on the ecosystem.
 #'
 #'  * _Group I_. Species very sensitive to organic enrichment
 #' and present under unpolluted conditions (initial state). They include the
@@ -59,7 +61,7 @@
 #'  * `warnings` containing any warnings generated regarding numbers of of species
 #'  or numbers of individuals
 #'
-#' ## _quiet_ mode
+#' @section _quiet_ mode:
 #'
 #' By default, any warnings generated be shown in the console as well as
 #' being stored in the output. If the function is called with the
@@ -149,7 +151,17 @@
 #'                     mark the species as _not assigned_ to a species group (see
 #'                     details).
 #'
-#' @return a list of three dataframes:
+#' @param format_pct  (_optional_) By default, frequency results including the
+#'                    fraction of total numbers within each species group are
+#'                    expressed as real numbers . If this is argument is
+#'                    given a positive integer value (e.g. `format_pct = 2`)
+#'                    then the fractions are expressed as percentages
+#'                    with the number of digits shown after the decimal point
+#'                    equal to the number specified. _NOTE_ by formatting as
+#'                    percentages, values are converted to text and may lose
+#'                    precision.
+#'
+#' @return a list of dataframes:
 #'
 #'  * `AMBI` : results of the AMBI index calculations. For each unique
 #'  combination of `by` variables, the following values are calculated:
@@ -161,6 +173,10 @@
 #'       a species in the AZTI species with *Group 0*. Note that this is
 #'      different from the number of rows where no match was found. These
 #'      are excluded from the totals.
+#'
+#'  * `AMBI_rep` : results of the AMBI index calculations _per replicate_. This
+#'  dataframe is present only if the observation data includes replicates and
+#'  the user has specified `var_rep`.
 #'
 #'  * `matched` : the original dataframe with columns added from the species list.
 #'  Contains the following columns:
@@ -211,8 +227,10 @@ AMBI <- function(df, by=NULL,
                  df_species = NULL,
                  var_group_AMBI = "group",
                  quiet=F,
-                 interactive=F
+                 interactive=F,
+                 format_pct=NA
 ){
+
 
   if(!interactive()){
     # if R is not running interactively, then we cannot interact with the user
@@ -222,6 +240,25 @@ AMBI <- function(df, by=NULL,
   H <- N <- NNA <- fGroup <- fNA <- NULL
   sum_count <- wt <- f <- n_species <- count_0 <- NULL
   species <- S <- ambi_group <- species_1 <- NULL
+
+  fill_val <- 0
+
+  format_pct <- ifelse(is.numeric(format_pct),format_pct,NA)
+  format_pct <- ifelse(as.integer(format_pct)==format_pct,format_pct,NA)
+
+  if(!is.na(format_pct)){
+    fill_val <- percent(fill_val, digits = format_pct)
+  }
+
+  if(is.null(df)){
+    msg <- paste0("No observation data was provided")
+    stop(msg)
+  }
+  if(!"data.frame" %in% class(df)){
+    msg <- paste0("AMBI() was expecting the argument df to be a data.frame. You provided a an object of class '", class(df),"'")
+    stop(msg)
+  }
+
 
   missing <- c()
   # var_check <- ifelse(ifelse(is.na(var_rep), c(), var_rep))
@@ -256,6 +293,13 @@ AMBI <- function(df, by=NULL,
     df_species <- df_ambi
 
   }else{
+
+    if(!"data.frame" %in% class(df_species)){
+      msg <- paste0("AMBI() was expecting the argument df_species to be a data.frame. You provided an object of class '", class(df_species),"'")
+      stop(msg)
+    }
+
+
     missing <- c()
     for(var in c(var_species, var_group_AMBI)){
       if(!var %in% names(df_species)){
@@ -423,7 +467,7 @@ AMBI <- function(df, by=NULL,
     left_join(df_multipliers, by=dplyr::join_by(!!var_group_AMBI==ambi_group))
 
   if(!is.na(var_rep)){
-    by_rep <- c(var_rep, by)
+    by_rep <- c(by, var_rep)
   }else{
     by_rep <- by
   }
@@ -441,13 +485,59 @@ AMBI <- function(df, by=NULL,
     dplyr::mutate(f = wt * sum_count / (sum(sum_count, na.rm = T) -
                                           sum(count_0, na.rm = T)))
 
+
+  if(!is.na(var_rep)){
+
+    dfFrep <- df %>%
+      dplyr::group_by(dplyr::across(dplyr::all_of(vars_group))) %>%
+      dplyr::summarise(
+        N = sum(sum_count, na.rm = T),
+        NNA = sum(count_0, na.rm = T),
+        .groups="drop")
+
+
+    dfFrep <- dfFrep %>%
+      dplyr::group_by(dplyr::across(dplyr::all_of(by_rep))) %>%
+      mutate(fGroup = N / (sum(N, na.rm=T)-sum(NNA, na.rm=T))) %>%
+      ungroup()
+
+    dfall_rep <- data.frame(x = c(1,2,3,4,5))
+
+    names(dfall_rep) <- var_group_AMBI
+
+    dfall_rep <- dfFrep %>%
+      distinct(dplyr::across(dplyr::all_of(by_rep))) %>%
+      merge(dfall_rep, all=T)
+
+    dfFrep <- dfall_rep %>%
+      left_join(dfFrep, by=dplyr::all_of(vars_group))
+
+    dfFrep <- dfFrep %>%
+      mutate(NNA=ifelse(is.na(NNA),0,NNA)) %>%
+      filter(NNA==0) %>%
+      mutate(fGroup=ifelse(is.na(fGroup),0,fGroup)) %>%
+      rowwise() %>%
+      mutate(!! var_group_AMBI := roman(!! as.name(var_group_AMBI))) %>%
+      ungroup()
+
+    if(!is.na(format_pct)){
+      dfFrep <- dfFrep %>%
+        mutate(fGroup = percent(fGroup, digits=format_pct))
+    }
+
+    dfFrep <- dfFrep %>%
+      select(-c(N,NNA)) %>%
+      pivot_wider(names_from = var_group_AMBI, values_from = fGroup,
+                  values_fill=fill_val)
+
+  }
+
   dfF <- df %>%
     dplyr::group_by(dplyr::across(dplyr::all_of(vars_group_f))) %>%
     dplyr::summarise(
       N = sum(sum_count, na.rm = T),
       NNA = sum(count_0, na.rm = T),
       .groups="drop")
-
 
   dfF <- dfF %>%
     dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
@@ -472,10 +562,16 @@ AMBI <- function(df, by=NULL,
     mutate(!! var_group_AMBI := roman(!! as.name(var_group_AMBI))) %>%
     ungroup()
 
+  if(!is.na(format_pct)){
+    dfF <- dfF %>%
+      mutate(fGroup = percent(fGroup, digits=format_pct))
+  }
 
   dfF <- dfF %>%
     select(-c(N,NNA)) %>%
-    pivot_wider(names_from = var_group_AMBI, values_from = fGroup, values_fill=0)
+    pivot_wider(names_from = var_group_AMBI, values_from = fGroup,
+                values_fill=fill_val)
+
 
   # explanation needed in documentation
   # that f I-V is excluding NA group values
@@ -491,6 +587,15 @@ AMBI <- function(df, by=NULL,
     dplyr::mutate(AMBI=ifelse(S==0, 7, AMBI))
 
   if(!is.na(var_rep)){
+    dfrep <- df %>%
+      left_join(dfFrep, by=all_of(by_rep)) %>%
+      relocate(S, fNA, N, .after = AMBI)
+
+    if(!is.na(format_pct)){
+      dfrep <- dfrep %>%
+        mutate(fNA = percent(fNA, digits=format_pct))
+    }
+
     df <- df %>%
       dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
       dplyr::summarise(
@@ -498,6 +603,7 @@ AMBI <- function(df, by=NULL,
         fNA = sum(fNA * N, na.rm = T) / sum(N, na.rm = T),
         .groups="drop")
   }else{
+    dfrep <- NULL
     df <- df %>%
       select(dplyr::all_of(c(by, "AMBI", "fNA")))
   }
@@ -518,7 +624,18 @@ AMBI <- function(df, by=NULL,
 
   dfwarn <- ambi_warnings(df, by, quiet=quiet)
 
-  return(list(AMBI=df, matched=df_matched, warnings=dfwarn))
+  if(!is.na(format_pct)){
+    df <- df %>%
+      mutate(fNA = percent(fNA, digits=format_pct))
+  }
+
+
+  if(is.na(var_rep)){
+    return(list(AMBI=df, matched=df_matched, warnings=dfwarn))
+  }else{
+    return(list(AMBI=df, AMBI_rep=dfrep,
+                matched=df_matched, warnings=dfwarn))
+  }
 }
 
 # ----------------- auxiliary functions -----------------
@@ -744,3 +861,9 @@ ambi_warnings <- function(df, by, quiet=F){
 }
 
 utils::globalVariables(c(":="))
+
+percent <- function(x, digits = 3, format = "f", ...) {
+  # Create user-defined function
+  paste0(formatC(x * 100, format = format, digits = digits, ...), "%")
+}
+

@@ -97,15 +97,16 @@ This is a basic example using a small dataset.
 ```{r example}
 library(ambiR)
 
-df <- data.frame(station = c("1","1","2","2","2"),
+df <- data.frame(station = c("1","1","1","2","2","2"),
 species = c("Acidostoma neglectum",
              "Acrocirrus validus",
+            "Capitella nonatoi",
              "Acteocina bullata",
              "Austrohelice crassa",
              "Capitella nonatoi"),
-             count = c(2, 4, 5, 3, 7))
+             count = c(23, 14, 5, 13, 17, 11))
 
-AMBI(df, by = c("station"))
+AMBI(df, by = c("station"), format_pct=2)
 
 ```
 
@@ -115,7 +116,7 @@ Another example using the supplied `test_data`.
 library(ambiR)
 
 ## calling AMBI using the test data set
-AMBI(test_data, by=c("station"), var_rep = "replicate")
+AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=2)
 
 
 ```

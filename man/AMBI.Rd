@@ -19,7 +19,8 @@ AMBI(
   df_species = NULL,
   var_group_AMBI = "group",
   quiet = F,
-  interactive = F
+  interactive = F,
+  format_pct = NA
 )
 }
 \arguments{
@@ -65,9 +66,19 @@ selected, the user will be given the opportunity to assign
 \emph{manually} a species group (\emph{I, II, III, IV, V}) or to
 mark the species as \emph{not assigned} to a species group (see
 details).}
+
+\item{format_pct}{(\emph{optional}) By default, frequency results including the
+fraction of total numbers within each species group are
+expressed as real numbers . If this is argument is
+given a positive integer value (e.g. \code{format_pct = 2})
+then the fractions are expressed as percentages
+with the number of digits shown after the decimal point
+equal to the number specified. \emph{NOTE} by formatting as
+percentages, values are converted to text and may lose
+precision.}
 }
 \value{
-a list of three dataframes:
+a list of dataframes:
 \itemize{
 \item \code{AMBI} : results of the AMBI index calculations. For each unique
 combination of \code{by} variables, the following values are calculated:
@@ -81,6 +92,9 @@ a species in the AZTI species with \emph{Group 0}. Note that this is
 different from the number of rows where no match was found. These
 are excluded from the totals.
 }
+\item \code{AMBI_rep} : results of the AMBI index calculations \emph{per replicate}. This
+dataframe is present only if the observation data includes replicates and
+the user has specified \code{var_rep}.
 \item \code{matched} : the original dataframe with columns added from the species list.
 Contains the following columns:
 \itemize{
@@ -110,10 +124,11 @@ Matches a list of species counts with the AMBI species list
 and calculates the AMBI index.
 }
 \details{
+The theory behind the AMBI index calculations and details of the method.
 \subsection{AMBI method}{
 
-Species can be matched to one of five groups, the distribution of individuals between the groups
-reflecting different levels of stress on the ecosystem.
+Species can be matched to one of five groups, the distribution of individuals
+between the groups reflecting different levels of stress on the ecosystem.
 \itemize{
 \item \emph{Group I}. Species very sensitive to organic enrichment
 and present under unpolluted conditions (initial state). They include the
@@ -163,14 +178,13 @@ The output of the function consists of a list of three dataframes:
 or numbers of individuals
 }
 }
+}
+\section{\emph{quiet} mode}{
 
-\subsection{\emph{quiet} mode}{
 
 By default, any warnings generated be shown in the console as well as
 being stored in the output. If the function is called with the
 argument \code{quiet = TRUE} then warnings in the console will be suppressed.
-}
-
 \subsection{Species matching and \emph{interactive} mode}{
 
 By default, the function will first check for a species list supplied in the
@@ -206,6 +220,7 @@ calculations will process as in the non-interactive mode.
 Any user-provided group information will be recorded in the \code{matched} results.
 }
 }
+
 \examples{
 
 AMBI(test_data, by=c("station"), var_rep="replicate")
