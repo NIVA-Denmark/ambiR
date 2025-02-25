@@ -31,11 +31,12 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/ambiR.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/start.html">Get started</a></li>
+<li><a class="dropdown-item" href="articles/interactive.html">Interactive mode</a></li>
   </ul>
 </li>
       </ul>
@@ -115,54 +116,65 @@ First-order opportunistic species (pronounced unbalanced situations). These are 
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niva-denmark.github.io/ambiR/">ambiR</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"2"</span>,<span class="st">"2"</span><span class="op">)</span>,</span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"2"</span>,<span class="st">"2"</span><span class="op">)</span>,</span>
 <span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Acidostoma neglectum"</span>,</span>
 <span>             <span class="st">"Acrocirrus validus"</span>,</span>
+<span>            <span class="st">"Capitella nonatoi"</span>,</span>
 <span>             <span class="st">"Acteocina bullata"</span>,</span>
 <span>             <span class="st">"Austrohelice crassa"</span>,</span>
 <span>             <span class="st">"Capitella nonatoi"</span><span class="op">)</span>,</span>
-<span>             count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
+<span>             count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23</span>, <span class="fl">14</span>, <span class="fl">5</span>, <span class="fl">13</span>, <span class="fl">17</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">df</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">df</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, format_pct<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: station 1: The percentage of individuals not assigned to a group is higher than</span></span>
-<span><span class="co">#&gt; 20% [33.3%].</span></span>
-<span><span class="co">#&gt; Warning: station 1: The (not null) number of species is less than 3 [2].</span></span>
-<span><span class="co">#&gt; Warning: station 1: The (not null) number of individuals is less than 6 [4].</span></span>
+<span><span class="co">#&gt; 20% [54.8%].</span></span>
 <span><span class="co">#&gt; $AMBI</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 11</span></span>
-<span><span class="co">#&gt;   station  AMBI     H     S   fNA     N     I    II   III    IV     V</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 1         4.5 0.918     2 0.333     6 0         0     0     1 0    </span></span>
-<span><span class="co">#&gt; 2 2         4   1.51      3 0        15 0.333     0     0     0 0.667</span></span>
+<span><span class="co">#&gt;   station  AMBI     H     S fNA        N I      II    III   IV     V     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 1        4.89  1.37     3 54.76%    42 0.00%  0.00% 0.00% 73.68% 26.32%</span></span>
+<span><span class="co">#&gt; 2 2        4.10  1.56     3 0.00%     41 31.71% 0.00% 0.00% 0.00%  68.29%</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $matched</span></span>
 <span><span class="co">#&gt;   station              species count group RA</span></span>
-<span><span class="co">#&gt; 1       1 Acidostoma neglectum     2     0  0</span></span>
-<span><span class="co">#&gt; 2       1   Acrocirrus validus     4     4  0</span></span>
-<span><span class="co">#&gt; 3       2    Acteocina bullata     5     1  0</span></span>
-<span><span class="co">#&gt; 4       2  Austrohelice crassa     3     5  0</span></span>
-<span><span class="co">#&gt; 5       2    Capitella nonatoi     7     5  0</span></span>
+<span><span class="co">#&gt; 1       1 Acidostoma neglectum    23     0  0</span></span>
+<span><span class="co">#&gt; 2       1   Acrocirrus validus    14     4  0</span></span>
+<span><span class="co">#&gt; 3       1    Capitella nonatoi     5     5  0</span></span>
+<span><span class="co">#&gt; 4       2    Acteocina bullata    13     1  0</span></span>
+<span><span class="co">#&gt; 5       2  Austrohelice crassa    17     5  0</span></span>
+<span><span class="co">#&gt; 6       2    Capitella nonatoi    11     5  0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $warnings</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span><span class="co">#&gt;   station warning                                                               </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                                                                 </span></span>
-<span><span class="co">#&gt; 1 1       The percentage of individuals not assigned to a group is higher than …</span></span>
-<span><span class="co">#&gt; 2 1       The (not null) number of species is less than 3 [2].                  </span></span>
-<span><span class="co">#&gt; 3 1       The (not null) number of individuals is less than 6 [4].</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 1       The percentage of individuals not assigned to a group is higher than …</span></span></code></pre></div>
 <p>Another example using the supplied <code>test_data</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niva-denmark.github.io/ambiR/">ambiR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## calling AMBI using the test data set</span></span>
-<span><span class="fu"><a href="reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">test_data</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, var_rep <span class="op">=</span> <span class="st">"replicate"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">test_data</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, var_rep <span class="op">=</span> <span class="st">"replicate"</span>, format_pct<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $AMBI</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 11</span></span>
-<span><span class="co">#&gt;   station  AMBI     H     S   fNA     N     I    II   III     IV      V</span></span>
-<span><span class="co">#&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1       1  1.48  1.80     6     0    16 0.125 0.75  0.125 0      0     </span></span>
-<span><span class="co">#&gt; 2       2  1.89  3.54    22     0    80 0.4   0.138 0.3   0.15   0.0125</span></span>
-<span><span class="co">#&gt; 3       3  4.12  2.50     9     0    24 0     0.125 0.292 0.0833 0.5   </span></span>
+<span><span class="co">#&gt;   station  AMBI     H     S fNA       N I      II     III    IV     V     </span></span>
+<span><span class="co">#&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1       1  1.48  1.80     6 0.00%    16 12.50% 75.00% 12.50% 0.00%  0.00% </span></span>
+<span><span class="co">#&gt; 2       2  1.89  3.54    22 0.00%    80 40.00% 13.75% 30.00% 15.00% 1.25% </span></span>
+<span><span class="co">#&gt; 3       3  4.12  2.50     9 0.00%    24 0.00%  12.50% 29.17% 8.33%  50.00%</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $AMBI_rep</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 11</span></span>
+<span><span class="co">#&gt;   station replicate  AMBI     S fNA       N I      II     III    IV     V     </span></span>
+<span><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1       1 a          1.8      3 0.00%     5 0.00%  80.00% 20.00% 0.00%  0.00% </span></span>
+<span><span class="co">#&gt; 2       1 b          1.5      3 0.00%     7 14.29% 71.43% 14.29% 0.00%  0.00% </span></span>
+<span><span class="co">#&gt; 3       1 c          1.12     2 0.00%     4 25.00% 75.00% 0.00%  0.00%  0.00% </span></span>
+<span><span class="co">#&gt; 4       2 a          1.88    12 0.00%    32 40.62% 15.62% 21.88% 21.88% 0.00% </span></span>
+<span><span class="co">#&gt; 5       2 b          2.13    12 0.00%    19 31.58% 15.79% 36.84% 10.53% 5.26% </span></span>
+<span><span class="co">#&gt; 6       2 c          1.66    10 0.00%    29 44.83% 10.34% 34.48% 10.34% 0.00% </span></span>
+<span><span class="co">#&gt; 7       3 a          3.5      5 0.00%     6 0.00%  33.33% 16.67% 33.33% 16.67%</span></span>
+<span><span class="co">#&gt; 8       3 b          4.75     6 0.00%    18 0.00%  5.56%  33.33% 0.00%  61.11%</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $matched</span></span>
 <span><span class="co">#&gt; # A tibble: 53 × 6</span></span>
