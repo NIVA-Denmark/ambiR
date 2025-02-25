@@ -138,3 +138,6 @@ MAMBI(df, by = c("station"))
 
 
 }
+\seealso{
+\code{\link[=AMBI]{AMBI()}} which calculates the indices required as input for \code{MAMBI()}.
+}

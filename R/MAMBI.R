@@ -25,6 +25,7 @@
 #' This means that the input to `MAMBI()` can be generated from species count
 #' data using only using the [AMBI()] function.
 #'
+#'
 #' @source
 #' _"AMBI, richness and diversity, combined with the use, in a further
 #' development, of factor analysis together with discriminant analysis, is
@@ -102,6 +103,8 @@
 #' the limits applied for each of the metrics, corresponding to `"bad"`
 #' (`M-AMBI` = 0.0) and `"high"` (`M-AMBI` = 1.0), as specified in the arguments
 #' `limits_AMBI`, `limits_H`, `limits_S` or taken from data.
+#'
+#' @seealso [AMBI()] which calculates the indices required as input for `MAMBI()`.
 #'
 #' @import tidyr
 #' @import dplyr

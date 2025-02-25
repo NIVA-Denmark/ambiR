@@ -16,7 +16,9 @@ LazyData: true
 Suggests: 
     testthat (>= 3.0.0),
     usethis,
-    devtools
+    devtools,
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
 Depends: 
@@ -31,3 +33,4 @@ Roxygen: list(markdown = TRUE)
 URL: https://niva-denmark.github.io/ambiR/, https://github.com/niva-denmark/ambiR/, https://niva-denmark.github.io/ambiR/
 BugReports: https://github.com/niva-denmark/ambiR/issues
 Config/Needs/website: rmarkdown
+VignetteBuilder: knitr

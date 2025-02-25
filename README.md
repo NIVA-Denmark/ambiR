@@ -84,41 +84,39 @@ This is a basic example using a small dataset.
 ``` r
 library(ambiR)
 
-df <- data.frame(station = c("1","1","2","2","2"),
+df <- data.frame(station = c("1","1","1","2","2","2"),
 species = c("Acidostoma neglectum",
              "Acrocirrus validus",
+            "Capitella nonatoi",
              "Acteocina bullata",
              "Austrohelice crassa",
              "Capitella nonatoi"),
-             count = c(2, 4, 5, 3, 7))
+             count = c(23, 14, 5, 13, 17, 11))
 
-AMBI(df, by = c("station"))
+AMBI(df, by = c("station"), format_pct=2)
 #> Warning: station 1: The percentage of individuals not assigned to a group is higher than
-#> 20% [33.3%].
-#> Warning: station 1: The (not null) number of species is less than 3 [2].
-#> Warning: station 1: The (not null) number of individuals is less than 6 [4].
+#> 20% [54.8%].
 #> $AMBI
 #> # A tibble: 2 × 11
-#>   station  AMBI     H     S   fNA     N     I    II   III    IV     V
-#>   <chr>   <dbl> <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#> 1 1         4.5 0.918     2 0.333     6 0         0     0     1 0    
-#> 2 2         4   1.51      3 0        15 0.333     0     0     0 0.667
+#>   station  AMBI     H     S fNA        N I      II    III   IV     V     
+#>   <chr>   <dbl> <dbl> <int> <chr>  <dbl> <chr>  <chr> <chr> <chr>  <chr> 
+#> 1 1        4.89  1.37     3 54.76%    42 0.00%  0.00% 0.00% 73.68% 26.32%
+#> 2 2        4.10  1.56     3 0.00%     41 31.71% 0.00% 0.00% 0.00%  68.29%
 #> 
 #> $matched
 #>   station              species count group RA
-#> 1       1 Acidostoma neglectum     2     0  0
-#> 2       1   Acrocirrus validus     4     4  0
-#> 3       2    Acteocina bullata     5     1  0
-#> 4       2  Austrohelice crassa     3     5  0
-#> 5       2    Capitella nonatoi     7     5  0
+#> 1       1 Acidostoma neglectum    23     0  0
+#> 2       1   Acrocirrus validus    14     4  0
+#> 3       1    Capitella nonatoi     5     5  0
+#> 4       2    Acteocina bullata    13     1  0
+#> 5       2  Austrohelice crassa    17     5  0
+#> 6       2    Capitella nonatoi    11     5  0
 #> 
 #> $warnings
-#> # A tibble: 3 × 2
+#> # A tibble: 1 × 2
 #>   station warning                                                               
 #>   <chr>   <chr>                                                                 
 #> 1 1       The percentage of individuals not assigned to a group is higher than …
-#> 2 1       The (not null) number of species is less than 3 [2].                  
-#> 3 1       The (not null) number of individuals is less than 6 [4].
 ```
 
 Another example using the supplied `test_data`.
@@ -127,14 +125,27 @@ Another example using the supplied `test_data`.
 library(ambiR)
 
 ## calling AMBI using the test data set
-AMBI(test_data, by=c("station"), var_rep = "replicate")
+AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=2)
 #> $AMBI
 #> # A tibble: 3 × 11
-#>   station  AMBI     H     S   fNA     N     I    II   III     IV      V
-#>     <dbl> <dbl> <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl>  <dbl>
-#> 1       1  1.48  1.80     6     0    16 0.125 0.75  0.125 0      0     
-#> 2       2  1.89  3.54    22     0    80 0.4   0.138 0.3   0.15   0.0125
-#> 3       3  4.12  2.50     9     0    24 0     0.125 0.292 0.0833 0.5   
+#>   station  AMBI     H     S fNA       N I      II     III    IV     V     
+#>     <dbl> <dbl> <dbl> <int> <chr> <dbl> <chr>  <chr>  <chr>  <chr>  <chr> 
+#> 1       1  1.48  1.80     6 0.00%    16 12.50% 75.00% 12.50% 0.00%  0.00% 
+#> 2       2  1.89  3.54    22 0.00%    80 40.00% 13.75% 30.00% 15.00% 1.25% 
+#> 3       3  4.12  2.50     9 0.00%    24 0.00%  12.50% 29.17% 8.33%  50.00%
+#> 
+#> $AMBI_rep
+#> # A tibble: 8 × 11
+#>   station replicate  AMBI     S fNA       N I      II     III    IV     V     
+#>     <dbl> <chr>     <dbl> <dbl> <chr> <dbl> <chr>  <chr>  <chr>  <chr>  <chr> 
+#> 1       1 a          1.8      3 0.00%     5 0.00%  80.00% 20.00% 0.00%  0.00% 
+#> 2       1 b          1.5      3 0.00%     7 14.29% 71.43% 14.29% 0.00%  0.00% 
+#> 3       1 c          1.12     2 0.00%     4 25.00% 75.00% 0.00%  0.00%  0.00% 
+#> 4       2 a          1.88    12 0.00%    32 40.62% 15.62% 21.88% 21.88% 0.00% 
+#> 5       2 b          2.13    12 0.00%    19 31.58% 15.79% 36.84% 10.53% 5.26% 
+#> 6       2 c          1.66    10 0.00%    29 44.83% 10.34% 34.48% 10.34% 0.00% 
+#> 7       3 a          3.5      5 0.00%     6 0.00%  33.33% 16.67% 33.33% 16.67%
+#> 8       3 b          4.75     6 0.00%    18 0.00%  5.56%  33.33% 0.00%  61.11%
 #> 
 #> $matched
 #> # A tibble: 53 × 6

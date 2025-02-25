@@ -1,0 +1,21 @@
+---
+title: "Interactive mode"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Interactive mode}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+_working on it..._
+
+```{r setup}
+library(ambiR)
+```
