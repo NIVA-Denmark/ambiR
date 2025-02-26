@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ambiR
+# ambiR <a href="https://niva-denmark.github.io/ambiR/"><img src="man/figures/logo.png" align="right" height="139" alt="ambiR website" /></a>
 
 <!-- badges: start -->
 
