@@ -18,8 +18,9 @@ AMBI(
   var_count = "count",
   df_species = NULL,
   var_group_AMBI = "group",
-  quiet = F,
-  interactive = F,
+  priority_user = FALSE,
+  quiet = FALSE,
+  interactive = FALSE,
   format_pct = NA
 )
 }
@@ -44,14 +45,22 @@ groups without any consideration of replicates.}
 \item{df_species}{\emph{optional} dataframe of user-specified species groups. By default,
 the function matches species in \code{df} with the official species
 list from AZTI. If a dataframe with a user-defined list of
-species is provided here, then a check will first be made
-against this list before searching the AZTI species list.}
+species is provided, then a search for species groups will
+also be made in this list. \emph{see \href{#species-matching-and-interactive-mode}{Details}}.}
 
 \item{var_group_AMBI}{\emph{optional} name of the column in \code{df_species}
 containing the groups for the AMBI index calculations. These
 should be specified as integer values from 1 to 7. Any other
 values will be ignored. If \code{df_species} is not specified
 then \code{var_group_AMBI} will be ignored.}
+
+\item{priority_user}{By default, any user-assigned species group which
+conflicts with an AZTI group assignment will be ignored and
+the original group remains unchanged. If the argument
+\code{priority_user = TRUE} is used then user-assigned groups
+will always override AMBI groups in case of conflict.
+\emph{DO NOT use this option unless you are sure you know what
+you are doing! It could invalidate your results.}}
 
 \item{quiet}{warnings about low numbers of species and/or individuals
 are contained in the \code{warnings} dataframe. By default
@@ -178,28 +187,38 @@ The output of the function consists of a list of three dataframes:
 or numbers of individuals
 }
 }
-}
-\section{\emph{quiet} mode}{
 
-
-By default, any warnings generated be shown in the console as well as
-being stored in the output. If the function is called with the
-argument \code{quiet = TRUE} then warnings in the console will be suppressed.
 \subsection{Species matching and \emph{interactive} mode}{
 
-By default, the function will first check for a species list supplied in the
-function call using the argument \code{df_species}. If this is specified, the species
-names in the input data will be matched with this list first. If no alternative
-species list is provided (this is the default situation) then the function will
-go directly  to matching with the AZTI species list.
-
-Any species names in the input for which a match was not found in a user-provided
-species list are then matched with names in the AZTI list. After this, if no
-match is found then the species will be recorded with a an \code{NA}value for species group.
+The function will check for a species list supplied in the function call
+using the argument \code{df_species}, if this is specified. The function will
+also search for names in the AZTI list. After this, if no match is found
+in either, then the species will be recorded with a an \code{NA}value for
+species group and will be ignored in calculations.
 
 By checking the output from the first function call, the user can identify species
-names not matched and if necessary provide a user-defined list to specify the
-species group before running the function a second time
+names not matched and if necessary provide or update a user-defined list to
+specify the species groups, before running the function a second time.
+\subsection{conflicts}{
+
+If there is a conflict between a user-provided group assignment for a species
+and the group specified in the AZTI species group information, only one of
+them will be selected. The outcome depends on a number of things:
+\itemize{
+\item some species in the AZTI list are considered \emph{reallocatable} (RA) - that is,
+there can be disagreement about which species group they should belong to.
+For these species, any user-specified groups will replace the default group.
+\item if a species is not \emph{reallocatable}, then any user-specified groups will
+\emph{by default} be ignored. However, if the function is called with the argument
+\code{priority_user = TRUE} then the user-specified groups will override AZTI
+species groups.
+}
+
+Any conflicts and their outcomes will be recorded in
+the \code{matched} output.
+}
+
+\subsection{\emph{interactive} mode}{
 
 \emph{TO DO: example needed!}
 
@@ -219,11 +238,17 @@ calculations will process as in the non-interactive mode.
 
 Any user-provided group information will be recorded in the \code{matched} results.
 }
-}
 
+}
+}
 \examples{
 
+# example (1) - using test data included with package
+
 AMBI(test_data, by=c("station"), var_rep="replicate")
+
+
+# example (2)
 
 df <- data.frame(station = c("1","1","2","2","2"),
 species = c("Acidostoma neglectum",
@@ -235,5 +260,13 @@ species = c("Acidostoma neglectum",
 
  AMBI(df, by = c("station"))
 
+
+# example (3) - conflict with AZTI species group
+
+df_user <- data.frame(
+              species = c("Cumopsis fagei"),
+              group = c(1))
+
+AMBI(test_data, by=c("station"), var_rep="replicate", df_species=df_user)
 
 }
