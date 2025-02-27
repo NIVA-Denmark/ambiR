@@ -49,7 +49,7 @@
 #'
 #' @noRd
 
-.AMBI_species <- function(version=""){
+.AMBI_species <- function(version = ""){
   version <- as.character(version)
   versions_alternative <- c("2022")
   if(version!="" & !version %in% versions_alternative){

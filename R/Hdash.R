@@ -50,9 +50,10 @@
 #'
 #' @export
 
-Hdash <- function(df, by=NULL,
-                  var_species="species",
-                  var_count="count",
+Hdash <- function(df,
+                  by = NULL,
+                  var_species = "species",
+                  var_count = "count",
                   check_species = TRUE,
                   df_species = NULL
 ){

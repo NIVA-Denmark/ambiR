@@ -123,14 +123,15 @@
 #'
 #' @export
 
-MAMBI <- function(df, by=NULL,
-                  var_H="H",
-                  var_S="S",
-                  var_AMBI="AMBI",
-                  limits_AMBI=c("bad"=6,"high"=0),
-                  limits_H=c("bad"=0,"high"=NA),
-                  limits_S=c("bad"=0,"high"=NA),
-                  bounds=c("PB"=0.2, "MP"=0.39, "GM"=0.53, "HG"=0.77)
+MAMBI <- function(df,
+                  by = NULL,
+                  var_H = "H",
+                  var_S = "S",
+                  var_AMBI = "AMBI",
+                  limits_AMBI = c("bad" = 6,"high" = 0),
+                  limits_H = c("bad" = 0,"high" = NA),
+                  limits_S = c("bad" = 0,"high" = NA),
+                  bounds = c("PB" = 0.2, "MP" = 0.39, "GM" = 0.53, "HG" = 0.77)
 ){
 
   missing <- c()

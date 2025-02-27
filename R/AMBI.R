@@ -61,27 +61,36 @@
 #'  * `warnings` containing any warnings generated regarding numbers of of species
 #'  or numbers of individuals
 #'
-#' @section _quiet_ mode:
-#'
-#' By default, any warnings generated be shown in the console as well as
-#' being stored in the output. If the function is called with the
-#' argument `quiet = TRUE` then warnings in the console will be suppressed.
-#'
 #' ## Species matching and _interactive_ mode
 #'
-#' By default, the function will first check for a species list supplied in the
-#' function call using the argument `df_species`. If this is specified, the species
-#' names in the input data will be matched with this list first. If no alternative
-#' species list is provided (this is the default situation) then the function will
-#' go directly  to matching with the AZTI species list.
-#'
-#' Any species names in the input for which a match was not found in a user-provided
-#' species list are then matched with names in the AZTI list. After this, if no
-#' match is found then the species will be recorded with a an `NA`value for species group.
+#' The function will check for a species list supplied in the function call
+#' using the argument `df_species`, if this is specified. The function will
+#' also search for names in the AZTI list. After this, if no match is found
+#' in either, then the species will be recorded with a an `NA`value for
+#' species group and will be ignored in calculations.
 #'
 #' By checking the output from the first function call, the user can identify species
-#' names not matched and if necessary provide a user-defined list to specify the
-#' species group before running the function a second time
+#' names not matched and if necessary provide or update a user-defined list to
+#' specify the species groups, before running the function a second time.
+#'
+#' ### conflicts
+#'
+#' If there is a conflict between a user-provided group assignment for a species
+#' and the group specified in the AZTI species group information, only one of
+#' them will be selected. The outcome depends on a number of things:
+#'
+#' * some species in the AZTI list are considered _reallocatable_ (RA) - that is,
+#' there can be disagreement about which species group they should belong to.
+#' For these species, any user-specified groups will replace the default group.
+#' * if a species is not _reallocatable_, then any user-specified groups will
+#' _by default_ be ignored. However, if the function is called with the argument
+#' `priority_user = TRUE` then the user-specified groups will override AZTI
+#' species groups.
+#'
+#' Any conflicts and their outcomes will be recorded in
+#' the `matched` output.
+#'
+#' ### _interactive_ mode
 #'
 #' _TO DO: example needed!_
 #'
@@ -128,14 +137,22 @@
 #' @param df_species  _optional_ dataframe of user-specified species groups. By default,
 #'                    the function matches species in `df` with the official species
 #'                    list from AZTI. If a dataframe with a user-defined list of
-#'                    species is provided here, then a check will first be made
-#'                    against this list before searching the AZTI species list.
+#'                    species is provided, then a search for species groups will
+#'                    also be made in this list. _see [Details](#species-matching-and-interactive-mode)_.
 #'
 #' @param var_group_AMBI   _optional_ name of the column in `df_species`
 #'                    containing the groups for the AMBI index calculations. These
 #'                    should be specified as integer values from 1 to 7. Any other
 #'                    values will be ignored. If `df_species` is not specified
 #'                    then `var_group_AMBI` will be ignored.
+#'
+#' @param priority_user By default, any user-assigned species group which
+#'                    conflicts with an AZTI group assignment will be ignored and
+#'                    the original group remains unchanged. If the argument
+#'                     `priority_user = TRUE` is used then user-assigned groups
+#'                     will always override AMBI groups in case of conflict.
+#'                     _DO NOT use this option unless you are sure you know what
+#'                     you are doing! It could invalidate your results._
 #'
 #' @param quiet       warnings about low numbers of species and/or individuals
 #'                    are contained in the `warnings` dataframe. By default
@@ -205,7 +222,12 @@
 #'
 #' @examples
 #'
+#' # example (1) - using test data included with package
+#'
 #' AMBI(test_data, by=c("station"), var_rep="replicate")
+#'
+#'
+#' # example (2)
 #'
 #' df <- data.frame(station = c("1","1","2","2","2"),
 #' species = c("Acidostoma neglectum",
@@ -218,17 +240,26 @@
 #'  AMBI(df, by = c("station"))
 #'
 #'
+#' # example (3) - conflict with AZTI species group
+#'
+#' df_user <- data.frame(
+#'               species = c("Cumopsis fagei"),
+#'               group = c(1))
+#'
+#' AMBI(test_data, by=c("station"), var_rep="replicate", df_species=df_user)
+#'
 #' @export
 
-AMBI <- function(df, by=NULL,
-                 var_rep=NA_character_,
-                 var_species="species",
-                 var_count="count",
+AMBI <- function(df, by = NULL,
+                 var_rep = NA_character_,
+                 var_species = "species",
+                 var_count = "count",
                  df_species = NULL,
                  var_group_AMBI = "group",
-                 quiet=F,
-                 interactive=F,
-                 format_pct=NA
+                 priority_user = FALSE,
+                 quiet = FALSE,
+                 interactive = FALSE,
+                 format_pct = NA
 ){
 
 
@@ -240,6 +271,8 @@ AMBI <- function(df, by=NULL,
   H <- N <- NNA <- fGroup <- fNA <- NULL
   sum_count <- wt <- f <- n_species <- count_0 <- NULL
   species <- S <- ambi_group <- species_1 <- NULL
+  RA <- U <- NULL
+
 
   fill_val <- 0
 
@@ -338,9 +371,105 @@ AMBI <- function(df, by=NULL,
       stop(msg)
     }
 
+
     df_species <- df_species %>%
       mutate(source="U") %>%
-      bind_rows(df_ambi) %>%
+      bind_rows(df_ambi %>%
+                  mutate(source="AMBI"))
+
+
+    species_conflict <- df_species %>%
+      distinct(dplyr::across(dplyr::all_of(c(var_species,"group")))) %>%
+      dplyr::group_by(dplyr::across(dplyr::all_of(c(var_species)))) %>%
+      summarise(n=n(),.groups="drop") %>%
+      filter(n>1) %>%
+      pull(var_species)
+
+
+    df_conflict <- df_species %>%
+      filter(!!as.name(var_species) %in% species_conflict)
+
+    df_species <- df_species %>%
+      mutate(source=ifelse(source=="AMBI",NA,source))
+
+    if(nrow(df_conflict)>0){
+
+      df_species <- df_species %>%
+        filter(!(!!as.name(var_species)) %in% species_conflict)
+
+
+    df_conflict <- df_conflict %>%
+      group_by(across(all_of(var_species))) %>%
+      mutate(RA=max(RA,na.rm=T)) %>%
+      ungroup()
+
+    df_conflict <- df_conflict %>%
+      pivot_wider(names_from = "source", values_from = "group")
+
+    df_changed <- df_conflict %>%
+      filter(RA==1)
+
+    df_conflict <- df_conflict %>%
+      filter(RA==0)
+
+    if(nrow(df_changed)>0){
+      df_changed <- df_changed %>%
+        mutate(group=U, group_note=paste0("original group: ",AMBI), source="U") %>%
+        mutate(msg=paste0(col_green(symbol$tick)," {.emph ",species,"} (",
+                          roman(AMBI),")",symbol$arrow_right,"(",
+                          roman(U),")"))
+      msgs <- df_changed$msg
+      if(quiet==F){
+        cli::cli_alert_info("User-assigned group change{?s} applied for {length(msgs)} AMBI species:")
+        cli::cli_bullets(msgs)
+        cli::cli_text("")
+      }
+
+    }
+
+    if(nrow(df_conflict)>0){
+
+      if(priority_user){
+        res_msg <- paste0(col_br_yellow("Overwriting AMBI groups"),
+          " - {length(msgs)} user-assigned group{?s} override{?s/} conflicting AMBI group{?s}:")
+        res_symbol <- col_green(symbol$tick)
+        df_conflict <- df_conflict %>%
+          mutate(group=U, group_note=paste0("overriding AMBI group: ",AMBI), source="U")
+      }else{
+        res_msg <- "{length(msgs)} user-assigned group{?s} in conflict with AMBI {?was/were} ignored:"
+        res_symbol <- col_red(symbol$cross)
+        df_conflict <- df_conflict %>%
+          mutate(group=AMBI, group_note=paste0("ignored user group: ",U), source=NA)
+
+      }
+      df_conflict <- df_conflict %>%
+        mutate(group=ifelse(priority_user==T,U,AMBI)) %>%
+        mutate(msg=paste0(res_symbol," {.emph ",species,"} (",
+                        roman(AMBI),")",symbol$arrow_right,"(",
+                        roman(U),")"))
+
+      msgs <- df_conflict$msg
+      if(priority_user){
+        cli::cli_alert_warning(res_msg)
+      }else{
+        cli::cli_alert_info(res_msg)
+      }
+      cli::cli_bullets(msgs)
+      cli::cli_text("")
+
+    }
+
+    df_changed <- df_changed %>%
+      bind_rows(df_conflict) %>%
+      select(-c(AMBI,U, msg))
+
+    df_species <- df_species %>%
+      bind_rows(df_changed)
+
+
+    } # nrow(df_conflict)>0
+
+    df_species <- df_species %>%
       dplyr::group_by(dplyr::across(dplyr::all_of(var_species))) %>%
       dplyr::arrange(dplyr::across(dplyr::all_of("source"))) %>%
       slice(1) %>%
@@ -808,8 +937,13 @@ get_user_entry <- function(i, name, list, df_species,
 
 
 # auxiliary function to convert numeric group to roman numerals
-roman <- function(n, roman_numbers=c("I","II","III","IV","V")){
-  return(roman_numbers[n])
+roman <- function(n, roman_numbers=c("I","II","III","IV","V"),
+                  zero="not assigned"){
+  if(n==0){
+    return(zero)
+  }else{
+    return(roman_numbers[n])
+  }
   }
 
 # auxiliary function to give warnings for numbers of individuals and species

@@ -63,6 +63,6 @@
 #'
 #' @export
 
-AMBI_species <- function(version=""){
+AMBI_species <- function(version = ""){
   return(.AMBI_species(version))
 }
