@@ -71,7 +71,7 @@
 #'
 #' @export
 
-DKI <- function(AMBI, H, N, S, H_max=5){
+DKI <- function(AMBI, H, N, S, H_max = 5){
   # DKI v1
   term_AMBI <- (1 - (AMBI  / 7))
   term_NS <- ((1 - (1/N)) + (1 - (1/S))) * 0.5
