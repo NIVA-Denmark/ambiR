@@ -54,8 +54,9 @@ and calculates the AMBI index.</p>
 <span>  var_count <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>  df_species <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  var_group_AMBI <span class="op">=</span> <span class="st">"group"</span>,</span>
-<span>  quiet <span class="op">=</span> <span class="cn">F</span>,</span>
-<span>  interactive <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  priority_user <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  interactive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  format_pct <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -102,8 +103,8 @@ groups without any consideration of replicates.</p></dd>
 <dd><p><em>optional</em> dataframe of user-specified species groups. By default,
 the function matches species in <code>df</code> with the official species
 list from AZTI. If a dataframe with a user-defined list of
-species is provided here, then a check will first be made
-against this list before searching the AZTI species list.</p></dd>
+species is provided, then a search for species groups will
+also be made in this list. <em>see <a href="#species-matching-and-interactive-mode">Details</a></em>.</p></dd>
 
 
 <dt id="arg-var-group-ambi">var_group_AMBI<a class="anchor" aria-label="anchor" href="#arg-var-group-ambi"></a></dt>
@@ -112,6 +113,16 @@ containing the groups for the AMBI index calculations. These
 should be specified as integer values from 1 to 7. Any other
 values will be ignored. If <code>df_species</code> is not specified
 then <code>var_group_AMBI</code> will be ignored.</p></dd>
+
+
+<dt id="arg-priority-user">priority_user<a class="anchor" aria-label="anchor" href="#arg-priority-user"></a></dt>
+<dd><p>By default, any user-assigned species group which
+conflicts with an AZTI group assignment will be ignored and
+the original group remains unchanged. If the argument
+<code>priority_user = TRUE</code> is used then user-assigned groups
+will always override AMBI groups in case of conflict.
+<em>DO NOT use this option unless you are sure you know what
+you are doing! It could invalidate your results.</em></p></dd>
 
 
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
@@ -223,29 +234,38 @@ also return a warning.(see below)</p>
 or numbers of individuals</p></li>
 </ul></div>
 
-    </div>
-    <div class="section level2">
-    <h2 id="quiet-mode"><em>quiet</em> mode<a class="anchor" aria-label="anchor" href="#quiet-mode"></a></h2>
-
-
-
-<p>By default, any warnings generated be shown in the console as well as
-being stored in the output. If the function is called with the
-argument <code>quiet = TRUE</code> then warnings in the console will be suppressed.</p><div class="section">
+<div class="section">
 <h3 id="species-matching-and-interactive-mode">Species matching and <em>interactive</em> mode<a class="anchor" aria-label="anchor" href="#species-matching-and-interactive-mode"></a></h3>
 
 
-<p>By default, the function will first check for a species list supplied in the
-function call using the argument <code>df_species</code>. If this is specified, the species
-names in the input data will be matched with this list first. If no alternative
-species list is provided (this is the default situation) then the function will
-go directly  to matching with the AZTI species list.</p>
-<p>Any species names in the input for which a match was not found in a user-provided
-species list are then matched with names in the AZTI list. After this, if no
-match is found then the species will be recorded with a an <code>NA</code>value for species group.</p>
+<p>The function will check for a species list supplied in the function call
+using the argument <code>df_species</code>, if this is specified. The function will
+also search for names in the AZTI list. After this, if no match is found
+in either, then the species will be recorded with a an <code>NA</code>value for
+species group and will be ignored in calculations.</p>
 <p>By checking the output from the first function call, the user can identify species
-names not matched and if necessary provide a user-defined list to specify the
-species group before running the function a second time</p>
+names not matched and if necessary provide or update a user-defined list to
+specify the species groups, before running the function a second time.</p><div class="section">
+<h4 id="conflicts">conflicts<a class="anchor" aria-label="anchor" href="#conflicts"></a></h4>
+
+
+<p>If there is a conflict between a user-provided group assignment for a species
+and the group specified in the AZTI species group information, only one of
+them will be selected. The outcome depends on a number of things:</p><ul><li><p>some species in the AZTI list are considered <em>reallocatable</em> (RA) - that is,
+there can be disagreement about which species group they should belong to.
+For these species, any user-specified groups will replace the default group.</p></li>
+<li><p>if a species is not <em>reallocatable</em>, then any user-specified groups will
+<em>by default</em> be ignored. However, if the function is called with the argument
+<code>priority_user = TRUE</code> then the user-specified groups will override AZTI
+species groups.</p></li>
+</ul><p>Any conflicts and their outcomes will be recorded in
+the <code>matched</code> output.</p>
+</div>
+
+<div class="section">
+<h4 id="interactive-mode"><em>interactive</em> mode<a class="anchor" aria-label="anchor" href="#interactive-mode"></a></h4>
+
+
 <p><em>TO DO: example needed!</em></p>
 <p>If the function is called with the argument <code>interactive = TRUE</code> then the user
 will be asked to assign a species group (<em>I, II, III, IV, V</em>) for any species
@@ -263,11 +283,16 @@ calculations will process as in the non-interactive mode.</p>
 <p>Any user-provided group information will be recorded in the <code>matched</code> results.</p>
 </div>
 
+
+</div>
+
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># example (1) - using test data included with package</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">AMBI</span><span class="op">(</span><span class="va">test_data</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, var_rep<span class="op">=</span><span class="st">"replicate"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $AMBI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 11</span></span>
@@ -310,6 +335,9 @@ calculations will process as in the non-interactive mode.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># example (2)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"2"</span>,<span class="st">"2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Acidostoma neglectum"</span>,</span></span>
 <span class="r-in"><span>            <span class="st">"Acrocirrus validus"</span>,</span></span>
@@ -347,6 +375,57 @@ calculations will process as in the non-interactive mode.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> 1       The (not null) number of individuals is less than 6 [4].              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># example (3) - conflict with AZTI species group</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">df_user</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>              species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Cumopsis fagei"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">AMBI</span><span class="op">(</span><span class="va">test_data</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, var_rep<span class="op">=</span><span class="st">"replicate"</span>, df_species<span class="op">=</span><span class="va">df_user</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> 1 user-assigned group in conflict with AMBI was ignored:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> <span style="font-style: italic;">Cumopsis fagei</span> (II)→(I)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $AMBI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   station  AMBI     H     S   fNA     N     I    II   III     IV      V</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       1  1.48  1.80     6     0    16 0.125 0.75  0.125 0      0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>       2  1.89  3.54    22     0    80 0.4   0.138 0.3   0.15   0.012<span style="text-decoration: underline;">5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>       3  4.12  2.50     9     0    24 0     0.125 0.292 0.083<span style="text-decoration: underline;">3</span> 0.5   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $AMBI_rep</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   station replicate  AMBI     S   fNA     N     I     II   III    IV      V</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       1 a          1.8      3     0     5 0     0.8    0.2   0     0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>       1 b          1.5      3     0     7 0.143 0.714  0.143 0     0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>       1 c          1.12     2     0     4 0.25  0.75   0     0     0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>       2 a          1.88    12     0    32 0.406 0.156  0.219 0.219 0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>       2 b          2.13    12     0    19 0.316 0.158  0.368 0.105 0.052<span style="text-decoration: underline;">6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>       2 c          1.66    10     0    29 0.448 0.103  0.345 0.103 0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>       3 a          3.5      5     0     6 0     0.333  0.167 0.333 0.167 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>       3 b          4.75     6     0    18 0     0.055<span style="text-decoration: underline;">6</span> 0.333 0     0.611 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $matched</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 53 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    station replicate species             count group source    RA group_note    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>       1 a         Cumopsis fagei          2     2 <span style="color: #BB0000;">NA</span>         0 ignored user …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>       1 a         Diogenes pugilator      2     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>       1 a         Paradoneis armata       1     3 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>       1 b         Bathyporeia elegans     1     1 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>       1 b         Diogenes pugilator      5     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>       1 b         Dispio uncinata         1     3 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>       1 c         Astarte sp.             1     1 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>       1 c         Diogenes pugilator      3     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>       2 a         Cumopsis fagei          1     2 <span style="color: #BB0000;">NA</span>         0 ignored user …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>       2 a         Glycera tridactyla      2     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 43 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $warnings</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
