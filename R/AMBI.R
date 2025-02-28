@@ -65,26 +65,28 @@
 #'
 #' The function will check for a species list supplied in the function call
 #' using the argument `df_species`, if this is specified. The function will
-#' also search for names in the AZTI list. After this, if no match is found
-#' in either, then the species will be recorded with a an `NA`value for
-#' species group and will be ignored in calculations.
+#' also search for names in the AMBI standard list. After this, if no match
+#' is found in either, then the species will be recorded with a an `NA`value
+#' for species group and will be ignored in calculations.
 #'
-#' By checking the output from the first function call, the user can identify species
-#' names not matched and if necessary provide or update a user-defined list to
-#' specify the species groups, before running the function a second time.
+#' By calling the function once and then checking the output from this first
+#' function call, the user can identify species names which were  not matched.
+#' Then, if necessary, they can provide or update a dataframe with a list of
+#' user-defined species group assignments, before running the function a
+#' second time.
 #'
 #' ### conflicts
 #'
 #' If there is a conflict between a user-provided group assignment for a species
-#' and the group specified in the AZTI species group information, only one of
+#' and the group specified in the AMBI species group information, only one of
 #' them will be selected. The outcome depends on a number of things:
 #'
-#' * some species in the AZTI list are considered _reallocatable_ (RA) - that is,
+#' * some species in the AMBI list are considered _reallocatable_ (RA) - that is,
 #' there can be disagreement about which species group they should belong to.
 #' For these species, any user-specified groups will replace the default group.
 #' * if a species is not _reallocatable_, then any user-specified groups will
 #' _by default_ be ignored. However, if the function is called with the argument
-#' `priority_user = TRUE` then the user-specified groups will override AZTI
+#' `groups_strict = FALSE` then the user-specified groups will override AMBI
 #' species groups.
 #'
 #' Any conflicts and their outcomes will be recorded in
@@ -146,10 +148,10 @@
 #'                    values will be ignored. If `df_species` is not specified
 #'                    then `var_group_AMBI` will be ignored.
 #'
-#' @param priority_user By default, any user-assigned species group which
+#' @param groups_strict By default, any user-assigned species group which
 #'                    conflicts with an AZTI group assignment will be ignored and
 #'                    the original group remains unchanged. If the argument
-#'                     `priority_user = TRUE` is used then user-assigned groups
+#'                     `groups_strict = FALSE` is used then user-assigned groups
 #'                     will always override AMBI groups in case of conflict.
 #'                     _DO NOT use this option unless you are sure you know what
 #'                     you are doing! It could invalidate your results._
@@ -256,7 +258,7 @@ AMBI <- function(df, by = NULL,
                  var_count = "count",
                  df_species = NULL,
                  var_group_AMBI = "group",
-                 priority_user = FALSE,
+                 groups_strict = TRUE,
                  quiet = FALSE,
                  interactive = FALSE,
                  format_pct = NA
@@ -429,12 +431,12 @@ AMBI <- function(df, by = NULL,
 
     if(nrow(df_conflict)>0){
 
-      if(priority_user){
-        res_msg <- paste0(col_br_yellow("Overwriting AMBI groups"),
-          " - {length(msgs)} user-assigned group{?s} override{?s/} conflicting AMBI group{?s}:")
+      if(groups_strict==FALSE){
+        res_msg <- col_red(
+          "{length(msgs)} user-assigned group{?s} override{?s/} existing AMBI group{?s}:")
         res_symbol <- col_green(symbol$tick)
         df_conflict <- df_conflict %>%
-          mutate(group=U, group_note=paste0("overriding AMBI group: ",AMBI), source="U")
+          mutate(group=U, group_note=paste0("Overriding AMBI group: ",AMBI), source="U")
       }else{
         res_msg <- "{length(msgs)} user-assigned group{?s} in conflict with AMBI {?was/were} ignored:"
         res_symbol <- col_red(symbol$cross)
@@ -443,13 +445,13 @@ AMBI <- function(df, by = NULL,
 
       }
       df_conflict <- df_conflict %>%
-        mutate(group=ifelse(priority_user==T,U,AMBI)) %>%
+        mutate(group=ifelse(groups_strict==FALSE,U,AMBI)) %>%
         mutate(msg=paste0(res_symbol," {.emph ",species,"} (",
                         roman(AMBI),")",symbol$arrow_right,"(",
                         roman(U),")"))
 
       msgs <- df_conflict$msg
-      if(priority_user){
+      if(groups_strict==FALSE){
         cli::cli_alert_warning(res_msg)
       }else{
         cli::cli_alert_info(res_msg)

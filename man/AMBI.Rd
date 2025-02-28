@@ -18,7 +18,7 @@ AMBI(
   var_count = "count",
   df_species = NULL,
   var_group_AMBI = "group",
-  priority_user = FALSE,
+  groups_strict = TRUE,
   quiet = FALSE,
   interactive = FALSE,
   format_pct = NA
@@ -54,10 +54,10 @@ should be specified as integer values from 1 to 7. Any other
 values will be ignored. If \code{df_species} is not specified
 then \code{var_group_AMBI} will be ignored.}
 
-\item{priority_user}{By default, any user-assigned species group which
+\item{groups_strict}{By default, any user-assigned species group which
 conflicts with an AZTI group assignment will be ignored and
 the original group remains unchanged. If the argument
-\code{priority_user = TRUE} is used then user-assigned groups
+\code{groups_strict = FALSE} is used then user-assigned groups
 will always override AMBI groups in case of conflict.
 \emph{DO NOT use this option unless you are sure you know what
 you are doing! It could invalidate your results.}}
@@ -192,25 +192,27 @@ or numbers of individuals
 
 The function will check for a species list supplied in the function call
 using the argument \code{df_species}, if this is specified. The function will
-also search for names in the AZTI list. After this, if no match is found
-in either, then the species will be recorded with a an \code{NA}value for
-species group and will be ignored in calculations.
+also search for names in the AMBI standard list. After this, if no match
+is found in either, then the species will be recorded with a an \code{NA}value
+for species group and will be ignored in calculations.
 
-By checking the output from the first function call, the user can identify species
-names not matched and if necessary provide or update a user-defined list to
-specify the species groups, before running the function a second time.
+By calling the function once and then checking the output from this first
+function call, the user can identify species names which were  not matched.
+Then, if necessary, they can provide or update a dataframe with a list of
+user-defined species group assignments, before running the function a
+second time.
 \subsection{conflicts}{
 
 If there is a conflict between a user-provided group assignment for a species
-and the group specified in the AZTI species group information, only one of
+and the group specified in the AMBI species group information, only one of
 them will be selected. The outcome depends on a number of things:
 \itemize{
-\item some species in the AZTI list are considered \emph{reallocatable} (RA) - that is,
+\item some species in the AMBI list are considered \emph{reallocatable} (RA) - that is,
 there can be disagreement about which species group they should belong to.
 For these species, any user-specified groups will replace the default group.
 \item if a species is not \emph{reallocatable}, then any user-specified groups will
 \emph{by default} be ignored. However, if the function is called with the argument
-\code{priority_user = TRUE} then the user-specified groups will override AZTI
+\code{groups_strict = FALSE} then the user-specified groups will override AMBI
 species groups.
 }
 
