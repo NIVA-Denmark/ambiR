@@ -54,7 +54,7 @@ and calculates the AMBI index.</p>
 <span>  var_count <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>  df_species <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  var_group_AMBI <span class="op">=</span> <span class="st">"group"</span>,</span>
-<span>  priority_user <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  groups_strict <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  interactive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  format_pct <span class="op">=</span> <span class="cn">NA</span></span>
@@ -115,11 +115,11 @@ values will be ignored. If <code>df_species</code> is not specified
 then <code>var_group_AMBI</code> will be ignored.</p></dd>
 
 
-<dt id="arg-priority-user">priority_user<a class="anchor" aria-label="anchor" href="#arg-priority-user"></a></dt>
+<dt id="arg-groups-strict">groups_strict<a class="anchor" aria-label="anchor" href="#arg-groups-strict"></a></dt>
 <dd><p>By default, any user-assigned species group which
 conflicts with an AZTI group assignment will be ignored and
 the original group remains unchanged. If the argument
-<code>priority_user = TRUE</code> is used then user-assigned groups
+<code>groups_strict = FALSE</code> is used then user-assigned groups
 will always override AMBI groups in case of conflict.
 <em>DO NOT use this option unless you are sure you know what
 you are doing! It could invalidate your results.</em></p></dd>
@@ -240,23 +240,25 @@ or numbers of individuals</p></li>
 
 <p>The function will check for a species list supplied in the function call
 using the argument <code>df_species</code>, if this is specified. The function will
-also search for names in the AZTI list. After this, if no match is found
-in either, then the species will be recorded with a an <code>NA</code>value for
-species group and will be ignored in calculations.</p>
-<p>By checking the output from the first function call, the user can identify species
-names not matched and if necessary provide or update a user-defined list to
-specify the species groups, before running the function a second time.</p><div class="section">
+also search for names in the AMBI standard list. After this, if no match
+is found in either, then the species will be recorded with a an <code>NA</code>value
+for species group and will be ignored in calculations.</p>
+<p>By calling the function once and then checking the output from this first
+function call, the user can identify species names which were  not matched.
+Then, if necessary, they can provide or update a dataframe with a list of
+user-defined species group assignments, before running the function a
+second time.</p><div class="section">
 <h4 id="conflicts">conflicts<a class="anchor" aria-label="anchor" href="#conflicts"></a></h4>
 
 
 <p>If there is a conflict between a user-provided group assignment for a species
-and the group specified in the AZTI species group information, only one of
-them will be selected. The outcome depends on a number of things:</p><ul><li><p>some species in the AZTI list are considered <em>reallocatable</em> (RA) - that is,
+and the group specified in the AMBI species group information, only one of
+them will be selected. The outcome depends on a number of things:</p><ul><li><p>some species in the AMBI list are considered <em>reallocatable</em> (RA) - that is,
 there can be disagreement about which species group they should belong to.
 For these species, any user-specified groups will replace the default group.</p></li>
 <li><p>if a species is not <em>reallocatable</em>, then any user-specified groups will
 <em>by default</em> be ignored. However, if the function is called with the argument
-<code>priority_user = TRUE</code> then the user-specified groups will override AZTI
+<code>groups_strict = FALSE</code> then the user-specified groups will override AMBI
 species groups.</p></li>
 </ul><p>Any conflicts and their outcomes will be recorded in
 the <code>matched</code> output.</p>
