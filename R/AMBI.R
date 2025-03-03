@@ -264,7 +264,6 @@ AMBI <- function(df, by = NULL,
                  format_pct = NA
 ){
 
-
   if(!interactive()){
     # if R is not running interactively, then we cannot interact with the user
     interactive <- FALSE
@@ -569,7 +568,17 @@ AMBI <- function(df, by = NULL,
     filter(!is.na(!!as.name(var_group_AMBI)))
 
   # vars_group <- c(var_group_AMBI, by)
+  if(nrow(df)==0){
+    df <- NULL
+    msg <- paste0("No recognized species were found. Please check the ",
+                  cli::style_italic(cli::col_br_blue("matched")), " results or try to run with ",
+                  cli::style_italic(cli::col_br_blue("interactive = "), cli::col_red("TRUE")))
 
+    cli::cli_alert_warning(msg)
+
+    return(list(matched=df_matched))
+
+  }else{
   # calculate H'
   dfH <- Hdash(df, by=by,
                var_species=var_species,
@@ -594,8 +603,10 @@ AMBI <- function(df, by = NULL,
     wt = c(0, 0, 1.5, 3, 4.5, 6)
   )
 
-  df <- df %>%
-    left_join(df_multipliers, by=dplyr::join_by(!!var_group_AMBI==ambi_group))
+
+    df <- df %>%
+      left_join(df_multipliers, by=dplyr::join_by(!!var_group_AMBI==ambi_group))
+
 
   if(!is.na(var_rep)){
     by_rep <- c(by, var_rep)
@@ -759,7 +770,7 @@ AMBI <- function(df, by = NULL,
     df <- df %>%
       mutate(fNA = percent(fNA, digits=format_pct))
   }
-
+} # no species matched
 
   if(is.na(var_rep)){
     return(list(AMBI=df, matched=df_matched, warnings=dfwarn))
