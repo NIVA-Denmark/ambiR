@@ -134,6 +134,9 @@ MAMBI <- function(df,
                   bounds = c("PB" = 0.2, "MP" = 0.39, "GM" = 0.53, "HG" = 0.77)
 ){
 
+
+  Bounds <- Status <- NULL
+
   missing <- c()
 
   for(var in c(by, var_AMBI, var_H, var_S)){
@@ -220,7 +223,7 @@ MAMBI <- function(df,
   # from M-AMBI scores get the normalised EQR (GM=0.6)
   # using the specified boundaries for PB, MP, GM and HG
   eqr <-  sapply(mambi, .eqr, bounds=bounds)
-
+  class <-  sapply(eqr, .class)
 
   # join the metric limits (2 rows) to the original data
   limits$Bounds <- c("Bad","High")
@@ -234,7 +237,11 @@ MAMBI <- function(df,
     bind_cols(scores)
 
   df$MAMBI <- mambi
+  df$Status <- class
   df$EQR <- eqr
+
+  df <- df %>%
+    mutate(Status=ifelse(is.na(Bounds),Status,NA))
 
   return(df)
 }
@@ -269,6 +276,17 @@ MAMBI <- function(df,
   return(eqr)
 }
 
+# auxiliary function to return status class from EQR
+.class <- function(eqr, class_names = c("Bad","Poor","Mod","Good","High")){
+  eqr <- ifelse(eqr<0,0,eqr)
+  eqr <- ifelse(eqr>1,1,eqr)
+  ix <- floor(eqr * 5)
+  ix <- ifelse(ix==5,5,ix+1)
+
+  class <- class_names[ix]
+
+  return(class)
+}
 
 # auxiliary function to calculate M-MAMBI from PCR scores
 # assumes the last two rows are scores for Bad and High
