@@ -333,7 +333,7 @@ AMBI <- function(df, by = NULL,
       stop(msg)
     }
 
-
+    # checking for required columns in df_species
     missing <- c()
     for(var in c(var_species, var_group_AMBI)){
       if(!var %in% names(df_species)){
@@ -347,6 +347,13 @@ AMBI <- function(df, by = NULL,
                     " column(s) were not found: '",
                     msg, "'")
       stop(msg)
+    }
+
+    # checking if df_species contains "RA" column
+    # this conflicts with the official species list
+    if("RA" %in% names(df_species)){
+      df_species <- df_species %>%
+        select(-RA)
     }
 
     df_species <- df_species %>%
@@ -443,11 +450,14 @@ AMBI <- function(df, by = NULL,
           mutate(group=AMBI, group_note=paste0("ignored user group: ",U), source=NA)
 
       }
+
       df_conflict <- df_conflict %>%
+        rowwise() %>%
         mutate(group=ifelse(groups_strict==FALSE,U,AMBI)) %>%
-        mutate(msg=paste0(res_symbol," {.emph ",species,"} (",
+        mutate(msg=paste0(res_symbol," {.emph ",!!as.name(var_species),"} (",
                         roman(AMBI),")",symbol$arrow_right,"(",
-                        roman(U),")"))
+                        roman(U),")")) %>%
+        ungroup()
 
       msgs <- df_conflict$msg
       if(groups_strict==FALSE){
