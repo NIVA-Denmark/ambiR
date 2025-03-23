@@ -36,7 +36,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/interactive.html">Interactive mode</a></li>
+<li><a class="dropdown-item" href="articles/about-AMBI.html">The AMBI index</a></li>
+    <li><a class="dropdown-item" href="articles/interactive.html">Interactive mode</a></li>
   </ul>
 </li>
       </ul>
@@ -61,8 +62,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The package allows the user to calculate both the <em>AMBI</em> index and the multivariate <em>M-AMBI</em> from count data for benthic species.</p>
-<p>The original software from AZTI can be downloaded from <a href="https://ambi.azti.es/" class="external-link uri">https://ambi.azti.es/</a>.</p>
+<p>The package allows the user to calculate both the <em>AMBI</em> index and the multivariate <em>M-AMBI</em> from count or abundance data for benthic fauna species.</p>
 <p>In addition, this package includes functions to calculate different versions of the <em>Danish Quality Index</em> (<em>DKI</em>) (in Danish: <em>Dansk Kvalitetsindeks</em>), a derived benthic index based on AMBI.</p>
 <ul>
 <li>
@@ -76,30 +76,8 @@
 <li>
 <code><a href="reference/DKI.html">DKI()</a></code> - calculates the Danish quality index <em>DKI</em>.</li>
 </ul>
-</div>
-<div class="section level2">
-<h2 id="species-groups">Species Groups<a class="anchor" aria-label="anchor" href="#species-groups"></a>
-</h2>
-<p>Input to the <code><a href="reference/AMBI.html">AMBI()</a></code> function is a dataframe of species counts with optional grouping variables, e.g. station or replicate IDs. The function matches species names in the input data with names in the AMBI species list, in order to categorise the observed species according to the AMBI method. The tool then calculates the <em>AMBI</em> index resulting from the distribution of individuals between the groups.</p>
-<p>The AMBI species list gives the groups (I, II, III, IV, V) in which each species is classified, as described by Borja et al (2000):</p>
-<ul>
-<li>
-<em>Group I</em><br>
-Species very sensitive to organic enrichment and present under unpolluted conditions (initial state). They include the specialist carnivores and some deposit- feeding <em>tubicolous polychaetes</em>.</li>
-<li>
-<em>Group II</em><br>
-Species indifferent to enrichment, always present in low densities with non-significant variations with time (from initial state, to slight unbalance). These include suspension feeders, less selective carnivores and scavengers.</li>
-<li>
-<em>Group III</em><br>
-Species tolerant to excess organic matter enrichment. These species may occur under normal conditions, but their populations are stimulated by organic richment (slight unbalance situations). They are surface deposit-feeding species, as <em>tubicolous spionids</em>.</li>
-<li>
-<em>Group IV</em><br>
-Second-order opportunistic species (slight to pronounced unbalanced situations). Mainly small sized <em>polychaetes</em>: subsurface deposit-feeders, such as <em>cirratulids</em>.</li>
-<li>
-<em>Group V</em><br>
-First-order opportunistic species (pronounced unbalanced situations). These are deposit- feeders, which proliferate in reduced sediments.</li>
-</ul>
-<p>The list of species and their groups has been updated several times by the authors of the AMBI software. The version of the list used here is from 8th October 2024.</p>
+<p>To get started, see <code><a href="articles/ambiR.html">vignette("ambiR")</a></code>. For details about running in interactive mode, see <code><a href="articles/interactive.html">vignette("interactive")</a></code>.</p>
+<p>The AMBI index was developed by Ángel Borja and colleagues at AZTI. For background and explanation of the method for calculation of the AMBI index see <code><a href="articles/about-AMBI.html">vignette("about-AMBI")</a></code>. You can also find a link to download the original AMBI software.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -117,64 +95,58 @@ First-order opportunistic species (pronounced unbalanced situations). These are 
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niva-denmark.github.io/ambiR/">ambiR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"2"</span>,<span class="st">"2"</span>,<span class="st">"2"</span><span class="op">)</span>,</span>
-<span>species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Acidostoma neglectum"</span>,</span>
-<span>             <span class="st">"Acrocirrus validus"</span>,</span>
-<span>            <span class="st">"Capitella nonatoi"</span>,</span>
-<span>             <span class="st">"Acteocina bullata"</span>,</span>
-<span>             <span class="st">"Austrohelice crassa"</span>,</span>
-<span>             <span class="st">"Capitella nonatoi"</span><span class="op">)</span>,</span>
-<span>             count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">23</span>, <span class="fl">14</span>, <span class="fl">5</span>, <span class="fl">13</span>, <span class="fl">17</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
+<span>                 species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Acidostoma neglectum"</span>,</span>
+<span>                             <span class="st">"Acrocirrus validus"</span>,</span>
+<span>                             <span class="st">"Capitella nonatoi"</span>,</span>
+<span>                             <span class="st">"Acteocina bullata"</span>,</span>
+<span>                             <span class="st">"Austrohelice crassa"</span>,</span>
+<span>                             <span class="st">"Capitella nonatoi"</span><span class="op">)</span>,</span>
+<span>                 count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">14</span>, <span class="fl">23</span>, <span class="fl">13</span>, <span class="fl">17</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">df</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, format_pct<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: station 1: The percentage of individuals not assigned to a group is higher than</span></span>
-<span><span class="co">#&gt; 20% [54.8%].</span></span>
+<span><span class="fu"><a href="reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">df</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, format_pct<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $AMBI</span></span>
-<span><span class="co">#&gt; # A tibble: 2 × 11</span></span>
-<span><span class="co">#&gt;   station  AMBI     H     S fNA        N I      II    III   IV     V     </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 1        4.89  1.37     3 54.76%    42 0.00%  0.00% 0.00% 73.68% 26.32%</span></span>
-<span><span class="co">#&gt; 2 2        4.10  1.56     3 0.00%     41 31.71% 0.00% 0.00% 0.00%  68.29%</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 12</span></span>
+<span><span class="co">#&gt;   station  AMBI     H     S fNA       N I     II    III   IV    V    </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 1        5.43  1.46     3 17.8%    45 0.0%  0.0%  0.0%  37.8% 62.2%</span></span>
+<span><span class="co">#&gt; 2 2        4.10  1.56     3 0.0%     41 31.7% 0.0%  0.0%  0.0%  68.3%</span></span>
+<span><span class="co">#&gt; # ℹ 1 more variable: Disturbance &lt;chr&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $matched</span></span>
 <span><span class="co">#&gt;   station              species count group RA</span></span>
-<span><span class="co">#&gt; 1       1 Acidostoma neglectum    23     0  0</span></span>
+<span><span class="co">#&gt; 1       1 Acidostoma neglectum     8     0  0</span></span>
 <span><span class="co">#&gt; 2       1   Acrocirrus validus    14     4  0</span></span>
-<span><span class="co">#&gt; 3       1    Capitella nonatoi     5     5  0</span></span>
+<span><span class="co">#&gt; 3       1    Capitella nonatoi    23     5  0</span></span>
 <span><span class="co">#&gt; 4       2    Acteocina bullata    13     1  0</span></span>
 <span><span class="co">#&gt; 5       2  Austrohelice crassa    17     5  0</span></span>
-<span><span class="co">#&gt; 6       2    Capitella nonatoi    11     5  0</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $warnings</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
-<span><span class="co">#&gt;   station warning                                                               </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;                                                                 </span></span>
-<span><span class="co">#&gt; 1 1       The percentage of individuals not assigned to a group is higher than …</span></span></code></pre></div>
+<span><span class="co">#&gt; 6       2    Capitella nonatoi    11     5  0</span></span></code></pre></div>
 <p>Another example using the supplied <code>test_data</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niva-denmark.github.io/ambiR/">ambiR</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## calling AMBI using the test data set</span></span>
-<span><span class="fu"><a href="reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">test_data</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, var_rep <span class="op">=</span> <span class="st">"replicate"</span>, format_pct<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">test_data</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, var_rep <span class="op">=</span> <span class="st">"replicate"</span>, format_pct<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $AMBI</span></span>
-<span><span class="co">#&gt; # A tibble: 3 × 11</span></span>
-<span><span class="co">#&gt;   station  AMBI     H     S fNA       N I      II     III    IV     V     </span></span>
-<span><span class="co">#&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1       1  1.48  1.80     6 0.00%    16 12.50% 75.00% 12.50% 0.00%  0.00% </span></span>
-<span><span class="co">#&gt; 2       2  1.89  3.54    22 0.00%    80 40.00% 13.75% 30.00% 15.00% 1.25% </span></span>
-<span><span class="co">#&gt; 3       3  4.12  2.50     9 0.00%    24 0.00%  12.50% 29.17% 8.33%  50.00%</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 12</span></span>
+<span><span class="co">#&gt;   station  AMBI     H     S fNA       N I     II    III   IV    V    </span></span>
+<span><span class="co">#&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1       1  1.48  1.80     6 0.0%     16 12.5% 75.0% 12.5% 0.0%  0.0% </span></span>
+<span><span class="co">#&gt; 2       2  1.89  3.54    22 0.0%     80 40.0% 13.8% 30.0% 15.0% 1.2% </span></span>
+<span><span class="co">#&gt; 3       3  4.12  2.50     9 0.0%     24 0.0%  12.5% 29.2% 8.3%  50.0%</span></span>
+<span><span class="co">#&gt; # ℹ 1 more variable: Disturbance &lt;chr&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $AMBI_rep</span></span>
 <span><span class="co">#&gt; # A tibble: 8 × 11</span></span>
-<span><span class="co">#&gt;   station replicate  AMBI     S fNA       N I      II     III    IV     V     </span></span>
-<span><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1       1 a          1.8      3 0.00%     5 0.00%  80.00% 20.00% 0.00%  0.00% </span></span>
-<span><span class="co">#&gt; 2       1 b          1.5      3 0.00%     7 14.29% 71.43% 14.29% 0.00%  0.00% </span></span>
-<span><span class="co">#&gt; 3       1 c          1.12     2 0.00%     4 25.00% 75.00% 0.00%  0.00%  0.00% </span></span>
-<span><span class="co">#&gt; 4       2 a          1.88    12 0.00%    32 40.62% 15.62% 21.88% 21.88% 0.00% </span></span>
-<span><span class="co">#&gt; 5       2 b          2.13    12 0.00%    19 31.58% 15.79% 36.84% 10.53% 5.26% </span></span>
-<span><span class="co">#&gt; 6       2 c          1.66    10 0.00%    29 44.83% 10.34% 34.48% 10.34% 0.00% </span></span>
-<span><span class="co">#&gt; 7       3 a          3.5      5 0.00%     6 0.00%  33.33% 16.67% 33.33% 16.67%</span></span>
-<span><span class="co">#&gt; 8       3 b          4.75     6 0.00%    18 0.00%  5.56%  33.33% 0.00%  61.11%</span></span>
+<span><span class="co">#&gt;   station replicate  AMBI     S fNA       N I     II    III   IV    V    </span></span>
+<span><span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1       1 a          1.8      3 0.0%      5 0.0%  80.0% 20.0% 0.0%  0.0% </span></span>
+<span><span class="co">#&gt; 2       1 b          1.5      3 0.0%      7 14.3% 71.4% 14.3% 0.0%  0.0% </span></span>
+<span><span class="co">#&gt; 3       1 c          1.12     2 0.0%      4 25.0% 75.0% 0.0%  0.0%  0.0% </span></span>
+<span><span class="co">#&gt; 4       2 a          1.88    12 0.0%     32 40.6% 15.6% 21.9% 21.9% 0.0% </span></span>
+<span><span class="co">#&gt; 5       2 b          2.13    12 0.0%     19 31.6% 15.8% 36.8% 10.5% 5.3% </span></span>
+<span><span class="co">#&gt; 6       2 c          1.66    10 0.0%     29 44.8% 10.3% 34.5% 10.3% 0.0% </span></span>
+<span><span class="co">#&gt; 7       3 a          3.5      5 0.0%      6 0.0%  33.3% 16.7% 33.3% 16.7%</span></span>
+<span><span class="co">#&gt; 8       3 b          4.75     6 0.0%     18 0.0%  5.6%  33.3% 0.0%  61.1%</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $matched</span></span>
 <span><span class="co">#&gt; # A tibble: 53 × 6</span></span>
@@ -190,10 +162,7 @@ First-order opportunistic species (pronounced unbalanced situations). These are 
 <span><span class="co">#&gt;  8       1 c         Diogenes pugilator      3     2     0</span></span>
 <span><span class="co">#&gt;  9       2 a         Cumopsis fagei          1     2     0</span></span>
 <span><span class="co">#&gt; 10       2 a         Glycera tridactyla      2     2     0</span></span>
-<span><span class="co">#&gt; # ℹ 43 more rows</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $warnings</span></span>
-<span><span class="co">#&gt; NULL</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 43 more rows</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -225,6 +194,9 @@ First-order opportunistic species (pronounced unbalanced situations). These are 
 <ul class="list-unstyled">
 <li>Ciarán J. Murray <br><small class="roles"> Author, maintainer, copyright holder </small> <a href="https://orcid.org/0000-0003-0260-2008" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Ángel Borja <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-1601-2025" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Sarai Pouso <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3208-9882" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Iñigo Muxika <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9181-3781" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Joxe Mikel Garmendia <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9403-1777" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Jørgen L. S. Hansen <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
@@ -241,7 +213,7 @@ First-order opportunistic species (pronounced unbalanced situations). These are 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Ciarán J. Murray, Ángel Borja, Jørgen L. S. Hansen.</p>
+  <p>Developed by Ciarán J. Murray, Ángel Borja, Sarai Pouso, Iñigo Muxika, Joxe Mikel Garmendia, Jørgen L. S. Hansen.</p>
 </div>
 
 <div class="pkgdown-footer-right">
