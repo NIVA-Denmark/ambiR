@@ -2,3 +2,29 @@ url: https://niva-denmark.github.io/ambiR/
 template:
   bootstrap: 5
 
+reference:
+
+- subtitle: AMBI functions
+  desc: >
+    Core AMBI functions.
+- contents:
+  - AMBI
+  - MAMBI
+
+- subtitle: Benthic quality indices
+  desc: >
+    Other benthic quality index functions,
+    including those derived from AMBI.
+- contents:
+  - Hdash
+  - DKI
+  - DKI2
+
+- subtitle: Utility functions
+  desc: >
+    Help functions for quality indices.
+- contents:
+  - AMBI_species
+  - H_sal
+  - AMBI_sal
+  - test_data

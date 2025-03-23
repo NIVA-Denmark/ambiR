@@ -13,10 +13,8 @@ This is an R package implementing **AZTI’s Marine Biotic Index**.
 ## Overview
 
 The package allows the user to calculate both the *AMBI* index and the
-multivariate *M-AMBI* from count data for benthic species.
-
-The original software from AZTI can be downloaded from
-<https://ambi.azti.es/>.
+multivariate *M-AMBI* from count or abundance data for benthic fauna
+species.
 
 In addition, this package includes functions to calculate different
 versions of the *Danish Quality Index* (*DKI*) (in Danish: *Dansk
@@ -29,43 +27,13 @@ Kvalitetsindeks*), a derived benthic index based on AMBI.
   *DKI (v2)*.
 - `DKI()` - calculates the Danish quality index *DKI*.
 
-## Species Groups
+To get started, see `vignette("ambiR")`. For details about running in
+interactive mode, see `vignette("interactive")`.
 
-Input to the `AMBI()` function is a dataframe of species counts with
-optional grouping variables, e.g. station or replicate IDs. The function
-matches species names in the input data with names in the AMBI species
-list, in order to categorise the observed species according to the AMBI
-method. The tool then calculates the *AMBI* index resulting from the
-distribution of individuals between the groups.
-
-The AMBI species list gives the groups (I, II, III, IV, V) in which each
-species is classified, as described by Borja et al (2000):
-
-- *Group I*  
-  Species very sensitive to organic enrichment and present under
-  unpolluted conditions (initial state). They include the specialist
-  carnivores and some deposit- feeding *tubicolous polychaetes*.
-- *Group II*  
-  Species indifferent to enrichment, always present in low densities
-  with non-significant variations with time (from initial state, to
-  slight unbalance). These include suspension feeders, less selective
-  carnivores and scavengers.
-- *Group III*  
-  Species tolerant to excess organic matter enrichment. These species
-  may occur under normal conditions, but their populations are
-  stimulated by organic richment (slight unbalance situations). They are
-  surface deposit-feeding species, as *tubicolous spionids*.
-- *Group IV*  
-  Second-order opportunistic species (slight to pronounced unbalanced
-  situations). Mainly small sized *polychaetes*: subsurface
-  deposit-feeders, such as *cirratulids*.
-- *Group V*  
-  First-order opportunistic species (pronounced unbalanced situations).
-  These are deposit- feeders, which proliferate in reduced sediments.
-
-The list of species and their groups has been updated several times by
-the authors of the AMBI software. The version of the list used here is
-from 8th October 2024.
+The AMBI index was developed by Ángel Borja and colleagues at AZTI. For
+background and explanation of the method for calculation of the AMBI
+index see `vignette("about-AMBI")`. You can also find a link to download
+the original AMBI software.
 
 ## Installation
 
@@ -85,38 +53,31 @@ This is a basic example using a small dataset.
 library(ambiR)
 
 df <- data.frame(station = c("1","1","1","2","2","2"),
-species = c("Acidostoma neglectum",
-             "Acrocirrus validus",
-            "Capitella nonatoi",
-             "Acteocina bullata",
-             "Austrohelice crassa",
-             "Capitella nonatoi"),
-             count = c(23, 14, 5, 13, 17, 11))
+                 species = c("Acidostoma neglectum",
+                             "Acrocirrus validus",
+                             "Capitella nonatoi",
+                             "Acteocina bullata",
+                             "Austrohelice crassa",
+                             "Capitella nonatoi"),
+                 count = c(8, 14, 23, 13, 17, 11))
 
-AMBI(df, by = c("station"), format_pct=2)
-#> Warning: station 1: The percentage of individuals not assigned to a group is higher than
-#> 20% [54.8%].
+AMBI(df, by = c("station"), format_pct=1)
 #> $AMBI
-#> # A tibble: 2 × 11
-#>   station  AMBI     H     S fNA        N I      II    III   IV     V     
-#>   <chr>   <dbl> <dbl> <int> <chr>  <dbl> <chr>  <chr> <chr> <chr>  <chr> 
-#> 1 1        4.89  1.37     3 54.76%    42 0.00%  0.00% 0.00% 73.68% 26.32%
-#> 2 2        4.10  1.56     3 0.00%     41 31.71% 0.00% 0.00% 0.00%  68.29%
+#> # A tibble: 2 × 12
+#>   station  AMBI     H     S fNA       N I     II    III   IV    V    
+#>   <chr>   <dbl> <dbl> <int> <chr> <dbl> <chr> <chr> <chr> <chr> <chr>
+#> 1 1        5.43  1.46     3 17.8%    45 0.0%  0.0%  0.0%  37.8% 62.2%
+#> 2 2        4.10  1.56     3 0.0%     41 31.7% 0.0%  0.0%  0.0%  68.3%
+#> # ℹ 1 more variable: Disturbance <chr>
 #> 
 #> $matched
 #>   station              species count group RA
-#> 1       1 Acidostoma neglectum    23     0  0
+#> 1       1 Acidostoma neglectum     8     0  0
 #> 2       1   Acrocirrus validus    14     4  0
-#> 3       1    Capitella nonatoi     5     5  0
+#> 3       1    Capitella nonatoi    23     5  0
 #> 4       2    Acteocina bullata    13     1  0
 #> 5       2  Austrohelice crassa    17     5  0
 #> 6       2    Capitella nonatoi    11     5  0
-#> 
-#> $warnings
-#> # A tibble: 1 × 2
-#>   station warning                                                               
-#>   <chr>   <chr>                                                                 
-#> 1 1       The percentage of individuals not assigned to a group is higher than …
 ```
 
 Another example using the supplied `test_data`.
@@ -125,27 +86,28 @@ Another example using the supplied `test_data`.
 library(ambiR)
 
 ## calling AMBI using the test data set
-AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=2)
+AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=1)
 #> $AMBI
-#> # A tibble: 3 × 11
-#>   station  AMBI     H     S fNA       N I      II     III    IV     V     
-#>     <dbl> <dbl> <dbl> <int> <chr> <dbl> <chr>  <chr>  <chr>  <chr>  <chr> 
-#> 1       1  1.48  1.80     6 0.00%    16 12.50% 75.00% 12.50% 0.00%  0.00% 
-#> 2       2  1.89  3.54    22 0.00%    80 40.00% 13.75% 30.00% 15.00% 1.25% 
-#> 3       3  4.12  2.50     9 0.00%    24 0.00%  12.50% 29.17% 8.33%  50.00%
+#> # A tibble: 3 × 12
+#>   station  AMBI     H     S fNA       N I     II    III   IV    V    
+#>     <dbl> <dbl> <dbl> <int> <chr> <dbl> <chr> <chr> <chr> <chr> <chr>
+#> 1       1  1.48  1.80     6 0.0%     16 12.5% 75.0% 12.5% 0.0%  0.0% 
+#> 2       2  1.89  3.54    22 0.0%     80 40.0% 13.8% 30.0% 15.0% 1.2% 
+#> 3       3  4.12  2.50     9 0.0%     24 0.0%  12.5% 29.2% 8.3%  50.0%
+#> # ℹ 1 more variable: Disturbance <chr>
 #> 
 #> $AMBI_rep
 #> # A tibble: 8 × 11
-#>   station replicate  AMBI     S fNA       N I      II     III    IV     V     
-#>     <dbl> <chr>     <dbl> <dbl> <chr> <dbl> <chr>  <chr>  <chr>  <chr>  <chr> 
-#> 1       1 a          1.8      3 0.00%     5 0.00%  80.00% 20.00% 0.00%  0.00% 
-#> 2       1 b          1.5      3 0.00%     7 14.29% 71.43% 14.29% 0.00%  0.00% 
-#> 3       1 c          1.12     2 0.00%     4 25.00% 75.00% 0.00%  0.00%  0.00% 
-#> 4       2 a          1.88    12 0.00%    32 40.62% 15.62% 21.88% 21.88% 0.00% 
-#> 5       2 b          2.13    12 0.00%    19 31.58% 15.79% 36.84% 10.53% 5.26% 
-#> 6       2 c          1.66    10 0.00%    29 44.83% 10.34% 34.48% 10.34% 0.00% 
-#> 7       3 a          3.5      5 0.00%     6 0.00%  33.33% 16.67% 33.33% 16.67%
-#> 8       3 b          4.75     6 0.00%    18 0.00%  5.56%  33.33% 0.00%  61.11%
+#>   station replicate  AMBI     S fNA       N I     II    III   IV    V    
+#>     <dbl> <chr>     <dbl> <dbl> <chr> <dbl> <chr> <chr> <chr> <chr> <chr>
+#> 1       1 a          1.8      3 0.0%      5 0.0%  80.0% 20.0% 0.0%  0.0% 
+#> 2       1 b          1.5      3 0.0%      7 14.3% 71.4% 14.3% 0.0%  0.0% 
+#> 3       1 c          1.12     2 0.0%      4 25.0% 75.0% 0.0%  0.0%  0.0% 
+#> 4       2 a          1.88    12 0.0%     32 40.6% 15.6% 21.9% 21.9% 0.0% 
+#> 5       2 b          2.13    12 0.0%     19 31.6% 15.8% 36.8% 10.5% 5.3% 
+#> 6       2 c          1.66    10 0.0%     29 44.8% 10.3% 34.5% 10.3% 0.0% 
+#> 7       3 a          3.5      5 0.0%      6 0.0%  33.3% 16.7% 33.3% 16.7%
+#> 8       3 b          4.75     6 0.0%     18 0.0%  5.6%  33.3% 0.0%  61.1%
 #> 
 #> $matched
 #> # A tibble: 53 × 6
@@ -162,7 +124,4 @@ AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=2)
 #>  9       2 a         Cumopsis fagei          1     2     0
 #> 10       2 a         Glycera tridactyla      2     2     0
 #> # ℹ 43 more rows
-#> 
-#> $warnings
-#> NULL
 ```

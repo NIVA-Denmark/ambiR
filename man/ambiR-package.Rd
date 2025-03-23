@@ -24,6 +24,9 @@ Useful links:
 Authors:
 \itemize{
   \item Ángel Borja \email{aborja@azti.es} (\href{https://orcid.org/0000-0003-1601-2025}{ORCID})
+  \item Sarai Pouso \email{spouso@azti.es} (\href{https://orcid.org/0000-0003-3208-9882}{ORCID})
+  \item Iñigo Muxika \email{imuxika@azti.es} (\href{https://orcid.org/0000-0002-9181-3781}{ORCID})
+  \item Joxe Mikel Garmendia \email{jgarmendia@azti.es} (\href{https://orcid.org/0000-0002-9403-1777}{ORCID})
   \item Jørgen L. S. Hansen \email{joh@ecos.au.dk}
 }
 

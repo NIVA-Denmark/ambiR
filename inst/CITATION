@@ -1,7 +1,7 @@
 bibentry(
   bibtype = "Manual",
   title    = "ambiR: R package implementing the AZTI Marine Biotic Index",
-  author   = "Ciarán J. Murray, Ángel Borja, Jørgen L.S. Hansen",
+  author   = "Ciarán J. Murray, Ángel Borja, Sarai Pouso, Iñigo Muxika, Joxe Mikel Garmendia, Jørgen L.S. Hansen",
   organization = "NIVA Denmark",
   address = "Copenhagen, Denmark",
   year     = "2025",

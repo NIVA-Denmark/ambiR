@@ -1,0 +1,63 @@
+---
+title: "The AMBI index"
+bibliography: references.bib
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The AMBI index}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## The AMBI index
+
+The basis of the AMBI index is that soft-bottom macrofauna are divided into groups according to their sensitivity to increasing environmental stress. The distribution of counts of individuals or relative abundance between the different groups is used to 
+calculate a quantitative measure of the ecological quality of the benthic environment. 
+
+## Species Groups
+
+Input to the `AMBI()` function is a dataframe of species counts with optional 
+grouping variables, e.g. station or replicate IDs. The function matches species
+names in the input data with names in the AMBI species list, in order to categorise
+the observed species according to the AMBI method. The tool then calculates the
+*AMBI* index resulting from the distribution of individuals between the groups.
+
+The AMBI species list gives the groups (I, II, III, IV, V) in which each species 
+is classified, as described by @BORJA20001100.
+
+-   *Group I* \
+    Species very sensitive to organic enrichment and present under
+    unpolluted conditions (initial state). They include the specialist
+    carnivores and some deposit- feeding *tubicolous polychaetes*.
+-   *Group II* \
+    Species indifferent to enrichment, always present in low
+    densities with non-significant variations with time (from initial
+    state, to slight unbalance). These include suspension feeders, less
+    selective carnivores and scavengers.
+-   *Group III* \
+    Species tolerant to excess organic matter enrichment.
+    These species may occur under normal conditions, but their
+    populations are stimulated by organic richment (slight unbalance
+    situations). They are surface deposit-feeding species, as
+    *tubicolous spionids*.
+-   *Group IV* \
+    Second-order opportunistic species (slight to pronounced
+    unbalanced situations). Mainly small sized *polychaetes*: subsurface
+    deposit-feeders, such as *cirratulids*.
+-   *Group V* \
+    First-order opportunistic species (pronounced unbalanced
+    situations). These are deposit- feeders, which proliferate in
+    reduced sediments.
+
+The list of species and their groups has been updated several times by the 
+authors of the AMBI software. The version of the list used here is from 
+8th October 2024.
+
+## M-AMBI - the multivariate AMBI index
+
+The principles of the M-AMBI index are described by @MUXIKA200716
+
+## AMBI software
+
+The original software from AZTI can be downloaded from <https://ambi.azti.es/>.
+
+## References

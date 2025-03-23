@@ -3,8 +3,8 @@ title: "Get started"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Get started}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r, include = FALSE}
@@ -12,10 +12,171 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
 ```
 
-_working on it..._
+This is a brief introduction to calculating AMBI index results.
 
-```{r setup}
+# Species observation data
+
+Your species counts (or abundance) should be organized in a data frame arranged in *long* format. That is, species names are in one column and species counts in another column. If your data represents several stations and/or if there are replicates, then the data should include columns with this information.
+
+The example dataset included with the package, `test_data`, illustrates how the data should be arranged:
+
+```{r test_data}
 library(ambiR)
+
+head(test_data)
+
 ```
+
+If your data look like this, you can go directly to [Calculate AMBI]. If not, the following examples show how to reorganize your data.
+
+## data with species names in columns
+
+Here is an example dataframe where there are counts for species in separate columns:
+
+```{r transpose_wide, include=FALSE}
+library(dplyr)
+library(tidyr)
+
+wide_data_species <- test_data %>%
+  pivot_wider(names_from = "species", 
+              values_from = "count",
+              values_fill = 0)
+  
+```
+
+```{r data_wide_spec}
+
+head(wide_data_species)
+```
+
+To arrange the data in the correct form, use the `tidyr::pivot_longer()` function:
+
+```{r pivot_species}
+library(dplyr)
+library(tidyr)
+
+# columns 1 and 2 contain station and replicate information
+# so, select all columns from 3 to be pivoted 
+
+long_data <- wide_data_species %>%
+  pivot_longer(cols = 3:ncol(wide_data_species), 
+               names_to = "species",
+               values_to = "count")
+
+head(long_data)
+```
+
+## data with stations and replicates in columns
+
+Here is an example where each column contains species counts for a station and replicate. The first row of the table contains the station ID *1, 2, ...* and the second row contains the replicate ID *a, b, ...*. The first column of the table contains species names.
+
+```{r transpose_wide_stns, include=FALSE}
+library(dplyr)
+library(tidyr)
+
+df <- test_data %>%
+  pivot_wider(names_from = c("station","replicate"), 
+              values_from = "count", values_fill = 0)
+
+stns <- names(df)[2:ncol(df)]
+
+stns <- stns %>% 
+  sapply(strsplit,"_") 
+reps <- stns  %>%  
+  sapply(function(x){x[2]})
+stns <- stns  %>%  
+  sapply(function(x){x[1]})
+n <- 1+length(stns)
+df2 <- matrix(nrow=2, ncol=n) %>% 
+  as.data.frame()
+
+df2[1,2:n] <- stns
+df2[2,2:n] <- reps
+names(df) <- names(df2)
+df <- df %>%
+  mutate(across(all_of(names(df)), as.character))
+
+df <- df2 %>%
+  bind_rows(df)
+
+names(df) <- rep("", ncol(df))
+
+wide_data_stns <- df
+```
+
+```{r data_wide_stns}
+head(wide_data_stns)
+```
+
+Note that if the if the observation data *only* has stations *or* replicates, then rearranging the data can be done in one step, as in the [previous example](data with species names in columns). But in this case, the station and replicate information are in separate rows. The restructuring process is a little more complicated.
+
+Before we can use a pivot function, we need to combine the station ID and replicate ID for each column into a single value. In this example, each station ID and replicate ID are joined into a single character value, with an underscore to separate them *`_`*. The underscore will be used again after pivoting the table to identify where to split the combined station/replicate values back into separate values again.
+
+If there are station names which already contain underscores, then another suitable character should be used when joining and splitting station/replicate IDs.
+
+```{r combine_stn_rep}
+sep_character <- "_"
+
+# get the station IDs from row 1, excluding column 1 (this contains species names)
+stations <- wide_data_stns[1, 2:ncol(wide_data_stns)]
+
+# get the replicate IDs from row 2
+replicates <- wide_data_stns[2, 2:ncol(wide_data_stns)]
+
+# combine the station and replicate for each column using an underscore
+station_replicate <- paste(stations, replicates, sep=sep_character)
+
+# now we have extracted the station/replicate information, we can drop the 
+# first two rows of the data frame
+wide_data_stns <- wide_data_stns[3:nrow(wide_data_stns),]
+
+# apply the station_replicates as column names
+names(wide_data_stns) <- c("species", station_replicate)
+
+head(wide_data_stns)
+```
+
+We can see that the column names now contain the combined station and replicate information. We are ready to transpose the data.
+
+```{r pivot_stations}
+# column 1 contains species names
+# so, select all columns from 2 to be pivoted 
+
+long_data <- wide_data_stns %>%
+  pivot_longer(cols = 2:ncol(wide_data_stns), 
+               names_to = "stn_rep",
+               values_to = "count")
+
+head(long_data)
+```
+
+Now we can split the *stn_rep* column into separate columns for *station* and *replicate*, We will use the underscore we introduced earlier to indentify where the split should occur:
+
+```{r split_stations}
+
+long_data <- long_data %>%
+  separate_wider_delim(cols="stn_rep", 
+                       delim = sep_character,
+                       names=c("station", "replicate"))
+
+head(long_data)
+```
+
+Now we are ready to calculate AMBI...
+
+# Calculate AMBI
+
+[Species groups](./about-AMBI.html#species-groups)
+
+# Calculate M-AMBI
+
+Calculate M-AMBI the multivariate AMBI index, based on the three separate species diversity metrics:
+
+-   AMBI index `AMBI`.
+-   Shannon Wiener diversity index `H'`
+-   Species richness `S`.
+
+All three indices are returned by the `AMBI()` function and therefore the results include all necessary input data for `MAMBI()`.
