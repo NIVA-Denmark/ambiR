@@ -180,6 +180,11 @@
 #'                    percentages, values are converted to text and may lose
 #'                    precision.
 #'
+#' @param show_class (default `TRUE`). If `TRUE` then the `AMBI` results will
+#'                   include a column showing the AMBI disturbance classification
+#'                     _Undisturbed_, _Slightly disturbed_, _Moderately disturbed_,
+#'                      or _Heavily disturbed_.
+#'
 #' @return a list of dataframes:
 #'
 #'  * `AMBI` : results of the AMBI index calculations. For each unique
@@ -261,7 +266,8 @@ AMBI <- function(df, by = NULL,
                  groups_strict = TRUE,
                  quiet = FALSE,
                  interactive = FALSE,
-                 format_pct = NA
+                 format_pct = NA,
+                 show_class = TRUE
 ){
 
   if(!interactive()){
@@ -782,12 +788,27 @@ AMBI <- function(df, by = NULL,
   }
 } # no species matched
 
-  if(is.na(var_rep)){
-    return(list(AMBI=df, matched=df_matched, warnings=dfwarn))
-  }else{
-    return(list(AMBI=df, AMBI_rep=dfrep,
-                matched=df_matched, warnings=dfwarn))
+  if(show_class==T){
+    df <- df %>%
+      mutate(Disturbance=.ambi_class(AMBI))
   }
+
+  if(!is.null(dfwarn)){
+    if(is.na(var_rep)){
+      return(list(AMBI=df, matched=df_matched, warnings=dfwarn))
+    }else{
+      return(list(AMBI=df, AMBI_rep=dfrep,
+                  matched=df_matched, warnings=dfwarn))
+    }
+  }else{
+    if(is.na(var_rep)){
+      return(list(AMBI=df, matched=df_matched))
+    }else{
+      return(list(AMBI=df, AMBI_rep=dfrep,
+                  matched=df_matched))
+    }
+  }
+
 }
 
 # ----------------- auxiliary functions -----------------
@@ -1017,10 +1038,30 @@ ambi_warnings <- function(df, by, quiet=F){
 
 }
 
+# return the ambi status description for a single ambi index value
+.ambi_class_single <- function(ambi){
+  ambi <- as.numeric(ambi)
+  classes <- c("Undisturbed", "Slightly disturbed", "Moderately disturbed", "Heavily disturbed")
+  bounds <- c(1.2, 3.3, 5)
+  n <- 1 + length(bounds[bounds < ambi])
+  class <- ifelse(is.na(ambi), NA_character_, classes[n])
+  return(class)
+}
+
+# wrapper to return ambi status for a vector of ambi indices
+.ambi_class <- function(ambi){
+  ambi_class <- lapply(ambi, .ambi_class_single)
+  ambi_class <- unlist(ambi_class)
+  return(ambi_class)
+}
 utils::globalVariables(c(":="))
 
 percent <- function(x, digits = 3, format = "f", ...) {
   # Create user-defined function
   paste0(formatC(x * 100, format = format, digits = digits, ...), "%")
 }
+
+
+
+
 

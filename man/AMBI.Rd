@@ -21,7 +21,8 @@ AMBI(
   groups_strict = TRUE,
   quiet = FALSE,
   interactive = FALSE,
-  format_pct = NA
+  format_pct = NA,
+  show_class = TRUE
 )
 }
 \arguments{
@@ -85,6 +86,11 @@ with the number of digits shown after the decimal point
 equal to the number specified. \emph{NOTE} by formatting as
 percentages, values are converted to text and may lose
 precision.}
+
+\item{show_class}{(default \code{TRUE}). If \code{TRUE} then the \code{AMBI} results will
+include a column showing the AMBI disturbance classification
+\emph{Undisturbed}, \emph{Slightly disturbed}, \emph{Moderately disturbed},
+or \emph{Heavily disturbed}.}
 }
 \value{
 a list of dataframes:

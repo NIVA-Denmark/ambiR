@@ -24,10 +24,7 @@ This is an R package implementing **AZTI’s Marine Biotic Index**.
 ## Overview
 
 The package allows the user to calculate both the *AMBI* index and the
-multivariate *M-AMBI* from count data for benthic species.
-
-The original software from AZTI can be downloaded from
-<https://ambi.azti.es/>.
+multivariate *M-AMBI* from count or abundance data for benthic fauna species.
 
 In addition, this package includes functions to calculate different
 versions of the *Danish Quality Index* (*DKI*) (in Danish: *Dansk
@@ -40,51 +37,18 @@ Kvalitetsindeks*), a derived benthic index based on AMBI.
     *DKI (v2)*.
 -   `DKI()` - calculates the Danish quality index *DKI*.
 
-## Species Groups
+To get started, see `vignette("ambiR")`. For details about running in 
+interactive mode, see `vignette("interactive")`.
 
-Input to the `AMBI()` function is a dataframe of species counts with optional 
-grouping variables, e.g. station or replicate IDs. The function matches species
-names in the input data with names in the AMBI species list, in order to categorise
-the observed species according to the AMBI method. The tool then calculates the
-*AMBI* index resulting from the distribution of individuals between the groups.
-
-The AMBI species list gives the groups (I, II, III, IV, V) in which each species 
-is classified, as described by Borja et al (2000):
-
--   *Group I* \
-    Species very sensitive to organic enrichment and present under
-    unpolluted conditions (initial state). They include the specialist
-    carnivores and some deposit- feeding *tubicolous polychaetes*.
--   *Group II* \
-    Species indifferent to enrichment, always present in low
-    densities with non-significant variations with time (from initial
-    state, to slight unbalance). These include suspension feeders, less
-    selective carnivores and scavengers.
--   *Group III* \
-    Species tolerant to excess organic matter enrichment.
-    These species may occur under normal conditions, but their
-    populations are stimulated by organic richment (slight unbalance
-    situations). They are surface deposit-feeding species, as
-    *tubicolous spionids*.
--   *Group IV* \
-    Second-order opportunistic species (slight to pronounced
-    unbalanced situations). Mainly small sized *polychaetes*: subsurface
-    deposit-feeders, such as *cirratulids*.
--   *Group V* \
-    First-order opportunistic species (pronounced unbalanced
-    situations). These are deposit- feeders, which proliferate in
-    reduced sediments.
-
-The list of species and their groups has been updated several times by the 
-authors of the AMBI software. The version of the list used here is from 
-8th October 2024.
-
+The AMBI index was developed by Ángel Borja and colleagues at AZTI. For 
+background and explanation of the method for calculation of the AMBI index see `vignette("about-AMBI")`. You can also find a link to download the original AMBI
+software.
 
 ## Installation
 
 You can install the development version of ambiR from [GitHub](https://github.com/niva-denmark/ambiR/) with:
 
-``` r
+```{r install, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("NIVA-Denmark/ambiR")
 
@@ -98,15 +62,15 @@ This is a basic example using a small dataset.
 library(ambiR)
 
 df <- data.frame(station = c("1","1","1","2","2","2"),
-species = c("Acidostoma neglectum",
-             "Acrocirrus validus",
-            "Capitella nonatoi",
-             "Acteocina bullata",
-             "Austrohelice crassa",
-             "Capitella nonatoi"),
-             count = c(23, 14, 5, 13, 17, 11))
+                 species = c("Acidostoma neglectum",
+                             "Acrocirrus validus",
+                             "Capitella nonatoi",
+                             "Acteocina bullata",
+                             "Austrohelice crassa",
+                             "Capitella nonatoi"),
+                 count = c(8, 14, 23, 13, 17, 11))
 
-AMBI(df, by = c("station"), format_pct=2)
+AMBI(df, by = c("station"), format_pct=1)
 
 ```
 
@@ -116,7 +80,7 @@ Another example using the supplied `test_data`.
 library(ambiR)
 
 ## calling AMBI using the test data set
-AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=2)
+AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=1)
 
 
 ```

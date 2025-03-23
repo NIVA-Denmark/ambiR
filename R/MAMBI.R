@@ -105,6 +105,7 @@
 #' `limits_AMBI`, `limits_H`, `limits_S` or taken from data.
 #'
 #' @seealso [AMBI()] which calculates the indices required as input for `MAMBI()`.
+#' For background information about the M-AMBI index see `vignette("about-AMBI")`.
 #'
 #' @import tidyr
 #' @import dplyr
