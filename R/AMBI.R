@@ -852,7 +852,7 @@ list_similar <- function(df, species, n0, n, var_species, var_group_AMBI){
 
   spc <- X <- NULL
 
-  maxchar <- df %>% pull("species") %>% nchar() %>% max()
+  maxchar <- df %>% pull(var_species) %>% nchar() %>% max()
 
   species <- strsplit(species, " ") %>% unlist()
   species <- species[1]
@@ -889,7 +889,8 @@ list_similar <- function(df, species, n0, n, var_species, var_group_AMBI){
     df <- df %>%
       rowwise() %>%
       mutate(spc = strrep("\u00a0", n)) %>%
-      mutate(s = paste0(" {.emph ", !!as.name(var_species),"}", spc," (Group ",!!as.name(var_group_AMBI),")"))
+      mutate(s = paste0(" {.emph ", !!as.name(var_species),"}", spc,
+                        " (Group ",!!as.name(var_group_AMBI),")"))
 
     similar <- df$s
   }else{
