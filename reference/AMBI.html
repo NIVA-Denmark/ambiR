@@ -59,7 +59,8 @@ and calculates the AMBI index.</p>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  interactive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  format_pct <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  show_class <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  show_class <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  exact_species_match <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -162,6 +163,14 @@ precision.</p></dd>
 include a column showing the AMBI disturbance classification
 <em>Undisturbed</em>, <em>Slightly disturbed</em>, <em>Moderately disturbed</em>,
 or <em>Heavily disturbed</em>.</p></dd>
+
+
+<dt id="arg-exact-species-match">exact_species_match<a class="anchor" aria-label="anchor" href="#arg-exact-species-match"></a></dt>
+<dd><p>by default, a family name without <em>sp.</em> will
+be matched with a family name on the AMBI (or
+user-specified) species list which includes <em>sp.</em>. If
+the option <code>exact_species_match = TRUE</code> is used, species
+names will be matched only with identical names.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -328,19 +337,19 @@ calculations will process as in the non-interactive mode.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>       3 b          4.75     6     0    18 0     0.055<span style="text-decoration: underline;">6</span> 0.333 0     0.611 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $matched</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 53 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    station replicate species             count group    RA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>       1 a         Cumopsis fagei          2     2     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>       1 a         Diogenes pugilator      2     2     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>       1 a         Paradoneis armata       1     3     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>       1 b         Bathyporeia elegans     1     1     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>       1 b         Diogenes pugilator      5     2     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>       1 b         Dispio uncinata         1     3     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>       1 c         Astarte sp.             1     1     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>       1 c         Diogenes pugilator      3     2     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>       2 a         Cumopsis fagei          1     2     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>       2 a         Glycera tridactyla      2     2     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 53 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    station replicate species             species_matched     count group    RA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>       1 a         Cumopsis fagei      Cumopsis fagei          2     2     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>       1 a         Diogenes pugilator  Diogenes pugilator      2     2     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>       1 a         Paradoneis armata   Paradoneis armata       1     3     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>       1 b         Bathyporeia elegans Bathyporeia elegans     1     1     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>       1 b         Diogenes pugilator  Diogenes pugilator      5     2     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>       1 b         Dispio uncinata     Dispio uncinata         1     3     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>       1 c         Astarte sp.         Astarte sp.             1     1     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>       1 c         Diogenes pugilator  Diogenes pugilator      3     2     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>       2 a         Cumopsis fagei      Cumopsis fagei          1     2     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>       2 a         Glycera tridactyla  Glycera tridactyla      2     2     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 43 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -369,12 +378,12 @@ calculations will process as in the non-interactive mode.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: Disturbance &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $matched</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   station              species count group RA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       1 Acidostoma neglectum     2     0  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       1   Acrocirrus validus     4     4  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       2    Acteocina bullata     5     1  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       2  Austrohelice crassa     3     5  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       2    Capitella nonatoi     7     5  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   station              species      species_matched count group RA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       1 Acidostoma neglectum Acidostoma neglectum     2     0  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       1   Acrocirrus validus   Acrocirrus validus     4     4  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       2    Acteocina bullata    Acteocina bullata     5     1  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       2  Austrohelice crassa  Austrohelice crassa     3     5  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       2    Capitella nonatoi    Capitella nonatoi     7     5  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $warnings</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
@@ -419,19 +428,19 @@ calculations will process as in the non-interactive mode.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>       3 b          4.75     6     0    18 0     0.055<span style="text-decoration: underline;">6</span> 0.333 0     0.611 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $matched</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 53 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    station replicate species             count group source    RA group_note    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>       1 a         Cumopsis fagei          2     2 <span style="color: #BB0000;">NA</span>         0 ignored user …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>       1 a         Diogenes pugilator      2     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>       1 a         Paradoneis armata       1     3 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>       1 b         Bathyporeia elegans     1     1 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>       1 b         Diogenes pugilator      5     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>       1 b         Dispio uncinata         1     3 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>       1 c         Astarte sp.             1     1 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>       1 c         Diogenes pugilator      3     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>       2 a         Cumopsis fagei          1     2 <span style="color: #BB0000;">NA</span>         0 ignored user …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>       2 a         Glycera tridactyla      2     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 53 × 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    station replicate species species_matched count group source    RA group_note</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>       1 a         Cumops… Cumopsis fagei      2     2 <span style="color: #BB0000;">NA</span>         0 ignored u…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>       1 a         Diogen… Diogenes pugil…     2     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>       1 a         Parado… Paradoneis arm…     1     3 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>       1 b         Bathyp… Bathyporeia el…     1     1 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>       1 b         Diogen… Diogenes pugil…     5     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>       1 b         Dispio… Dispio uncinata     1     3 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>       1 c         Astart… Astarte sp.         1     1 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>       1 c         Diogen… Diogenes pugil…     3     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>       2 a         Cumops… Cumopsis fagei      1     2 <span style="color: #BB0000;">NA</span>         0 ignored u…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>       2 a         Glycer… Glycera tridac…     2     2 <span style="color: #BB0000;">NA</span>         0 <span style="color: #BB0000;">NA</span>        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 43 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
