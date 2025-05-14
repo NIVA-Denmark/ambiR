@@ -22,7 +22,8 @@ AMBI(
   quiet = FALSE,
   interactive = FALSE,
   format_pct = NA,
-  show_class = TRUE
+  show_class = TRUE,
+  exact_species_match = FALSE
 )
 }
 \arguments{
@@ -91,6 +92,12 @@ precision.}
 include a column showing the AMBI disturbance classification
 \emph{Undisturbed}, \emph{Slightly disturbed}, \emph{Moderately disturbed},
 or \emph{Heavily disturbed}.}
+
+\item{exact_species_match}{by default, a family name without \emph{sp.} will
+be matched with a family name on the AMBI (or
+user-specified) species list which includes \emph{sp.}. If
+the option \code{exact_species_match = TRUE} is used, species
+names will be matched only with identical names.}
 }
 \value{
 a list of dataframes:

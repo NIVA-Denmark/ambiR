@@ -49,3 +49,4 @@ H_sal <- function(psal, intercept=2.117, slope=0.086){
   # H_max as function of salinity
   return(2.117 + 0.086 * psal)
 }
+
