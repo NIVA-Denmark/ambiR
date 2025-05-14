@@ -332,7 +332,12 @@ AMBI <- function(df, by = NULL,
     stop(msg)
   }
 
-  df_ambi <- AMBI_species()
+  # eliminate duplicates - this should really be fixed in the data
+  df_ambi <- AMBI_species() %>%
+    group_by(species) %>%
+    slice(1) %>%
+    ungroup()
+
   names(df_ambi)[names(df_ambi)=="species"] <- var_species
   names(df_ambi)[names(df_ambi)=="group"] <- var_group_AMBI
 
@@ -1131,7 +1136,8 @@ percent <- function(x, digits = 3, format = "f", ...) {
   species_list <- NULL
 
   species_list <- df_species %>%
-    pull(var_species)
+    pull(var_species) %>%
+    unique()
 
   species_match <- df_obs %>%
     pull(var_species_obs) %>%
