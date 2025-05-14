@@ -185,6 +185,12 @@
 #'                     _Undisturbed_, _Slightly disturbed_, _Moderately disturbed_,
 #'                      or _Heavily disturbed_.
 #'
+#' @param exact_species_match by default, a family name without _sp._ will
+#'                    be matched with a family name on the AMBI (or
+#'                    user-specified) species list which includes _sp._. If
+#'                    the option `exact_species_match = TRUE` is used, species
+#'                    names will be matched only with identical names.
+#'
 #' @return a list of dataframes:
 #'
 #'  * `AMBI` : results of the AMBI index calculations. For each unique
@@ -267,7 +273,8 @@ AMBI <- function(df, by = NULL,
                  quiet = FALSE,
                  interactive = FALSE,
                  format_pct = NA,
-                 show_class = TRUE
+                 show_class = TRUE,
+                 exact_species_match = FALSE
 ){
 
   if(!interactive()){
@@ -279,7 +286,7 @@ AMBI <- function(df, by = NULL,
   sum_count <- wt <- f <- n_species <- count_0 <- NULL
   species <- S <- ambi_group <- species_1 <- NULL
   RA <- U <- NULL
-
+  var_species_matched <- "species_matched"
 
   fill_val <- 0
 
@@ -493,10 +500,19 @@ AMBI <- function(df, by = NULL,
       ungroup()
   }
 
+  # unmatched <- df %>%
+  #   distinct(!!as.name(var_species)) %>%
+  #   dplyr::left_join(df_species, by=dplyr::join_by(!!var_species==!!var_species)) %>%
+  #   filter(is.na(!!as.name(var_group_AMBI))) %>%
+  #   dplyr::pull(var_species)
+
   unmatched <- df %>%
     distinct(!!as.name(var_species)) %>%
-    dplyr::left_join(df_species, by=dplyr::join_by(!!var_species==!!var_species)) %>%
-    filter(is.na(!!as.name(var_group_AMBI))) %>%
+    .species_match(df_species,
+                   var_species_obs=var_species,
+                   var_species = var_species,
+                   exact = exact_species_match) %>%
+    filter(is.na(!!as.name(var_species_matched))) %>%
     dplyr::pull(var_species)
 
   # unmatched <- unmatched[,var_species]
@@ -577,7 +593,16 @@ AMBI <- function(df, by = NULL,
   }
 
   df <- df %>%
-    dplyr::left_join(df_species, by=dplyr::join_by(!!var_species==!!var_species))
+    .species_match(df_species,
+                   var_species_obs = var_species,
+                   var_species = var_species,
+                   exact = exact_species_match) %>%
+    relocate(!!var_species_matched, .after = !!var_species)
+
+
+  df <- df %>%
+    dplyr::left_join(df_species,
+                     by=dplyr::join_by(!!var_species_matched==!!var_species))
 
   df_matched <- df
   df <- df %>%
@@ -811,8 +836,7 @@ AMBI <- function(df, by = NULL,
 
 }
 
-# ----------------- auxiliary functions -----------------
-
+# auxiliary functions
 
 species_check_duplicates <- function(df,
                                      var_species,
@@ -1065,4 +1089,61 @@ percent <- function(x, digits = 3, format = "f", ...) {
 
 
 
+# ---------------- species name matching ----------------------------
 
+.species_match_single<- function(species, species_list, exact=F){
+
+  res <- NULL
+
+  species <- ifelse(is.na(species),"",species)
+  res <- species_list[species_list==species]
+
+  if(length(res)==0){
+    if(exact!=T){
+      species_list2 <- .firstCap(species_list)
+      species_list2 <- sub(" sp\\.","", species_list2)
+      species <- .firstCap(species)
+      species2 <- sub(" sp\\.","", species)
+      species2 <- sub(" spp\\.","", species2)
+      res <- species_list[species_list2==species2]
+      if(length(res)==0){
+        res <- NA_character_
+      }
+    }else{
+      res <- NA_character_
+    }
+  }
+  if(length(res)>1){
+    n_res <- length(res)
+    msg <- paste0(res, collapse = ", ")
+    msg <- paste0(species, " had ", n_res, " matches: ", msg)
+    cli::cli_warn(msg)
+    res <- res[1]
+  }
+  return(res)
+}
+
+.species_match <- function(df_obs, df_species,
+                           var_species_obs="species",
+                           var_species="species",
+                           exact=F){
+  species_match <- NULL
+  species_list <- NULL
+
+  species_list <- df_species %>%
+    pull(var_species)
+
+  species_match <- df_obs %>%
+    pull(var_species_obs) %>%
+    lapply(.species_match_single, species_list, exact) %>%
+    unlist()
+
+  df_obs$species_matched <- species_match
+
+  return(df_obs)
+}
+
+.firstCap <- function(x) {
+  paste0(toupper(substring(x,1,1)),
+         tolower(substring(x,2)))
+}

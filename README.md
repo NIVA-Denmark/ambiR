@@ -71,13 +71,13 @@ AMBI(df, by = c("station"), format_pct=1)
 #> # ℹ 1 more variable: Disturbance <chr>
 #> 
 #> $matched
-#>   station              species count group RA
-#> 1       1 Acidostoma neglectum     8     0  0
-#> 2       1   Acrocirrus validus    14     4  0
-#> 3       1    Capitella nonatoi    23     5  0
-#> 4       2    Acteocina bullata    13     1  0
-#> 5       2  Austrohelice crassa    17     5  0
-#> 6       2    Capitella nonatoi    11     5  0
+#>   station              species      species_matched count group RA
+#> 1       1 Acidostoma neglectum Acidostoma neglectum     8     0  0
+#> 2       1   Acrocirrus validus   Acrocirrus validus    14     4  0
+#> 3       1    Capitella nonatoi    Capitella nonatoi    23     5  0
+#> 4       2    Acteocina bullata    Acteocina bullata    13     1  0
+#> 5       2  Austrohelice crassa  Austrohelice crassa    17     5  0
+#> 6       2    Capitella nonatoi    Capitella nonatoi    11     5  0
 ```
 
 Another example using the supplied `test_data`.
@@ -110,18 +110,18 @@ AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=1)
 #> 8       3 b          4.75     6 0.0%     18 0.0%  5.6%  33.3% 0.0%  61.1%
 #> 
 #> $matched
-#> # A tibble: 53 × 6
-#>    station replicate species             count group    RA
-#>      <dbl> <chr>     <chr>               <dbl> <dbl> <dbl>
-#>  1       1 a         Cumopsis fagei          2     2     0
-#>  2       1 a         Diogenes pugilator      2     2     0
-#>  3       1 a         Paradoneis armata       1     3     0
-#>  4       1 b         Bathyporeia elegans     1     1     0
-#>  5       1 b         Diogenes pugilator      5     2     0
-#>  6       1 b         Dispio uncinata         1     3     0
-#>  7       1 c         Astarte sp.             1     1     0
-#>  8       1 c         Diogenes pugilator      3     2     0
-#>  9       2 a         Cumopsis fagei          1     2     0
-#> 10       2 a         Glycera tridactyla      2     2     0
+#> # A tibble: 53 × 7
+#>    station replicate species             species_matched     count group    RA
+#>      <dbl> <chr>     <chr>               <chr>               <dbl> <dbl> <dbl>
+#>  1       1 a         Cumopsis fagei      Cumopsis fagei          2     2     0
+#>  2       1 a         Diogenes pugilator  Diogenes pugilator      2     2     0
+#>  3       1 a         Paradoneis armata   Paradoneis armata       1     3     0
+#>  4       1 b         Bathyporeia elegans Bathyporeia elegans     1     1     0
+#>  5       1 b         Diogenes pugilator  Diogenes pugilator      5     2     0
+#>  6       1 b         Dispio uncinata     Dispio uncinata         1     3     0
+#>  7       1 c         Astarte sp.         Astarte sp.             1     1     0
+#>  8       1 c         Diogenes pugilator  Diogenes pugilator      3     2     0
+#>  9       2 a         Cumopsis fagei      Cumopsis fagei          1     2     0
+#> 10       2 a         Glycera tridactyla  Glycera tridactyla      2     2     0
 #> # ℹ 43 more rows
 ```

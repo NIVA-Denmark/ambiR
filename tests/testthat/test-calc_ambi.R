@@ -38,3 +38,22 @@ test_that("AMBI with missing S", {
   ambi <- ambiR::AMBI(df2)$AMBI
   expect_equal(ambi$S, 5)
 })
+
+df3 <- data.frame(species=c("Diastylis","Diastylis sp."),
+                  count=c(2,2))
+
+test_that("AMBI without exact name match", {
+  n <- ambiR::AMBI(df3)$matched %>%
+    filter(!is.na(group)) %>%
+    nrow()
+  expect_equal(n, 2)
+})
+
+test_that("AMBI with exact name match", {
+  n <- ambiR::AMBI(df3, exact_species_match = T)$matched %>%
+    filter(!is.na(group)) %>%
+    nrow()
+  expect_equal(n, 1)
+})
+
+
