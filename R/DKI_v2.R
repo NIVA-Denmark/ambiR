@@ -30,7 +30,7 @@
 #'
 #' @source
 #'
-#' The Danish quality index is described in
+#' The Danish quality index is described in Carstensen et al (2014)
 #'
 #' Carstensen, J., Krause-Jensen, D., Josefson, A. (2014) Development and testing
 #' of tools for intercalibration of phytoplankton, macrovegetation and benthic

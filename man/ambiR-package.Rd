@@ -6,6 +6,8 @@
 \alias{ambiR-package}
 \title{ambiR: Calculate AZTI’s Marine Biotic Index}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 This package implements calculations of AZTI’s Marine Biotic Index _AMBI_, as well as the Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12): 1100-1114_.
 }
 \seealso{
@@ -27,7 +29,6 @@ Authors:
   \item Sarai Pouso \email{spouso@azti.es} (\href{https://orcid.org/0000-0003-3208-9882}{ORCID})
   \item Iñigo Muxika \email{imuxika@azti.es} (\href{https://orcid.org/0000-0002-9181-3781}{ORCID})
   \item Joxe Mikel Garmendia \email{jgarmendia@azti.es} (\href{https://orcid.org/0000-0002-9403-1777}{ORCID})
-  \item Jørgen L. S. Hansen \email{joh@ecos.au.dk}
 }
 
 }
