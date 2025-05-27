@@ -82,6 +82,9 @@ in the observation data were not recognized, you can manually assign the
 species to an <code>AMBI</code> species group.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niva-denmark.github.io/ambiR/">ambiR</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="test-data">Test data<a class="anchor" aria-label="anchor" href="#test-data"></a>
+</h2>
 <p>We create a test data set with species names and counts</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,</span>
@@ -99,7 +102,11 @@ species to an <code>AMBI</code> species group.</p>
 <span>                             <span class="st">"Aglaophenia kirchenpaueri"</span>,</span>
 <span>                             <span class="st">"Tricellaria sp."</span><span class="op">)</span>,</span>
 <span>                 count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Call the <code><a href="../reference/AMBI.html">AMBI()</a></code> function using the
+</div>
+<div class="section level2">
+<h2 id="instructions">Instructions<a class="anchor" aria-label="anchor" href="#instructions"></a>
+</h2>
+<p>The <code><a href="../reference/AMBI.html">AMBI()</a></code> function is called using the
 <code>interactive = TRUE</code> argument.</p>
 <p>If any of the species names in the input data frame were not
 recognized as belonging to the <code>AMBI</code> species list
@@ -130,6 +137,10 @@ be aborted. Any species groups assigned manually up to this point will
 be discarded and the AMBI calculations will continue using the default,
 unsupervised, method.</p></li>
 </ul>
+</div>
+<div class="section level2">
+<h2 id="interactive-ambi-calculation">Interactive AMBI calculation<a class="anchor" aria-label="anchor" href="#interactive-ambi-calculation"></a>
+</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">df</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, quiet<span class="op">=</span><span class="cn">F</span>, interactive <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -225,18 +236,47 @@ unrecognized species should be assigned to the same group.</p>
 <span><span class="co">#&gt; ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar</span></span>
 <span><span class="co">#&gt;  names. x - abort interactive assignment.</span></span></code></pre></div>
 <p>This process is repeated for each unrecognized species name.</p>
+</div>
+<div class="section level2">
+<h2 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a>
+</h2>
+<p>The <code><a href="../reference/AMBI.html">AMBI()</a></code> function returns a list of three dataframes,
+including <code>matched</code>. This dataframe shows which groups
+species have been assigned to and after interactive species matching, it
+will include the column <code>source</code>. An <em>‘I’</em> in this
+column indicates that the group was assigned interactively.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="sc">$</span>matched</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>   station                   species           species_matched count group source RA</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="dv">1</span>        <span class="dv">1</span>      Acidostoma neglectum      Acidostoma neglectum     <span class="dv">2</span>     <span class="dv">0</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>  <span class="dv">0</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="dv">2</span>        <span class="dv">1</span>        Acrocirrus validus        Acrocirrus validus     <span class="dv">4</span>     <span class="dv">4</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>  <span class="dv">0</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="dv">3</span>        <span class="dv">1</span>         Acteocina bullata         Acteocina bullata     <span class="dv">5</span>     <span class="dv">1</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>  <span class="dv">0</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="dv">4</span>        <span class="dv">1</span>       Austrohelice crassa       Austrohelice crassa     <span class="dv">3</span>     <span class="dv">5</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>  <span class="dv">0</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="dv">5</span>        <span class="dv">1</span>         Capitella nonatoi         Capitella nonatoi     <span class="dv">7</span>     <span class="dv">5</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>  <span class="dv">0</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="dv">6</span>        <span class="dv">1</span>       Watersipora subatra       Watersipora subatra     <span class="dv">2</span>     <span class="dv">0</span>      I <span class="cn">NA</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="dv">7</span>        <span class="dv">2</span>        Zanclea giancarloi        Zanclea giancarloi     <span class="dv">4</span>     <span class="dv">0</span>      I <span class="cn">NA</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="dv">8</span>        <span class="dv">2</span>          Zanclea sessilis          Zanclea sessilis     <span class="dv">5</span>     <span class="dv">0</span>      I <span class="cn">NA</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="dv">9</span>        <span class="dv">2</span>          Zonorhynchus sp.          Zonorhynchus sp.     <span class="dv">3</span>     <span class="dv">0</span>      I <span class="cn">NA</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="dv">10</span>       <span class="dv">2</span>          Acholoe squamosa          Acholoe squamosa     <span class="dv">7</span>     <span class="dv">0</span>      I <span class="cn">NA</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="dv">11</span>       <span class="dv">2</span> Aglaophenia kirchenpaueri Aglaophenia kirchenpaueri     <span class="dv">2</span>     <span class="dv">0</span>      I <span class="cn">NA</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="dv">12</span>       <span class="dv">2</span>           Tricellaria sp.           Tricellaria sp.     <span class="dv">3</span>     <span class="dv">3</span>      I <span class="cn">NA</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="aborting-interactive-mode">Aborting interactive mode<a class="anchor" aria-label="anchor" href="#aborting-interactive-mode"></a>
+</h2>
 <p>If, at any point in the interactive species assignment process we
 type <code>x</code> then the interactive process will be aborted. You
 will see the following message</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span></span>
 <span></span>
 <span><span class="co">#&gt; ! interactive species assignment cancelled</span></span></code></pre></div>
 <p>Any species groups assigned manually up to this point will be
 discarded and the AMBI calculations will proceed using the default,
 unsupervised, method.</p>
+</div>
 
-  </main>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
