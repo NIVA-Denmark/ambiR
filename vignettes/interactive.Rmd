@@ -32,6 +32,8 @@ assign the species to an `AMBI` species group.
 library(ambiR)
 ```
 
+## Test data
+
 We create a test data set with species names and counts
 
 ```{r data}
@@ -52,7 +54,9 @@ df <- data.frame(station = c("1","1","1","1","1","1",
                  count = c(2, 4, 5, 3, 7, 2, 4, 5, 3, 7, 2, 3))
 ```
 
-Call the `AMBI()` function using the `interactive = TRUE` argument.
+## Instructions
+
+The `AMBI()` function is called using the `interactive = TRUE` argument.
 
 If any of the species names in the input data frame were not recognized as 
 belonging to the `AMBI` species list *or* to a user-defined species list, if 
@@ -81,6 +85,8 @@ list, 10 at a time.
 -   `x` - the interactive species assignment process will be aborted. Any 
 species groups assigned manually up to this point will be discarded and the 
 AMBI calculations will continue using the default, unsupervised, method.
+
+## Interactive AMBI calculation
 
 ```{r step1, eval=FALSE, include=TRUE}
 AMBI(df, by = c("station"), quiet=F, interactive = T)
@@ -192,6 +198,32 @@ assumption that our unrecognized species should be assigned to the same group.
 ```
 
 This process is repeated for each unrecognized species name.
+
+## Results
+
+The `AMBI()` function returns a list of three dataframes, including `matched`. 
+This dataframe shows which groups species have been assigned to and after 
+interactive species matching, it will include the column `source`.
+An _'I'_ in this column indicates that the group was assigned interactively.
+
+```{r matched, eval=FALSE, include=TRUE}
+$matched
+   station                   species           species_matched count group source RA
+1        1      Acidostoma neglectum      Acidostoma neglectum     2     0   <NA>  0
+2        1        Acrocirrus validus        Acrocirrus validus     4     4   <NA>  0
+3        1         Acteocina bullata         Acteocina bullata     5     1   <NA>  0
+4        1       Austrohelice crassa       Austrohelice crassa     3     5   <NA>  0
+5        1         Capitella nonatoi         Capitella nonatoi     7     5   <NA>  0
+6        1       Watersipora subatra       Watersipora subatra     2     0      I NA
+7        2        Zanclea giancarloi        Zanclea giancarloi     4     0      I NA
+8        2          Zanclea sessilis          Zanclea sessilis     5     0      I NA
+9        2          Zonorhynchus sp.          Zonorhynchus sp.     3     0      I NA
+10       2          Acholoe squamosa          Acholoe squamosa     7     0      I NA
+11       2 Aglaophenia kirchenpaueri Aglaophenia kirchenpaueri     2     0      I NA
+12       2           Tricellaria sp.           Tricellaria sp.     3     3      I NA
+```
+
+## Aborting interactive mode
 
 If, at any point in the interactive species assignment process we type `x` 
 then the interactive process will be aborted. You will see the following message
