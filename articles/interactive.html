@@ -66,9 +66,176 @@
 
     
     
-<p><em>working on it…</em></p>
+<p>By default, the <code><a href="../reference/AMBI.html">AMBI()</a></code>function works in the same way as
+many (<em>most?</em>) other functions you are familiar with: it is
+called in an <em>unsupervised</em> manner. That is, the function is
+called and then, hopefully, returns a set of results without any
+additional interaction.</p>
+<p>After checking the results, we can check if there are any species
+which were not recognized and, if necessary, call the function again, in
+an iterative process.</p>
+<p>However, it is also possible to call the function in an
+<em>interactive</em> mode. This is similar to the way the original
+<code>AMBI</code>software functions, in that it is possible to interact
+with the function before the results are generated. Where species names
+in the observation data were not recognized, you can manually assign the
+species to an <code>AMBI</code> species group.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niva-denmark.github.io/ambiR/">ambiR</a></span><span class="op">)</span></span></code></pre></div>
+<p>We create a test data set with species names and counts</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,<span class="st">"1"</span>,</span>
+<span>                             <span class="st">"2"</span>,<span class="st">"2"</span>,<span class="st">"2"</span>,<span class="st">"2"</span>,<span class="st">"2"</span>,<span class="st">"2"</span><span class="op">)</span>,</span>
+<span>                 species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Acidostoma neglectum"</span>,</span>
+<span>                             <span class="st">"Acrocirrus validus"</span>,</span>
+<span>                             <span class="st">"Acteocina bullata"</span>,</span>
+<span>                             <span class="st">"Austrohelice crassa"</span>,</span>
+<span>                             <span class="st">"Capitella nonatoi"</span>,</span>
+<span>                             <span class="st">"Watersipora subatra"</span>,</span>
+<span>                             <span class="st">"Zanclea giancarloi"</span>,</span>
+<span>                             <span class="st">"Zanclea sessilis"</span>,</span>
+<span>                             <span class="st">"Zonorhynchus sp."</span>,</span>
+<span>                             <span class="st">"Acholoe squamosa"</span>,</span>
+<span>                             <span class="st">"Aglaophenia kirchenpaueri"</span>,</span>
+<span>                             <span class="st">"Tricellaria sp."</span><span class="op">)</span>,</span>
+<span>                 count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Call the <code><a href="../reference/AMBI.html">AMBI()</a></code> function using the
+<code>interactive = TRUE</code> argument.</p>
+<p>If any of the species names in the input data frame were not
+recognized as belonging to the <code>AMBI</code> species list
+<em>or</em> to a user-defined species list, if this was specified, then
+a message is displayed showing the number of unrecognized species, and
+giving instructions for how to proceed with assigning groups to each of
+these species.</p>
+<p>The first species in the list of unrecognized names will be
+displayed. To proceed you should type at the console prompt:</p>
+<ul>
+<li><p><code>1</code>,<code>2</code>,<code>3</code>,<code>4</code> or
+<code>5</code> - the species will be assigned to the selected (<a href="./about-AMBI.html#species-groups">AMBI species
+groups</a>)</p></li>
+<li><p><code>0</code> - assigning Group <code>0</code> means that the
+species will be inclued in the AMBI calculations and count towards the
+number of <em>Not assigned</em> species.</p></li>
+<li><p><code>Enter</code> - the species name will be treated as
+unrecognized and will <em>not</em> be included in <code>AMBI</code>
+calculations.</p></li>
+<li><p><code>s</code> - a list of recognized species names from the
+<code>AMBI</code> list will be displayed. These are species which appear
+close to the the unrecognized species when they are sorted in
+alphabetical order. 10 species names will be displayed. Typing
+<code>s</code> repeatedly will display consecutive names from the
+<code>AMBI</code> list, 10 at a time.</p></li>
+<li><p><code>x</code> - the interactive species assignment process will
+be aborted. Any species groups assigned manually up to this point will
+be discarded and the AMBI calculations will continue using the default,
+unsupervised, method.</p></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">df</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, quiet<span class="op">=</span><span class="cn">F</span>, interactive <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── Assigning unrecognized species ──────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; • 7 species names were not recognized. These will now be displayed, one at a</span></span>
+<span><span class="co">#&gt; time.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; • For each species, you can assign it to one of the five AMBI categories (I,</span></span>
+<span><span class="co">#&gt; II, III, IV, V). Do this by entering an integer value from 1 to 5.</span></span>
+<span><span class="co">#&gt; Alternatively, you can assign a value of 0. This indicates that the species</span></span>
+<span><span class="co">#&gt; name is recognized but it is not possible to assign it to one of the five</span></span>
+<span><span class="co">#&gt; categories.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; • If Enter is pressed, without providing a value, no change will be made. The</span></span>
+<span><span class="co">#&gt; species name in question will be treated as unrecognized.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; • Enter s at the prompt to see a list of similar species names and their</span></span>
+<span><span class="co">#&gt; corresponding AMBI categories.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; • Enter x to abort the interactive species selection. Any entries made up to</span></span>
+<span><span class="co">#&gt; that point will be discarded. All 7 species will be treated as unrecognized.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 1 Acholoe squamosa ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar</span></span>
+<span><span class="co">#&gt;  names. x - abort interactive assignment.</span></span></code></pre></div>
+<p>Typing <code>s</code> will show species names which are close to the
+unrecognized species when arranged in alphabetical order.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s</span></span>
+<span></span>
+<span><span class="co">#&gt; • Achelous ordwayi                                 (Group 1)</span></span>
+<span><span class="co">#&gt; • Acidostoma hancocki                              (Group 2)</span></span>
+<span><span class="co">#&gt; • Acidostoma neglectum                             (Group 0)</span></span>
+<span><span class="co">#&gt; • Acidostoma nodiferum                             (Group 1)</span></span>
+<span><span class="co">#&gt; • Acidostoma obesum                                (Group 1)</span></span>
+<span><span class="co">#&gt; • Acidostoma sarsi                                 (Group 1)</span></span>
+<span><span class="co">#&gt; • Acidostoma sp.                                   (Group 1)</span></span>
+<span><span class="co">#&gt; • Acila castrensis                                 (Group 2)</span></span>
+<span><span class="co">#&gt; • Acila insignis                                   (Group 2)</span></span>
+<span><span class="co">#&gt; • Aclis gulsonae                                   (Group 1)</span></span>
+<span><span class="co">#&gt; ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar</span></span>
+<span><span class="co">#&gt;  names. x - abort interactive assignment.</span></span></code></pre></div>
+<p>There were no similar species names which might give us a clue about
+this species. In this case, we are satisfied that the name is a valid
+species name<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;&lt;a href="https://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=146474" class="external-link uri"&gt;https://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=146474&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a> but we are unsure which group the species
+should be assigned to, so we assign group <code>0</code>.</p>
+<p>Assigning group <code>0</code> means that the species will be
+included in the count of <code>Not assigned</code> species when
+calculating the <code>AMBI</code> index. If we typed <code>Enter</code>
+the species would be ignored and not included in the <code>AMBI</code>
+calculations.</p>
+<p>A message is displayed confirming our selection
+(<code>Not assigned</code>) and then we are asked to consider the next
+unrecognized species name, <em>Aglaophenia kirchenpaueri</em>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">0</span></span>
+<span></span>
+<span><span class="co">#&gt; ✔ Acholoe squamosa - Not assigned</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── 2 Aglaophenia kirchenpaueri ──</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt; ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar</span></span>
+<span><span class="co">#&gt;  names. x - abort interactive assignment.</span></span></code></pre></div>
+<p>We type <code>s</code> to see similar names:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s</span></span>
+<span></span>
+<span><span class="co">#&gt; • Aglaophamus verrilli                             (Group 2)</span></span>
+<span><span class="co">#&gt; • Aglaophenia acacia                               (Group 0)</span></span>
+<span><span class="co">#&gt; • Aglaophenia pluma                                (Group 0)</span></span>
+<span><span class="co">#&gt; • Agnezia septentrionalis                          (Group 2)</span></span>
+<span><span class="co">#&gt; • Aidanosagitta crassa                             (Group 1)</span></span>
+<span><span class="co">#&gt; • Aiptasia diaphana                                (Group 3)</span></span>
+<span><span class="co">#&gt; • Aiptasia mutabilis                               (Group 3)</span></span>
+<span><span class="co">#&gt; • Akanthophoreus gracilis                          (Group 1)</span></span>
+<span><span class="co">#&gt; • Akera bullata                                    (Group 1)</span></span>
+<span><span class="co">#&gt; • Akera sp.                                        (Group 1)</span></span>
+<span><span class="co">#&gt; ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar</span></span>
+<span><span class="co">#&gt;  names. x - abort interactive assignment.</span></span></code></pre></div>
+<p>In this case we can see two species belonging to the same genus,
+<em>Aglaophenia</em>. They are both assigned to group <code>0</code>
+(<code>Not assigned</code>) so we could make the assumption that our
+unrecognized species should be assigned to the same group.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">0</span></span>
+<span></span>
+<span><span class="co">#&gt; ✔ Aglaophenia kirchenpaueri - Not assigned</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt; ── 3 Tricellaria sp. ──</span></span>
+<span><span class="co">#&gt;</span></span>
+<span><span class="co">#&gt; ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar</span></span>
+<span><span class="co">#&gt;  names. x - abort interactive assignment.</span></span></code></pre></div>
+<p>This process is repeated for each unrecognized species name.</p>
+<p>If, at any point in the interactive species assignment process we
+type <code>x</code> then the interactive process will be aborted. You
+will see the following message</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span></span>
+<span></span>
+<span><span class="co">#&gt; ! interactive species assignment cancelled</span></span></code></pre></div>
+<p>Any species groups assigned manually up to this point will be
+discarded and the AMBI calculations will proceed using the default,
+unsupervised, method.</p>
+
   </main>
 </div>
 
@@ -79,7 +246,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

@@ -68,14 +68,14 @@
     
 <p>This is a brief introduction to calculating AMBI index results.</p>
 <div class="section level2">
-<h2 id="species-observation-data">Species observation data<a class="anchor" aria-label="anchor" href="#species-observation-data"></a>
+<h2 id="structuring-species-observation-data">Structuring species observation data<a class="anchor" aria-label="anchor" href="#structuring-species-observation-data"></a>
 </h2>
-<p>Your species counts (or abundance) should be organized in a data
-frame arranged in <em>long</em> format. That is, species names are in
-one column and species counts in another column. If your data represents
+<p>Species counts (or abundance) should be organized in a data frame
+arranged in <em>long</em> format. That is, species names are in one
+column and species counts in another column. If the data represents
 several stations and/or if there are replicates, then the data should
 include columns with this information.</p>
-<p>The example dataset included with the package,
+<p>The example dataset included with the <code>ambiR</code> package,
 <code>test_data</code>, illustrates how the data should be arranged:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niva-denmark.github.io/ambiR/">ambiR</a></span><span class="op">)</span></span>
@@ -93,13 +93,12 @@ include columns with this information.</p>
 <p>If your data look like this, you can go directly to <a href="#calculate-ambi">Calculate AMBI</a>. If not, the following
 examples show how to reorganize your data.</p>
 <div class="section level3">
-<h3 id="data-with-species-names-in-columns">data with species names in columns<a class="anchor" aria-label="anchor" href="#data-with-species-names-in-columns"></a>
+<h3 id="data-with-species-names-in-columns">Species names in columns<a class="anchor" aria-label="anchor" href="#data-with-species-names-in-columns"></a>
 </h3>
 <p>Here is an example dataframe where there are counts for species in
 separate columns:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wide_data_species</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wide_data_species</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 36</span></span></span>
 <span><span class="co">#&gt;   station replicate `Cumopsis fagei` `Diogenes pugilator` `Paradoneis armata`</span></span>
 <span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -119,14 +118,11 @@ separate columns:</p>
 <p>To arrange the data in the correct form, use the
 <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">tidyr::pivot_longer()</a></code> function:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># columns 1 and 2 contain station and replicate information</span></span>
+<code class="sourceCode R"><span><span class="co"># columns 1 and 2 contain station and replicate information</span></span>
 <span><span class="co"># so, select all columns from 3 to be pivoted </span></span>
 <span></span>
 <span><span class="va">long_data</span> <span class="op">&lt;-</span> <span class="va">wide_data_species</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">wide_data_species</span><span class="op">)</span>, </span>
+<span>  <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">wide_data_species</span><span class="op">)</span>, </span>
 <span>               names_to <span class="op">=</span> <span class="st">"species"</span>,</span>
 <span>               values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span>
 <span></span>
@@ -142,7 +138,7 @@ separate columns:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>       1 a         Astarte sp.             0</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="data-with-stations-and-replicates-in-columns">data with stations and replicates in columns<a class="anchor" aria-label="anchor" href="#data-with-stations-and-replicates-in-columns"></a>
+<h3 id="stations-and-replicates-in-columns">Stations and replicates in columns<a class="anchor" aria-label="anchor" href="#stations-and-replicates-in-columns"></a>
 </h3>
 <p>Here is an example where each column contains species counts for a
 station and replicate. The first row of the table contains the station
@@ -159,7 +155,7 @@ b, …</em>. The first column of the table contains species names.</p>
 <span><span class="co">#&gt; 6 Bathyporeia elegans 0 1 0 0 0 0 0 0</span></span></code></pre></div>
 <p>Note that if the if the observation data <em>only</em> has stations
 <em>or</em> replicates, then rearranging the data can be done in one
-step, as in the <a href="data%20with%20species%20names%20in%20columns">previous
+step, as in the <a href="#data-with-species-names-in-columns">previous
 example</a>. But in this case, the station and replicate information are
 in separate rows. The restructuring process is a little more
 complicated.</p>
@@ -207,7 +203,7 @@ replicate information. We are ready to transpose the data.</p>
 <span><span class="co"># so, select all columns from 2 to be pivoted </span></span>
 <span></span>
 <span><span class="va">long_data</span> <span class="op">&lt;-</span> <span class="va">wide_data_stns</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">wide_data_stns</span><span class="op">)</span>, </span>
+<span>  <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">wide_data_stns</span><span class="op">)</span>, </span>
 <span>               names_to <span class="op">=</span> <span class="st">"stn_rep"</span>,</span>
 <span>               values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span>
 <span></span>
@@ -225,9 +221,8 @@ replicate information. We are ready to transpose the data.</p>
 for <em>station</em> and <em>replicate</em>, We will use the underscore
 we introduced earlier to indentify where the split should occur:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">long_data</span> <span class="op">&lt;-</span> <span class="va">long_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html" class="external-link">separate_wider_delim</a></span><span class="op">(</span>cols<span class="op">=</span><span class="st">"stn_rep"</span>, </span>
+<code class="sourceCode R"><span><span class="va">long_data</span> <span class="op">&lt;-</span> <span class="va">long_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">separate_wider_delim</span><span class="op">(</span>cols<span class="op">=</span><span class="st">"stn_rep"</span>, </span>
 <span>                       delim <span class="op">=</span> <span class="va">sep_character</span>,</span>
 <span>                       names<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span>, <span class="st">"replicate"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -247,7 +242,87 @@ we introduced earlier to indentify where the split should occur:</p>
 <div class="section level2">
 <h2 id="calculate-ambi">Calculate AMBI<a class="anchor" aria-label="anchor" href="#calculate-ambi"></a>
 </h2>
-<p><a href="./about-AMBI.html#species-groups">Species groups</a></p>
+<p>We have now ensured that our species abundance/count data have the
+correct structure, as in the example <code>test_data</code>
+provided:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span></span>
+<span><span class="co">#&gt;   station replicate species             count</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>       1 a         Cumopsis fagei          2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>       1 a         Diogenes pugilator      2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>       1 a         Paradoneis armata       1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>       1 b         Bathyporeia elegans     1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>       1 b         Diogenes pugilator      5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>       1 b         Dispio uncinata         1</span></span></code></pre></div>
+<p>Call the <code><a href="../reference/AMBI.html">AMBI()</a></code> function:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AMBI.html">AMBI</a></span><span class="op">(</span><span class="va">test_data</span>, by<span class="op">=</span><span class="st">"station"</span>, var_rep<span class="op">=</span><span class="st">"replicate"</span>, </span>
+<span>            var_species<span class="op">=</span><span class="st">"species"</span>, var_count<span class="op">=</span><span class="st">"count"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a>
+</h3>
+<p>The <code><a href="../reference/AMBI.html">AMBI()</a></code> function returns a list of three
+dataframes:</p>
+<ul>
+<li><code>res$AMBI</code></li>
+<li><code>res$AMBI_rep</code></li>
+<li><code>res$matched</code></li>
+</ul>
+<p><code>res$AMBI</code>- the main results with the <code>AMBI</code>
+index calculated for each unique combination of <code>by</code>
+variables, in our case the results are per <code>station</code>.</p>
+<p>In addition to the <code>AMBI</code> index, the results also include
+the <em>Shannon Wiener diversity index</em> <code>H'</code> and the
+<em>Species richness</em> <code>S</code>, the three metrics which are
+necessary to calculate <a href="#calculate-m-ambi">M-AMBI</a>.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res</span><span class="op">$</span><span class="va">AMBI</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 12</span></span></span>
+<span><span class="co">#&gt;   station  AMBI     H     S   fNA     N     I    II   III     IV      V</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>       1  1.48  1.80     6     0    16 0.125 0.75  0.125 0      0     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>       2  1.89  3.54    22     0    80 0.4   0.138 0.3   0.15   0.012<span style="text-decoration: underline;">5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>       3  4.12  2.50     9     0    24 0     0.125 0.292 0.083<span style="text-decoration: underline;">3</span> 0.5   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: Disturbance &lt;chr&gt;</span></span></span></code></pre></div>
+<p><code>res$AMBI_rep</code> - if the observations include replicates,
+then the function also returns results calculated for each replicate,
+within each unique combination of <code>by</code> variables:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res</span><span class="op">$</span><span class="va">AMBI_rep</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 11</span></span></span>
+<span><span class="co">#&gt;   station replicate  AMBI     S   fNA     N     I     II   III    IV      V</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>       1 a          1.8      3     0     5 0     0.8    0.2   0     0     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>       1 b          1.5      3     0     7 0.143 0.714  0.143 0     0     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>       1 c          1.12     2     0     4 0.25  0.75   0     0     0     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>       2 a          1.88    12     0    32 0.406 0.156  0.219 0.219 0     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>       2 b          2.13    12     0    19 0.316 0.158  0.368 0.105 0.052<span style="text-decoration: underline;">6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>       2 c          1.66    10     0    29 0.448 0.103  0.345 0.103 0     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span>       3 a          3.5      5     0     6 0     0.333  0.167 0.333 0.167 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span>       3 b          4.75     6     0    18 0     0.055<span style="text-decoration: underline;">6</span> 0.333 0     0.611</span></span></code></pre></div>
+<p><code>res$matched</code> - for each observation, this dataframe shows
+which species in the <code>AMBI</code> list the observed species was
+matched with, if any. It also shows the <code>AMBI</code> species group
+assigned. This dataframe has the same number of rows as the input
+data.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">matched</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
+<span><span class="co">#&gt;   station replicate species             species_matched     count group    RA</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>       1 a         Cumopsis fagei      Cumopsis fagei          2     2     0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>       1 a         Diogenes pugilator  Diogenes pugilator      2     2     0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>       1 a         Paradoneis armata   Paradoneis armata       1     3     0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>       1 b         Bathyporeia elegans Bathyporeia elegans     1     1     0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>       1 b         Diogenes pugilator  Diogenes pugilator      5     2     0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>       1 b         Dispio uncinata     Dispio uncinata         1     3     0</span></span></code></pre></div>
+<p>For more information about the principles underlying the
+<code>AMBI</code> calculations and the grouping of species according to
+sensitivity to pollution, see <a href="./about-AMBI.html">about
+AMBI</a></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="calculate-m-ambi">Calculate M-AMBI<a class="anchor" aria-label="anchor" href="#calculate-m-ambi"></a>
@@ -260,9 +335,142 @@ separate species diversity metrics:</p>
 </li>
 <li>Species richness <code>S</code>.</li>
 </ul>
-<p>All three indices are returned by the <code><a href="../reference/AMBI.html">AMBI()</a></code> function
-and therefore the results include all necessary input data for
-<code><a href="../reference/MAMBI.html">MAMBI()</a></code>.</p>
+<p>All three indices required to calculate <code><a href="../reference/MAMBI.html">MAMBI()</a></code>are
+included in the results returned by the <code><a href="../reference/AMBI.html">AMBI()</a></code>
+function.</p>
+<div class="section level3">
+<h3 id="limit-values">Limit values<a class="anchor" aria-label="anchor" href="#limit-values"></a>
+</h3>
+<p>In addition to index values calculated from observed species data,
+the M-AMBI factor analysis requires values defining the limits for the
+three metrics, corresponding to the best and worst possible
+conditions.</p>
+<p>See <span class="citation">Muxika, Borja, and Bald (2007)</span> for
+more details.</p>
+<p>The default limit values used by <code><a href="../reference/MAMBI.html">MAMBI()</a></code> are:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">limits_AMBI</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bad"</span> <span class="op">=</span> <span class="fl">6</span>, <span class="st">"high"</span> <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">limits_H</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bad"</span> <span class="op">=</span> <span class="fl">0</span>, <span class="st">"high"</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">limits_S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bad"</span> <span class="op">=</span> <span class="fl">0</span>, <span class="st">"high"</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<p>By default, upper limit values for <code>H</code> and <code>S</code>
+are not provided (<code>= NA</code>. If they are not provided
+explicitly, then the maximum values found in the input data will be
+used. The results returned by <code><a href="../reference/MAMBI.html">MAMBI()</a></code> show the limits
+used.</p>
+</div>
+<div class="section level3">
+<h3 id="status-class-boundaries">Status class boundaries<a class="anchor" aria-label="anchor" href="#status-class-boundaries"></a>
+</h3>
+<p><code><a href="../reference/MAMBI.html">MAMBI()</a></code> also returns the status class (<em>Bad, Poor,
+Moderate, Good</em> or <em>High</em>) for each M-AMBI index value. To do
+this, it compares the calculated M-AMBI index value with values defining
+the boundaries between status classes.</p>
+<ul>
+<li>
+<code>PB</code> - <em>Poor</em> / <em>Bad</em>
+</li>
+<li>
+<code>MP</code> - <em>Moderate</em> / <em>Poor</em>
+</li>
+<li>
+<code>GM</code> - <em>Good</em> / <em>Moderate</em>
+</li>
+<li>
+<code>HG</code> _ <em>High</em> / <em>Good</em>
+</li>
+</ul>
+<p>The default values for the class boundaries are:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bounds</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PB"</span> <span class="op">=</span> <span class="fl">0.2</span>, <span class="st">"MP"</span> <span class="op">=</span> <span class="fl">0.39</span>, <span class="st">"GM"</span> <span class="op">=</span> <span class="fl">0.53</span>, <span class="st">"HG"</span> <span class="op">=</span> <span class="fl">0.77</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="call-mambi">Call <code>MAMBI()</code><a class="anchor" aria-label="anchor" href="#call-mambi"></a>
+</h3>
+<p>We call <code><a href="../reference/MAMBI.html">MAMBI()</a></code> using the previously generated
+<code>AMBI</code> results:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res_mambi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MAMBI.html">MAMBI</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">AMBI</span>, var_H <span class="op">=</span> <span class="st">"H"</span>, var_S <span class="op">=</span> <span class="st">"S"</span>, var_AMBI <span class="op">=</span> <span class="st">"AMBI"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="m-ambi-results">M-AMBI results<a class="anchor" aria-label="anchor" href="#m-ambi-results"></a>
+</h3>
+<p>In addition to retaining the values for <code>AMBI</code>.
+<code>H'</code> and <code>S</code>, the results include the following
+information:</p>
+<ul>
+<li>
+<code>x</code>, <code>y</code>, <code>z</code> - factor scores
+giving coordinates in the new factor space.</li>
+<li>
+<code>MAMBI</code> - the calculated M-AMBI index value</li>
+<li>
+<code>Status</code> - the status class for the M-AMBI index
+value</li>
+<li>
+<code>EQR</code> - the normalised <a href="#eqr-values">EQR</a>
+index</li>
+</ul>
+<p>The dataframe returned contains 2 more rows than the input data. Our
+input data contained 3 rows (1 for each <code>station</code>). The
+results contain 5 rows. The 2 <em>additional</em> rows show the limit
+values for each of the three metrics used in the M-AMBI
+caclulations.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res_mambi</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">station</span>, <span class="va">AMBI</span>, <span class="va">H</span>, <span class="va">S</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span>, <span class="va">MAMBI</span>, <span class="va">Status</span>, <span class="va">EQR</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 10</span></span></span>
+<span><span class="co">#&gt;   station  AMBI     H     S        x       y      z MAMBI Status   EQR</span></span>
+<span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>       1  1.48  1.80     6  0.036<span style="text-decoration: underline;">6</span>  -<span style="color: #BB0000;">0.055</span><span style="color: #BB0000; text-decoration: underline;">6</span>  0.584 0.518 Mod    0.467</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>       2  1.89  3.54    22 -<span style="color: #BB0000;">0.246</span>   -<span style="color: #BB0000;">1.18</span>   -<span style="color: #BB0000;">1.78</span>  0.893 High   0.907</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>       3  4.12  2.50     9 -<span style="color: #BB0000;">0.006</span><span style="color: #BB0000; text-decoration: underline;">87</span>  0.602   0.377 0.478 Mod    0.446</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>      <span style="color: #BB0000;">NA</span>  6     0        0  0.524    2.53    2.93  0     <span style="color: #BB0000;">NA</span>     0    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>      <span style="color: #BB0000;">NA</span>  0     3.54    22 -<span style="color: #BB0000;">0.308</span>   -<span style="color: #BB0000;">1.90</span>   -<span style="color: #BB0000;">2.11</span>  1     <span style="color: #BB0000;">NA</span>     1</span></span></code></pre></div>
+<div class="section level4">
+<h4 id="eqr-values">EQR values<a class="anchor" aria-label="anchor" href="#eqr-values"></a>
+</h4>
+<p>As well as the status class, the function also returns a normalised
+index value from 0 to 1 (<em>EQR</em>), calculated using the
+<code>bounds</code> boundary values for the M-AMBI index. The following
+EQR values correspond to status class boundaries:</p>
+<ul>
+<li>
+<code>0.2</code> - <em>Poor</em> / <em>Bad</em>
+</li>
+<li>
+<code>0.4</code> - <em>Moderate</em> / <em>Poor</em>
+</li>
+<li>
+<code>0.6</code> - <em>Good</em> / <em>Moderate</em>
+</li>
+<li>
+<code>0.8</code> _ <em>High</em> / <em>Good</em>
+</li>
+</ul>
+<p>For example, the M-AMBI value for station 3 is <code>0.478</code>.
+This lies between the M-AMBI value corresponding to the
+<em>Moderate/Poor</em> status class boundary (<code>"MP" = 0.39</code>)
+and the M-AMBI value corresponding to the <em>Good/Moderate</em> status
+class boundary (<code>"GM" = 0.53</code>).</p>
+<p>The normalised EQR value is given by linear interpolation:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>Q</mi><mi>R</mi><mo>=</mo><mn>0.4</mn><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0.6</mn><mo>−</mo><mn>0.4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mrow><mn>0.478</mn><mo>−</mo><mn>0.39</mn></mrow><mrow><mn>0.53</mn><mo>−</mo><mn>0.39</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex"> EQR = 0.4 + (0.6 - 0.4) \frac{0.478 - 0.39}{0.53 - 0.39 } </annotation></semantics></math></p>
+</div>
+</div>
+</div>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-MUXIKA200716" class="csl-entry">
+Muxika, I, Á Borja, and J Bald. 2007. <span>“Using Historical Data,
+Expert Judgement and Multivariate Analysis in Assessing Reference
+Conditions and Benthic Ecological Status, According to the European
+Water Framework Directive.”</span> <em>Marine Pollution Bulletin</em> 55
+(1): 16–29. <a href="https://doi.org/10.1016/j.marpolbul.2006.05.025" class="external-link">https://doi.org/10.1016/j.marpolbul.2006.05.025</a>.
+</div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -275,7 +483,7 @@ and therefore the results include all necessary input data for
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
