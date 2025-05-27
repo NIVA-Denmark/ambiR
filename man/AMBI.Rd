@@ -235,10 +235,9 @@ the \code{matched} output.
 
 \subsection{\emph{interactive} mode}{
 
-\emph{TO DO: example needed!}
-
-If the function is called with the argument \code{interactive = TRUE} then the user
-will be asked to assign a species group (\emph{I, II, III, IV, V}) for any species
+If the function is called in  \href{./articles/interactive.html}{interactive} mode, by using
+the argument \code{interactive = TRUE} then the user has an opportunity to
+\emph{manually} assign species groups (\emph{I, II, III, IV, V}) for any species
 names which were not identified. The user does this by typing \emph{1, 2, 3, 4} or
 \emph{5} and pressing \emph{Enter}. Alternatively, the user can type \emph{0} to mark the species
 as recognized but not assigned to a group. By typing \emph{Enter} without

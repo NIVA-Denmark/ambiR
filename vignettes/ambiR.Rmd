@@ -5,6 +5,10 @@ vignette: >
   %\VignetteIndexEntry{Get started}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+bibliography: references.bib
 ---
 
 ```{r, include = FALSE}
@@ -12,29 +16,34 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
 ```
 
 This is a brief introduction to calculating AMBI index results.
 
-# Species observation data
+## Structuring species observation data
 
-Your species counts (or abundance) should be organized in a data frame arranged in *long* format. That is, species names are in one column and species counts in another column. If your data represents several stations and/or if there are replicates, then the data should include columns with this information.
+Species counts (or abundance) should be organized in a data frame
+arranged in *long* format. That is, species names are in one column and
+species counts in another column. If the data represents several
+stations and/or if there are replicates, then the data should include
+columns with this information.
 
-The example dataset included with the package, `test_data`, illustrates how the data should be arranged:
+The example dataset included with the `ambiR` package, `test_data`, illustrates
+how the data should be arranged:
 
 ```{r test_data}
 library(ambiR)
 
 head(test_data)
-
 ```
 
-If your data look like this, you can go directly to [Calculate AMBI]. If not, the following examples show how to reorganize your data.
+If your data look like this, you can go directly to [Calculate AMBI]. If
+not, the following examples show how to reorganize your data.
 
-## data with species names in columns
+### Species names in columns {#data-with-species-names-in-columns}
 
-Here is an example dataframe where there are counts for species in separate columns:
+Here is an example dataframe where there are counts for species in
+separate columns:
 
 ```{r transpose_wide, include=FALSE}
 library(dplyr)
@@ -44,20 +53,16 @@ wide_data_species <- test_data %>%
   pivot_wider(names_from = "species", 
               values_from = "count",
               values_fill = 0)
-  
 ```
 
 ```{r data_wide_spec}
-
 head(wide_data_species)
 ```
 
-To arrange the data in the correct form, use the `tidyr::pivot_longer()` function:
+To arrange the data in the correct form, use the `tidyr::pivot_longer()`
+function:
 
 ```{r pivot_species}
-library(dplyr)
-library(tidyr)
-
 # columns 1 and 2 contain station and replicate information
 # so, select all columns from 3 to be pivoted 
 
@@ -69,14 +74,14 @@ long_data <- wide_data_species %>%
 head(long_data)
 ```
 
-## data with stations and replicates in columns
+### Stations and replicates in columns
 
-Here is an example where each column contains species counts for a station and replicate. The first row of the table contains the station ID *1, 2, ...* and the second row contains the replicate ID *a, b, ...*. The first column of the table contains species names.
+Here is an example where each column contains species counts for a
+station and replicate. The first row of the table contains the station
+ID *1, 2, ...* and the second row contains the replicate ID *a, b, ...*.
+The first column of the table contains species names.
 
 ```{r transpose_wide_stns, include=FALSE}
-library(dplyr)
-library(tidyr)
-
 df <- test_data %>%
   pivot_wider(names_from = c("station","replicate"), 
               values_from = "count", values_fill = 0)
@@ -111,11 +116,22 @@ wide_data_stns <- df
 head(wide_data_stns)
 ```
 
-Note that if the if the observation data *only* has stations *or* replicates, then rearranging the data can be done in one step, as in the [previous example](data with species names in columns). But in this case, the station and replicate information are in separate rows. The restructuring process is a little more complicated.
+Note that if the if the observation data *only* has stations *or*
+replicates, then rearranging the data can be done in one step, as in the
+[previous example](#data-with-species-names-in-columns). But in this
+case, the station and replicate information are in separate rows. The
+restructuring process is a little more complicated.
 
-Before we can use a pivot function, we need to combine the station ID and replicate ID for each column into a single value. In this example, each station ID and replicate ID are joined into a single character value, with an underscore to separate them *`_`*. The underscore will be used again after pivoting the table to identify where to split the combined station/replicate values back into separate values again.
+Before we can use a pivot function, we need to combine the station ID
+and replicate ID for each column into a single value. In this example,
+each station ID and replicate ID are joined into a single character
+value, with an underscore to separate them *`_`*. The underscore will be
+used again after pivoting the table to identify where to split the
+combined station/replicate values back into separate values again.
 
-If there are station names which already contain underscores, then another suitable character should be used when joining and splitting station/replicate IDs.
+If there are station names which already contain underscores, then
+another suitable character should be used when joining and splitting
+station/replicate IDs.
 
 ```{r combine_stn_rep}
 sep_character <- "_"
@@ -139,7 +155,8 @@ names(wide_data_stns) <- c("species", station_replicate)
 head(wide_data_stns)
 ```
 
-We can see that the column names now contain the combined station and replicate information. We are ready to transpose the data.
+We can see that the column names now contain the combined station and
+replicate information. We are ready to transpose the data.
 
 ```{r pivot_stations}
 # column 1 contains species names
@@ -153,10 +170,11 @@ long_data <- wide_data_stns %>%
 head(long_data)
 ```
 
-Now we can split the *stn_rep* column into separate columns for *station* and *replicate*, We will use the underscore we introduced earlier to indentify where the split should occur:
+Now we can split the *stn_rep* column into separate columns for
+*station* and *replicate*, We will use the underscore we introduced
+earlier to indentify where the split should occur:
 
 ```{r split_stations}
-
 long_data <- long_data %>%
   separate_wider_delim(cols="stn_rep", 
                        delim = sep_character,
@@ -167,16 +185,162 @@ head(long_data)
 
 Now we are ready to calculate AMBI...
 
-# Calculate AMBI
+## Calculate AMBI
 
-[Species groups](./about-AMBI.html#species-groups)
+We have now ensured that our species abundance/count data have the
+correct structure, as in the example `test_data` provided:
 
-# Calculate M-AMBI
+```{r test_data2}
+head(test_data)
+```
 
-Calculate M-AMBI the multivariate AMBI index, based on the three separate species diversity metrics:
+Call the `AMBI()` function:
+
+```{r run_ambi}
+res <- AMBI(test_data, by="station", var_rep="replicate", 
+            var_species="species", var_count="count")
+```
+
+### Results
+
+The `AMBI()` function returns a list of three dataframes:
+
+-   `res$AMBI`
+-   `res$AMBI_rep`
+-   `res$matched`
+
+`res$AMBI`- the main results with the `AMBI` index calculated for each
+unique combination of `by` variables, in our case the results are per
+`station`.
+
+In addition to the `AMBI` index, the results also include the *Shannon
+Wiener diversity index* `H'` and the *Species richness* `S`, the three
+metrics which are necessary to calculate [M-AMBI](#calculate-m-ambi).
+
+```{r show_ambi}
+res$AMBI
+```
+
+`res$AMBI_rep` - if the observations include replicates, then the
+function also returns results calculated for each replicate, within each
+unique combination of `by` variables:
+
+```{r show_ambi_rep}
+res$AMBI_rep
+```
+
+`res$matched` - for each observation, this dataframe shows which species
+in the `AMBI` list the observed species was matched with, if any. It
+also shows the `AMBI` species group assigned. This dataframe has the
+same number of rows as the input data.
+
+```{r show_matched}
+head(res$matched)
+```
+
+For more information about the principles underlying the `AMBI` calculations and
+the grouping of species according to sensitivity to pollution, see [about AMBI](./about-AMBI.html)
+
+## Calculate M-AMBI {#calculate-m-ambi}
+
+Calculate M-AMBI the multivariate AMBI index, based on the three
+separate species diversity metrics:
 
 -   AMBI index `AMBI`.
 -   Shannon Wiener diversity index `H'`
 -   Species richness `S`.
 
-All three indices are returned by the `AMBI()` function and therefore the results include all necessary input data for `MAMBI()`.
+All three indices required to calculate `MAMBI()`are included in the
+results returned by the `AMBI()` function.
+
+### Limit values
+
+In addition to index values calculated from observed species data, the
+M-AMBI factor analysis requires values defining the limits for the three
+metrics, corresponding to the best and worst possible conditions.
+
+See @MUXIKA200716 for more details.
+
+The default limit values used by `MAMBI()` are:
+
+```{r limits_mambi}
+limits_AMBI	<- c("bad" = 6, "high" = 0)
+
+limits_H	<- c("bad" = 0, "high" = NA)
+
+limits_S <- c("bad" = 0, "high" = NA)
+```
+
+By default, upper limit values for `H` and `S` are not provided (`= NA`.
+If they are not provided explicitly, then the maximum values found in
+the input data will be used. The results returned by `MAMBI()` show the
+limits used.
+
+### Status class boundaries
+
+`MAMBI()` also returns the status class (*Bad, Poor, Moderate, Good* or
+*High*) for each M-AMBI index value. To do this, it compares the
+calculated M-AMBI index value with values defining the boundaries
+between status classes.
+
+-   `PB` - *Poor* / *Bad*
+-   `MP` - *Moderate* / *Poor*
+-   `GM` - *Good* / *Moderate*
+-   `HG` \_ *High* / *Good*
+
+The default values for the class boundaries are:
+
+```{r bounds_mambi}
+bounds <-c("PB" = 0.2, "MP" = 0.39, "GM" = 0.53, "HG" = 0.77)
+```
+
+### Call `MAMBI()`
+
+We call `MAMBI()` using the previously generated `AMBI` results:
+
+```{r calc_mambi}
+res_mambi <- MAMBI(res$AMBI, var_H = "H", var_S = "S", var_AMBI = "AMBI")
+```
+
+### M-AMBI results
+
+In addition to retaining the values for `AMBI`. `H'` and `S`, the
+results include the following information:
+
+-   `x`, `y`, `z` - factor scores giving coordinates in the new factor
+    space.
+-   `MAMBI` - the calculated M-AMBI index value
+-   `Status` - the status class for the M-AMBI index value
+-   `EQR` - the normalised [EQR](#eqr-values) index
+
+The dataframe returned contains 2 more rows than the input data. Our
+input data contained 3 rows (1 for each `station`). The results contain
+5 rows. The 2 *additional* rows show the limit values for each of the
+three metrics used in the M-AMBI caclulations.
+
+```{r mambi_results}
+res_mambi %>%
+  select(station, AMBI, H, S, x, y, z, MAMBI, Status, EQR)
+```
+
+#### EQR values {#eqr-values}
+
+As well as the status class, the function also returns a normalised
+index value from 0 to 1 (*EQR*), calculated using the `bounds` boundary
+values for the M-AMBI index. The following EQR values correspond to
+status class boundaries:
+
+-   `0.2` - *Poor* / *Bad*
+-   `0.4` - *Moderate* / *Poor*
+-   `0.6` - *Good* / *Moderate*
+-   `0.8` \_ *High* / *Good*
+
+For example, the M-AMBI value for station 3 is `0.478`. This lies
+between the M-AMBI value corresponding to the *Moderate/Poor* status
+class boundary (`"MP" = 0.39`) and the M-AMBI value corresponding to the
+*Good/Moderate* status class boundary (`"GM" = 0.53`).
+
+The normalised EQR value is given by linear interpolation: 
+$$ EQR = 0.4 + (0.6 - 0.4) \frac{0.478 - 0.39}{0.53 - 0.39 } $$
+
+## References
