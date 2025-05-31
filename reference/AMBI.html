@@ -176,10 +176,13 @@ names will be matched only with identical names.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>a list of dataframes:</p><ul><li><p><code>AMBI</code> : results of the AMBI index calculations. For each unique
 combination of <code>by</code> variables, the following values are calculated:</p><ul><li><p><code>AMBI</code> : the AMBI index value</p></li>
-<li><p><code>N</code> : the number of individuals</p></li>
-<li><p><code>S</code> : the number of species</p></li>
-<li><p><code>H</code> : the Shannon diversity index</p></li>
-<li><p><code>fNA</code> : the fraction of individuals <em>not assigned</em>, that is, matched to
+<li><p><code>AMBI_SD</code> : sample standard deviation of AMBI <em>included only
+when replicates are used</em>
+has specified <code>var_rep</code>.</p></li>
+<li><p><code>N</code> : number of individuals</p></li>
+<li><p><code>S</code> : number of species</p></li>
+<li><p><code>H</code> : Shannon diversity index</p></li>
+<li><p><code>fNA</code> : fraction of individuals <em>not assigned</em>, that is, matched to
 a species in the AZTI species with <em>Group 0</em>. Note that this is
 different from the number of rows where no match was found. These
 are excluded from the totals.</p></li>
@@ -306,6 +309,11 @@ calculations will process as in the non-interactive mode.</p>
 </div>
 
     </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="MAMBI.html">MAMBI()</a></code> which calculates <em>M-AMBI</em> the multivariate AMBI
+index using results of <code>AMBI()</code>.</p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -314,12 +322,12 @@ calculations will process as in the non-interactive mode.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">AMBI</span><span class="op">(</span><span class="va">test_data</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span><span class="op">)</span>, var_rep<span class="op">=</span><span class="st">"replicate"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $AMBI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 12</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   station  AMBI     H     S   fNA     N     I    II   III     IV      V</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       1  1.48  1.80     6     0    16 0.125 0.75  0.125 0      0     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>       2  1.89  3.54    22     0    80 0.4   0.138 0.3   0.15   0.012<span style="text-decoration: underline;">5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>       3  4.12  2.50     9     0    24 0     0.125 0.292 0.083<span style="text-decoration: underline;">3</span> 0.5   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 13</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   station  AMBI AMBI_SD     H     S   fNA     N     I    II   III     IV      V</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       1  1.48   0.338  1.80     6     0    16 0.125 0.75  0.125 0      0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>       2  1.89   0.238  3.54    22     0    80 0.4   0.138 0.3   0.15   0.012<span style="text-decoration: underline;">5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>       3  4.12   0.884  2.50     9     0    24 0     0.125 0.292 0.083<span style="text-decoration: underline;">3</span> 0.5   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: Disturbance &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $AMBI_rep</span>
@@ -405,12 +413,12 @@ calculations will process as in the non-interactive mode.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> <span style="font-style: italic;">Cumopsis fagei</span> (II)→(I)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $AMBI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 12</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   station  AMBI     H     S   fNA     N     I    II   III     IV      V</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       1  1.48  1.80     6     0    16 0.125 0.75  0.125 0      0     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>       2  1.89  3.54    22     0    80 0.4   0.138 0.3   0.15   0.012<span style="text-decoration: underline;">5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>       3  4.12  2.50     9     0    24 0     0.125 0.292 0.083<span style="text-decoration: underline;">3</span> 0.5   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 13</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   station  AMBI AMBI_SD     H     S   fNA     N     I    II   III     IV      V</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>       1  1.48   0.338  1.80     6     0    16 0.125 0.75  0.125 0      0     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>       2  1.89   0.238  3.54    22     0    80 0.4   0.138 0.3   0.15   0.012<span style="text-decoration: underline;">5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>       3  4.12   0.884  2.50     9     0    24 0     0.125 0.292 0.083<span style="text-decoration: underline;">3</span> 0.5   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: Disturbance &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $AMBI_rep</span>
