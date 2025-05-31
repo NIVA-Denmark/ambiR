@@ -88,12 +88,12 @@ library(ambiR)
 ## calling AMBI using the test data set
 AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=1)
 #> $AMBI
-#> # A tibble: 3 × 12
-#>   station  AMBI     H     S fNA       N I     II    III   IV    V    
-#>     <dbl> <dbl> <dbl> <int> <chr> <dbl> <chr> <chr> <chr> <chr> <chr>
-#> 1       1  1.48  1.80     6 0.0%     16 12.5% 75.0% 12.5% 0.0%  0.0% 
-#> 2       2  1.89  3.54    22 0.0%     80 40.0% 13.8% 30.0% 15.0% 1.2% 
-#> 3       3  4.12  2.50     9 0.0%     24 0.0%  12.5% 29.2% 8.3%  50.0%
+#> # A tibble: 3 × 13
+#>   station  AMBI AMBI_SD     H     S fNA       N I     II    III   IV    V    
+#>     <dbl> <dbl>   <dbl> <dbl> <int> <chr> <dbl> <chr> <chr> <chr> <chr> <chr>
+#> 1       1  1.48   0.338  1.80     6 0.0%     16 12.5% 75.0% 12.5% 0.0%  0.0% 
+#> 2       2  1.89   0.238  3.54    22 0.0%     80 40.0% 13.8% 30.0% 15.0% 1.2% 
+#> 3       3  4.12   0.884  2.50     9 0.0%     24 0.0%  12.5% 29.2% 8.3%  50.0%
 #> # ℹ 1 more variable: Disturbance <chr>
 #> 
 #> $AMBI_rep

@@ -195,10 +195,13 @@
 #'  * `AMBI` : results of the AMBI index calculations. For each unique
 #'  combination of `by` variables, the following values are calculated:
 #'    - `AMBI` : the AMBI index value
-#'    - `N` : the number of individuals
-#'    - `S` : the number of species
-#'    - `H` : the Shannon diversity index
-#'    - `fNA` : the fraction of individuals _not assigned_, that is, matched to
+#'    - `AMBI_SD` : sample standard deviation of AMBI _included only
+#'    when replicates are used_
+#'          has specified `var_rep`.
+#'    - `N` : number of individuals
+#'    - `S` : number of species
+#'    - `H` : Shannon diversity index
+#'    - `fNA` : fraction of individuals _not assigned_, that is, matched to
 #'       a species in the AZTI species with *Group 0*. Note that this is
 #'      different from the number of rows where no match was found. These
 #'      are excluded from the totals.
@@ -227,10 +230,14 @@
 #'    - The (not null) number of species is less than 3
 #'    - The (not null) number of individuals is less than 6
 #'
+#' @seealso [MAMBI()] which calculates _M-AMBI_ the multivariate AMBI
+#' index using results of `AMBI()`.
+#'
 #' @import tidyr
 #' @import dplyr
 #' @import cli
 #' @import utils
+#' @importFrom stats sd
 #'
 #' @examples
 #'
@@ -281,10 +288,10 @@ AMBI <- function(df, by = NULL,
     interactive <- FALSE
   }
 
-  H <- N <- NNA <- fGroup <- fNA <- NULL
+  AMBI_SD <- H <- N <- NNA <- fGroup <- fNA <- NULL
   sum_count <- wt <- f <- n_species <- count_0 <- NULL
   species <- S <- ambi_group <- species_1 <- NULL
-  RA <- U <- NULL
+  RA <- U <-  NULL
   var_species_matched <- "species_matched"
 
   fill_val <- 0
@@ -786,6 +793,7 @@ AMBI <- function(df, by = NULL,
     df <- df %>%
       dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
       dplyr::summarise(
+        AMBI_SD = stats::sd(AMBI, na.rm=T),
         AMBI = mean(AMBI, na.rm=T),
         fNA = sum(fNA * N, na.rm = T) / sum(N, na.rm = T),
         .groups="drop")
@@ -808,6 +816,11 @@ AMBI <- function(df, by = NULL,
   }
   df <- df %>%
     relocate(H, S, .after = AMBI)
+
+  if("AMBI_SD" %in% names(df)){
+    df <- df %>%
+      relocate(AMBI_SD, .after=AMBI)
+  }
 
   dfwarn <- ambi_warnings(df, by, quiet=quiet)
 
