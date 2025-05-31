@@ -106,10 +106,13 @@ a list of dataframes:
 combination of \code{by} variables, the following values are calculated:
 \itemize{
 \item \code{AMBI} : the AMBI index value
-\item \code{N} : the number of individuals
-\item \code{S} : the number of species
-\item \code{H} : the Shannon diversity index
-\item \code{fNA} : the fraction of individuals \emph{not assigned}, that is, matched to
+\item \code{AMBI_SD} : sample standard deviation of AMBI \emph{included only
+when replicates are used}
+has specified \code{var_rep}.
+\item \code{N} : number of individuals
+\item \code{S} : number of species
+\item \code{H} : Shannon diversity index
+\item \code{fNA} : fraction of individuals \emph{not assigned}, that is, matched to
 a species in the AZTI species with \emph{Group 0}. Note that this is
 different from the number of rows where no match was found. These
 are excluded from the totals.
@@ -283,4 +286,8 @@ df_user <- data.frame(
 
 AMBI(test_data, by=c("station"), var_rep="replicate", df_species=df_user)
 
+}
+\seealso{
+\code{\link[=MAMBI]{MAMBI()}} which calculates \emph{M-AMBI} the multivariate AMBI
+index using results of \code{AMBI()}.
 }
