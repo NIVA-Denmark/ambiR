@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This is a brief introduction to calculating AMBI index results.
+This is a brief introduction to AMBI index calculations with ambiR.
 
 ## Structuring species observation data
 
@@ -28,8 +28,8 @@ species counts in another column. If the data represents several
 stations and/or if there are replicates, then the data should include
 columns with this information.
 
-The example dataset included with the `ambiR` package, `test_data`, illustrates
-how the data should be arranged:
+Looking at the `test_data` example dataset included with the ambiR package, 
+one can see how the data should be arranged:
 
 ```{r test_data}
 library(ambiR)
@@ -59,8 +59,7 @@ wide_data_species <- test_data %>%
 head(wide_data_species)
 ```
 
-To arrange the data in the correct form, use the `tidyr::pivot_longer()`
-function:
+To arrange the data in the correct form, use `tidyr::pivot_longer()`:  
 
 ```{r pivot_species}
 # columns 1 and 2 contain station and replicate information
@@ -122,6 +121,8 @@ replicates, then rearranging the data can be done in one step, as in the
 case, the station and replicate information are in separate rows. The
 restructuring process is a little more complicated.
 
+#### Combine station and replicate values
+
 Before we can use a pivot function, we need to combine the station ID
 and replicate ID for each column into a single value. In this example,
 each station ID and replicate ID are joined into a single character
@@ -155,8 +156,11 @@ names(wide_data_stns) <- c("species", station_replicate)
 head(wide_data_stns)
 ```
 
+#### Transpose using the combined station/replicate variable
+
 We can see that the column names now contain the combined station and
 replicate information. We are ready to transpose the data.
+
 
 ```{r pivot_stations}
 # column 1 contains species names
@@ -169,6 +173,8 @@ long_data <- wide_data_stns %>%
 
 head(long_data)
 ```
+
+#### Retrieve station and replicate variables from the transposed data
 
 Now we can split the *stn_rep* column into separate columns for
 *station* and *replicate*, We will use the underscore we introduced
@@ -205,11 +211,11 @@ res <- AMBI(test_data, by="station", var_rep="replicate",
 
 The `AMBI()` function returns a list of three dataframes:
 
--   `res$AMBI`
--   `res$AMBI_rep`
--   `res$matched`
+-   `.$AMBI`
+-   `.$AMBI_rep`
+-   `.$matched`
 
-`res$AMBI`- the main results with the `AMBI` index calculated for each
+`.$AMBI`- the main results with the `AMBI` index calculated for each
 unique combination of `by` variables, in our case the results are per
 `station`.
 
@@ -221,7 +227,7 @@ metrics which are necessary to calculate [M-AMBI](#calculate-m-ambi).
 res$AMBI
 ```
 
-`res$AMBI_rep` - if the observations include replicates, then the
+`.$AMBI_rep` - if the observations include replicates, then the
 function also returns results calculated for each replicate, within each
 unique combination of `by` variables:
 
@@ -229,7 +235,7 @@ unique combination of `by` variables:
 res$AMBI_rep
 ```
 
-`res$matched` - for each observation, this dataframe shows which species
+`.$matched` - for each observation, this dataframe shows which species
 in the `AMBI` list the observed species was matched with, if any. It
 also shows the `AMBI` species group assigned. This dataframe has the
 same number of rows as the input data.
@@ -247,7 +253,7 @@ Calculate M-AMBI the multivariate AMBI index, based on the three
 separate species diversity metrics:
 
 -   AMBI index `AMBI`.
--   Shannon Wiener diversity index `H'`
+-   Shannon Wiener diversity index `H`
 -   Species richness `S`.
 
 All three indices required to calculate `MAMBI()`are included in the
@@ -264,11 +270,11 @@ See @MUXIKA200716 for more details.
 The default limit values used by `MAMBI()` are:
 
 ```{r limits_mambi}
-limits_AMBI	<- c("bad" = 6, "high" = 0)
+limits_AMBI <- c("bad" = 6, "high" = 0)
 
-limits_H	<- c("bad" = 0, "high" = NA)
+limits_H  <- c("bad" = 0, "high" = NA)
 
-limits_S <- c("bad" = 0, "high" = NA)
+limits_S  <- c("bad" = 0, "high" = NA)
 ```
 
 By default, upper limit values for `H` and `S` are not provided (`= NA`.
@@ -286,7 +292,7 @@ between status classes.
 -   `PB` - *Poor* / *Bad*
 -   `MP` - *Moderate* / *Poor*
 -   `GM` - *Good* / *Moderate*
--   `HG` \_ *High* / *Good*
+-   `HG` - *High* / *Good*
 
 The default values for the class boundaries are:
 
@@ -304,7 +310,7 @@ res_mambi <- MAMBI(res$AMBI, var_H = "H", var_S = "S", var_AMBI = "AMBI")
 
 ### M-AMBI results
 
-In addition to retaining the values for `AMBI`. `H'` and `S`, the
+In addition to retaining the values for `AMBI`. `H` and `S`, the
 results include the following information:
 
 -   `x`, `y`, `z` - factor scores giving coordinates in the new factor

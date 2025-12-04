@@ -1,12 +1,13 @@
 #' Calculates AMBI, the AZTI Marine Biotic Index
 #'
 #' @description
-#' Matches a list of species counts with the AMBI species list
+#' [AMBI()] matches a list of species counts with the AMBI species list
 #' and calculates the AMBI index.
 #'
 #' @details
 #'
-#' The theory behind the AMBI index calculations and details of the method.
+#' The theory behind the AMBI index calculations and details of the method, as
+#' developed by [Borja et al. (2000)](\doi{10.1016/S0025-326X(00)00061-8})
 #'
 #' ## AMBI method
 #'
@@ -54,9 +55,11 @@
 #'
 #' ## Results
 #'
-#' The output of the function consists of a list of three dataframes:
+#' The output of the function consists of a list of at least three dataframes:
 #'
 #'  * `AMBI` containing the calculated `AMBI` index, as well as other information.
+#'  * (`AMBI_rep`) generated only if replicates are used, showing the `AMBI` index
+#'  for each replicate
 #'  * `matched` showing the species matches used
 #'  * `warnings` containing any warnings generated regarding numbers of of species
 #'  or numbers of individuals
@@ -75,7 +78,7 @@
 #' user-defined species group assignments, before running the function a
 #' second time.
 #'
-#' ### conflicts
+#' ### Conflicts
 #'
 #' If there is a conflict between a user-provided group assignment for a species
 #' and the group specified in the AMBI species group information, only one of
@@ -97,25 +100,19 @@
 #' If the function is called in  [interactive](./articles/interactive.html) mode, by using
 #' the argument `interactive = TRUE` then the user has an opportunity to
 #' _manually_ assign species groups (_I, II, III, IV, V_) for any species
-#' names which were not identified. The user does this by typing _1, 2, 3, 4_ or
-#' _5_ and pressing _Enter_. Alternatively, the user can type _0_ to mark the species
-#' as recognized but not assigned to a group. By typing _Enter_ without
+#' names which were not identified. The user does this by typing `1`, `2`, `3`,
+#' `4` or `5` and pressing _Enter_. Alternatively, the user can type `0` to mark
+#' the species as recognized but not assigned to a group. By typing _Enter_ without
 #' any number the species will be recorded as unidentified (`NA`). This is the
 #' same result which would have been returned when calling the function in
-#' non-interactive mode. There are two other options: _s_ will display a list of
-#' 10 species names which occur close to the unrecognized name when names are sorted
-#' in alphabetical order. Entering _s_ a second time will display the next 10 names,
-#' and so on. Finally, entering _x_ will abort the interactive species assignment.
-#' Any species groups assigned manually at this point wil be discarded and the
-#' calculations will process as in the non-interactive mode.
+#' non-interactive mode. There are two other options: typing `s` will display a
+#' list of 10 species names which occur close to the unrecognized name when names
+#' are sorted in alphabetical order. Entering `s` a second time will display the
+#' next 10 names, and so on. Finally, entering `x` will abort the interactive
+#' species assignment process. Any species groups assigned manually at this point
+#' will be discarded and the calculations will process as in the non-interactive mode.
 #'
 #' Any user-provided group information will be recorded in the `matched` results.
-#'
-#' @source
-#' Borja, A., Franco, J., Pérez, V. (2000) A marine biotic index to establish the
-#' ecological quality of soft bottom benthos within European estuarine and
-#' coastal environments. Marine Pollution Bulletin 40(12): 1100-1114.
-#' <https://doi.org/10.1016/S0025-326X(00)00061-8>
 #'
 #'
 #' @param df          a dataframe of species observations
@@ -200,7 +197,7 @@
 #'          has specified `var_rep`.
 #'    - `N` : number of individuals
 #'    - `S` : number of species
-#'    - `H` : Shannon diversity index
+#'    - `H` : Shannon diversity index *H'*
 #'    - `fNA` : fraction of individuals _not assigned_, that is, matched to
 #'       a species in the AZTI species with *Group 0*. Note that this is
 #'      different from the number of rows where no match was found. These
@@ -208,7 +205,10 @@
 #'
 #'  * `AMBI_rep` : results of the AMBI index calculations _per replicate_. This
 #'  dataframe is present only if the observation data includes replicates and
-#'  the user has specified `var_rep`.
+#'  the user has specified `var_rep`. Similar to the main `AMBI` result but does
+#'  not include results for `H` (Shannon diversity index) or for `AMBI_SD`
+#'  (sample standard deviation of AMBI) which are not estimated at replicate level.
+#'
 #'
 #'  * `matched` : the original dataframe with columns added from the species list.
 #'  Contains the following columns:
@@ -219,9 +219,9 @@
 #'  a different species group.
 #'    - `source` : this column is included only if a user-specified list was
 #'    provided `df_species`, or if species groups were assigned interactively.
-#'    An _'I'_ in this column indicates that the group was assigned interactively.
-#'    A _'U'_ shows that the group information came from a user-provided species
-#'    list. An _NA_ value indicates that no interactive or user-provided changes
+#'    An `'I'` in this column indicates that the group was assigned interactively.
+#'    A `'U'`_` shows that the group information came from a user-provided species
+#'    list. An `NA` value indicates that no interactive or user-provided changes
 #'    were applied.
 #'
 #'  * `warnings` : a dataframe showing warnings for any combination of `by`

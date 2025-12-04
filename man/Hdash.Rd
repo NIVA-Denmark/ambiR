@@ -24,7 +24,7 @@ should be grouped \emph{e.g. c("station","date")}}
 \item{var_count}{name of the column in \code{df} containing count/density/abundance}
 
 \item{check_species}{boolean, default = TRUE. If TRUE, then only species found
-in the species list are included in H' index. By default,
+in the species list are included in \emph{H'} index. By default,
 the AZTI species list is used.}
 
 \item{df_species}{\emph{optional} dataframe with user-specified species list.}
@@ -35,15 +35,15 @@ a list of two dataframes:
 \item \code{H} : results of the AMBI index calculations. For each unique
 combination of \code{by}variables the following values are calculated:
 \itemize{
-\item \code{H} : the Shannon Diversity Index, H'
+\item \code{H} : the Shannon-Wiener Diversity Index, \emph{H'}
 \item \code{S} : the number of species
 \item \code{N} : the number of individuals
 }
 \item \code{match} : the original dataframe with columns added from the species list.
 For a user-specified list provided \code{df_species}, all columns will be included.
 If the user-specified species list contains only a single column with species
-names, then a new column \code{match} will be created, with a value of 1 indicating
-a match and an \emph{NA} value where no match was found.
+names, then a new column \code{match} will be created, with a value of \code{1} indicating
+a match and an \code{NA} value where no match was found.
 }
 
 For the default AZTI species list the following additional columns will be
@@ -55,14 +55,15 @@ AZTI list. That is, it could be re-assigned to a different species group.
 }
 }
 \description{
-Matches a list of species counts with the AMBI species list
-and calculates  H' the Shannon diversity index
+\code{\link[=Hdash]{Hdash()}} matches a list of species counts with the AMBI species list
+and calculates \emph{H'} the Shannon diversity index
+\href{\doi{10.1002/j.1538-7305.1948.tb01338.x}}{Shannon, 1948}
 }
 \details{
-If the function is called with \code{check_species = TRUE} then only species which
-are succesfully matched with the specifed species list are included in the
-calculations. This is the default. If the function is called with
-\code{check_species = FALSE}then all rows are counted.
+If the function is called with the argument \code{check_species = TRUE} then
+only species which are successfully matched with the specified species
+list are included in the calculations. This is the default. If the function
+is called with \code{check_species = FALSE}then all rows are counted.
 }
 \examples{
 

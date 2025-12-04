@@ -14,23 +14,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-By default, the `AMBI()`function works in the same way as many (_most?_) other
+By default, the `AMBI()`function works in the same way as many other
 functions you are familiar with: it is called in an _unsupervised_ manner. 
-That is, the function is called and then, hopefully, returns a set of results 
-without any additional interaction.
+That is, the function is called and then returns a set of results, or 
+possibly an error message, without any additional interaction with the user.
 
-After checking the results, we can check if there are any species which were not 
-recognized and, if necessary, call the function again, in an iterative process.
+After checking the results, the user can check if there are any species which 
+were not recognized and, if necessary, make corrections to input data before 
+calling the function again. These steps are repeated, as necessary, in an
+iterative process.
 
-However, it is also possible to call the function in an _interactive_ mode. This
-is similar to the way the original `AMBI`software functions, in that it is 
-possible to interact with the function before the results are generated. Where
-species names in the observation data were not recognized, you can manually 
-assign the species to an `AMBI` species group.
-
-```{r setup}
-library(ambiR)
-```
+Users familiar with the original `AMBI`software will recall that the process of 
+checking species names and group assignments is done in an _interactive_ way. 
+The ambiR package allows the user to work in a similar way where it is possible
+to interact with the function and make corrections to data before the results are 
+generated. Where species names in the observation data were not recognized, 
+the user can manually assign the species to an `AMBI` species group.
 
 ## Test data
 
@@ -56,11 +55,11 @@ df <- data.frame(station = c("1","1","1","1","1","1",
 
 ## Instructions
 
-The `AMBI()` function is called using the `interactive = TRUE` argument.
+To run `AMBI()` in interactive mode, use the `interactive = TRUE` argument.
 
 If any of the species names in the input data frame were not recognized as 
-belonging to the `AMBI` species list *or* to a user-defined species list, if 
-this was specified, then a message is displayed showing the number of 
+belonging to the `AMBI` species list *or* to a user-defined species list,
+if this was specified, then a message is displayed showing the number of 
 unrecognized species, and giving instructions for how to proceed with assigning 
 groups to each of these species.
 
@@ -89,6 +88,8 @@ AMBI calculations will continue using the default, unsupervised, method.
 ## Interactive AMBI calculation
 
 ```{r step1, eval=FALSE, include=TRUE}
+library(ambiR)
+
 AMBI(df, by = c("station"), quiet=F, interactive = T)
 #> 
 #> ── Assigning unrecognized species ──────────────────────────────────────────────
@@ -201,7 +202,7 @@ This process is repeated for each unrecognized species name.
 
 ## Results
 
-The `AMBI()` function returns a list of three dataframes, including `matched`. 
+`AMBI()` returns a list of three dataframes, including `matched`. 
 This dataframe shows which groups species have been assigned to and after 
 interactive species matching, it will include the column `source`.
 An _'I'_ in this column indicates that the group was assigned interactively.
@@ -225,8 +226,9 @@ $matched
 
 ## Aborting interactive mode
 
-If, at any point in the interactive species assignment process we type `x` 
-then the interactive process will be aborted. You will see the following message
+Typing `x` at any point in the interactive species assignment process
+will abort the interactive process. The following message will be 
+displayed:
 
 ```{r step6, eval=FALSE, include=TRUE}
 x

@@ -3,12 +3,6 @@
 \name{AMBI}
 \alias{AMBI}
 \title{Calculates AMBI, the AZTI Marine Biotic Index}
-\source{
-Borja, A., Franco, J., Pérez, V. (2000) A marine biotic index to establish the
-ecological quality of soft bottom benthos within European estuarine and
-coastal environments. Marine Pollution Bulletin 40(12): 1100-1114.
-\url{https://doi.org/10.1016/S0025-326X(00)00061-8}
-}
 \usage{
 AMBI(
   df,
@@ -111,7 +105,7 @@ when replicates are used}
 has specified \code{var_rep}.
 \item \code{N} : number of individuals
 \item \code{S} : number of species
-\item \code{H} : Shannon diversity index
+\item \code{H} : Shannon diversity index \emph{H'}
 \item \code{fNA} : fraction of individuals \emph{not assigned}, that is, matched to
 a species in the AZTI species with \emph{Group 0}. Note that this is
 different from the number of rows where no match was found. These
@@ -119,7 +113,9 @@ are excluded from the totals.
 }
 \item \code{AMBI_rep} : results of the AMBI index calculations \emph{per replicate}. This
 dataframe is present only if the observation data includes replicates and
-the user has specified \code{var_rep}.
+the user has specified \code{var_rep}. Similar to the main \code{AMBI} result but does
+not include results for \code{H} (Shannon diversity index) or for \code{AMBI_SD}
+(sample standard deviation of AMBI) which are not estimated at replicate level.
 \item \code{matched} : the original dataframe with columns added from the species list.
 Contains the following columns:
 \itemize{
@@ -130,9 +126,8 @@ matched will have an \code{NA} value in this column.
 a different species group.
 \item \code{source} : this column is included only if a user-specified list was
 provided \code{df_species}, or if species groups were assigned interactively.
-An \emph{'I'} in this column indicates that the group was assigned interactively.
-A \emph{'U'} shows that the group information came from a user-provided species
-list. An \emph{NA} value indicates that no interactive or user-provided changes
+An \code{'I'} in this column indicates that the group was assigned interactively.
+A \code{'U'}_\verb{shows that the group information came from a user-provided species list. An}NA` value indicates that no interactive or user-provided changes
 were applied.
 }
 \item \code{warnings} : a dataframe showing warnings for any combination of \code{by}
@@ -145,11 +140,12 @@ variables a warning where
 }
 }
 \description{
-Matches a list of species counts with the AMBI species list
+\code{\link[=AMBI]{AMBI()}} matches a list of species counts with the AMBI species list
 and calculates the AMBI index.
 }
 \details{
-The theory behind the AMBI index calculations and details of the method.
+The theory behind the AMBI index calculations and details of the method, as
+developed by \href{\doi{10.1016/S0025-326X(00)00061-8}}{Borja et al. (2000)}
 \subsection{AMBI method}{
 
 Species can be matched to one of five groups, the distribution of individuals
@@ -195,9 +191,11 @@ also return a warning.(see below)
 
 \subsection{Results}{
 
-The output of the function consists of a list of three dataframes:
+The output of the function consists of a list of at least three dataframes:
 \itemize{
 \item \code{AMBI} containing the calculated \code{AMBI} index, as well as other information.
+\item (\code{AMBI_rep}) generated only if replicates are used, showing the \code{AMBI} index
+for each replicate
 \item \code{matched} showing the species matches used
 \item \code{warnings} containing any warnings generated regarding numbers of of species
 or numbers of individuals
@@ -217,7 +215,7 @@ function call, the user can identify species names which were  not matched.
 Then, if necessary, they can provide or update a dataframe with a list of
 user-defined species group assignments, before running the function a
 second time.
-\subsection{conflicts}{
+\subsection{Conflicts}{
 
 If there is a conflict between a user-provided group assignment for a species
 and the group specified in the AMBI species group information, only one of
@@ -241,17 +239,17 @@ the \code{matched} output.
 If the function is called in  \href{./articles/interactive.html}{interactive} mode, by using
 the argument \code{interactive = TRUE} then the user has an opportunity to
 \emph{manually} assign species groups (\emph{I, II, III, IV, V}) for any species
-names which were not identified. The user does this by typing \emph{1, 2, 3, 4} or
-\emph{5} and pressing \emph{Enter}. Alternatively, the user can type \emph{0} to mark the species
-as recognized but not assigned to a group. By typing \emph{Enter} without
+names which were not identified. The user does this by typing \code{1}, \code{2}, \code{3},
+\code{4} or \code{5} and pressing \emph{Enter}. Alternatively, the user can type \code{0} to mark
+the species as recognized but not assigned to a group. By typing \emph{Enter} without
 any number the species will be recorded as unidentified (\code{NA}). This is the
 same result which would have been returned when calling the function in
-non-interactive mode. There are two other options: \emph{s} will display a list of
-10 species names which occur close to the unrecognized name when names are sorted
-in alphabetical order. Entering \emph{s} a second time will display the next 10 names,
-and so on. Finally, entering \emph{x} will abort the interactive species assignment.
-Any species groups assigned manually at this point wil be discarded and the
-calculations will process as in the non-interactive mode.
+non-interactive mode. There are two other options: typing \code{s} will display a
+list of 10 species names which occur close to the unrecognized name when names
+are sorted in alphabetical order. Entering \code{s} a second time will display the
+next 10 names, and so on. Finally, entering \code{x} will abort the interactive
+species assignment process. Any species groups assigned manually at this point
+will be discarded and the calculations will process as in the non-interactive mode.
 
 Any user-provided group information will be recorded in the \code{matched} results.
 }

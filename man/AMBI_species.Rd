@@ -3,47 +3,44 @@
 \name{AMBI_species}
 \alias{AMBI_species}
 \title{Returns species list for AMBI calculations}
-\source{
-\url{https://ambi.azti.es/download/}
-
-Borja, A., Franco, J., Pérez, V. (2000) A marine biotic index to establish the
-ecological quality of soft bottom benthos within European estuarine and
-coastal environments. Marine Pollution Bulletin 40(12): 1100-1114.
-\url{https://doi.org/10.1016/S0025-326X(00)00061-8}
-}
 \usage{
 AMBI_species(version = "")
 }
 \arguments{
 \item{version}{\emph{string}, version of the species list to return.
 The default value is the empty string (\code{""})
-which returns the latest version
-(8th October 2024)
-Presently, the only other valid option for version is \code{"2022"}
-(31st May 2022)}
+which returns the latest version of the list
+\emph{(5. December 2025)}. Other valid values for
+\code{version} are \code{"2024"} \emph{(8. October 2024)}
+or \code{"2022"} \emph{(31. May 2022)}.}
 }
 \value{
 A data frame with 11,952 rows* and 3 columns:
 
 \describe{
 \item{species}{Species name or genus (spp.)}
-\item{group}{Species group for AMBI index calculation}
-\item{RA}{reallocatable}
+\item{group}{Species group for AMBI index calculation: \code{1}, \code{2},
+\code{3}, \code{4} or \code{5}. A value of \code{0} indicates that the
+species is not assigned to a species group.}
+\item{RA}{reallocatable (\code{0} or \code{1}), a \code{1} indicates that a
+species could be re-assigned to a different
+species group.}
 }
-
-*\emph{latest version 8th October 2024}
 }
 \description{
-Returns a dataframe with list of species and AMBI group. Called by the
-function \code{\link[=AMBI]{AMBI()}} to match species in observed data and find species groups.
+\code{\link[=AMBI_species]{AMBI_species()}} returns a dataframe with list of species and AMBI group.
+Called by the function \code{\link[=AMBI]{AMBI()}} and then used to match species in observed
+data and find species groups.
+
+\emph{latest version 5th December 2025}
 }
 \details{
-The species groups, as described by Borja et al (2000):
+The species groups, as described by \href{\doi{10.1016/S0025-326X(00)00061-8}}{Borja et al. (2000)}:
 
 \itemize{
 \item \emph{Group I} \cr Species very sensitive to organic enrichment
 and present under unpolluted conditions (initial state). They include the
-specialist carnivores and some deposit- feeding \emph{tubicolous polychaetes}. \cr
+specialist carnivores and some deposit-feeding \emph{tubicolous polychaetes}. \cr
 
 \item \emph{Group II} \cr Species indifferent to enrichment, always present in low densities with
 non-significant variations with time (from initial state, to slight unbalance).
@@ -52,18 +49,24 @@ These include suspension feeders, less selective carnivores and scavengers.\cr
 \item \emph{Group III} \cr Species tolerant to excess organic matter enrichment. These species
 may occur under normal conditions, but their populations are stimulated by
 organic richment (slight unbalance situations). They are surface
-deposit-feeding species, as \emph{tubicolous spionids}. \cr
+deposit-feeding species, such as \emph{tubicolous spionids}. \cr
 
 \item \emph{Group IV} \cr Second-order opportunistic species (slight to pronounced unbalanced
 situations). Mainly small sized \emph{polychaetes}: subsurface deposit-feeders,
 such as \emph{cirratulids}. \cr
 
 \item \emph{Group V} \cr First-order opportunistic species (pronounced unbalanced
-situations). These are deposit- feeders, which proliferate in reduced
+situations). These are deposit-feeders, which proliferate in reduced
 sediments. \cr
 }
 }
 \examples{
-AMBI_species()
 
+AMBI_species() \%>\% head()
+
+AMBI_species() \%>\% tail()
+
+}
+\seealso{
+\code{\link[=AMBI]{AMBI()}} which uses the species list to calculate the AMBI index.
 }

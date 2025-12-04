@@ -12,10 +12,17 @@ Authors@R: c(
     person("Iñigo", "Muxika", ,"imuxika@azti.es", role = "aut",
     comment = c(ORCID = "0000-0002-9181-3781")),
     person("Joxe Mikel", "Garmendia", ,"jgarmendia@azti.es", role = "aut",
-    comment = c(ORCID = "0000-0002-9403-1777"))
+    comment = c(ORCID = "0000-0002-9403-1777")),
+    person("Steen", "Knudsen", ,"steen.knudsen@niva-dk.dk", role = "ctb",
+    comment = c(ORCID = "0000-0003-0428-9940"))
     )
-Maintainer: Ciarán Murray <cjm@niva-dk.dk>
-Description: This package implements calculations of AZTI’s Marine Biotic Index  _AMBI_, as well as the Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12): 1100-1114_.
+Maintainer: Ciarán J. Murray <cjm@niva-dk.dk>
+Description: Calculate AZTI’s Marine Biotic Index  _AMBI_, as well as the 
+    Shannon Diversity Index _H'_ and the Danish benthic fauna quality index 
+    _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to 
+    establish the ecological quality of soft bottom benthos within European 
+    estuarine and coastal environments Marine Pollution Bulletin 40(12)
+    1100-1114_.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -24,7 +31,9 @@ Suggests:
     usethis,
     devtools,
     knitr,
-    rmarkdown
+    rmarkdown,
+    ggplot2,
+    scales
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
 Depends: 
@@ -37,7 +46,7 @@ Imports:
     utils,
     stats
 Roxygen: list(markdown = TRUE)
-URL: https://niva-denmark.github.io/ambiR/, https://github.com/niva-denmark/ambiR/, https://niva-denmark.github.io/ambiR/
+URL: https://niva-denmark.github.io/ambiR/, https://github.com/niva-denmark/ambiR/
 BugReports: https://github.com/niva-denmark/ambiR/issues
 Config/Needs/website: rmarkdown
 VignetteBuilder: knitr

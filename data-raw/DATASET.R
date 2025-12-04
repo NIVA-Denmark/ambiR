@@ -1,5 +1,6 @@
 library(R.matlab)
 library(readxl)
+library(dplyr)
 
 #' these packages are not added to imports in package DESCRIPTION
 #' they are required to prepare the species data included in the package
@@ -7,6 +8,8 @@ library(readxl)
 
 
 ## ------- code to prepare AZTI species lists -------
+
+# version 2022
 
 res <- R.matlab::readMat("data-raw/20220531/library.mat")
 
@@ -18,7 +21,9 @@ names(species) <- NULL
 group <- res[[2]][,1]
 RA <- res[[3]][,1]
 
-AZTI_species_list_20220531 <- data.frame(species, group, RA)
+AMBI_species_list_20220531 <- data.frame(species, group, RA)
+
+# version 2024
 
 res <- R.matlab::readMat("data-raw/20241008/library.mat")
 
@@ -30,10 +35,26 @@ names(species) <- NULL
 group <- res[[2]][,1]
 RA <- res[[3]][,1]
 
-# the newest version of the species list is just named species
-AZTI_species_list <- data.frame(species, group, RA)
+AMBI_species_list_20241008 <- data.frame(species, group, RA)
 
-usethis::use_data(AZTI_species_list, AZTI_species_list_20220531, overwrite=TRUE, internal = TRUE)
+# the newest version of the species list is just named species
+
+# version 2025
+AMBI_species_list_20251205 <- AMBI_species_list_20241008
+
+AMBI_species_list_20251205 <- AMBI_species_list_20251205 %>%
+  group_by(species, group) %>%
+  arrange(desc(RA)) %>%
+  slice(1) %>%
+  ungroup()
+
+usethis::use_data(AMBI_species_list_20251205,
+                  AMBI_species_list_20241008,
+                  AMBI_species_list_20220531,
+                  overwrite=TRUE, internal = TRUE)
+
+
+write.table(AMBI_species_list_20251205, file = "data-raw/AMBI_species_list.csv", sep=",", row.names=F)
 
 ## -------  test data set -------
 

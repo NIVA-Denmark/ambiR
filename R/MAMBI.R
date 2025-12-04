@@ -1,12 +1,17 @@
 #' Calculates M-AMBI, the multivariate AZTI Marine Biotic Index
 #'
 #' @description
-#' Calculate M-AMBI the multivariate AMBI index, based on the three separate
+#' Calculates M-AMBI the multivariate AMBI index, based on the three separate
 #' species diversity metrics:
 #'
 #'  * AMBI index `AMBI`.
-#'  * Shannon Wiener diversity index `H'`
+#'  * Shannon diversity index `H'`
 #'  * Species richness `S`.
+#'
+#' _"AMBI, richness and diversity, combined with the use, in a further
+#' development, of factor analysis together with discriminant analysis, is
+#' presented as an objective tool (named here M-AMBI) in assessing
+#' ecological quality status"_ [Muxika et al., 2007](\doi{10.1016/j.marpolbul.2006.05.025})
 #'
 #' @details
 #'
@@ -24,24 +29,6 @@
 #'
 #' This means that the input to `MAMBI()` can be generated from species count
 #' data using only using the [AMBI()] function.
-#'
-#'
-#' @source
-#' _"AMBI, richness and diversity, combined with the use, in a further
-#' development, of factor analysis together with discriminant analysis, is
-#' presented as an objective tool (named here M-AMBI) in assessing
-#' ecological quality status"_ (Muxika et al. 2007)
-#'
-#' Borja, A., Franco, J., Pérez, V. (2000) A marine biotic index to establish the
-#' ecological quality of soft bottom benthos within European estuarine and
-#' coastal environments. Marine Pollution Bulletin 40(12): 1100-1114.
-#' <https://doi.org/10.1016/S0025-326X(00)00061-8>
-#'
-#' Muxika, I., Borja, A., Bald, J. (2007) Using historical data, expert judgement
-#' and multivariate analysis in assessing reference conditions and benthic
-#' ecological status, according to the European Water Framework Directive.
-#' Marine Pollution Bulletin, 55: 16-29.
-#' <https://doi.org/10.1016/j.marpolbul.2006.05.025>
 #'
 #' @param df          a dataframe of diversity metrics
 #' @param by          a vector of column names found in `df` by which calculations

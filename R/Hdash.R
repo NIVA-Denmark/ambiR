@@ -1,14 +1,15 @@
 #' Calculates H' the Shannon diversity index
 #'
 #' @description
-#' Matches a list of species counts with the AMBI species list
-#' and calculates  H' the Shannon diversity index
+#' [Hdash()] matches a list of species counts with the AMBI species list
+#' and calculates *H'* the Shannon diversity index
+#' [Shannon, 1948](\doi{10.1002/j.1538-7305.1948.tb01338.x})
 #'
 #' @details
-#' If the function is called with `check_species = TRUE` then only species which
-#' are succesfully matched with the specifed species list are included in the
-#' calculations. This is the default. If the function is called with
-#' `check_species = FALSE`then all rows are counted.
+#' If the function is called with the argument `check_species = TRUE` then
+#' only species which are successfully matched with the specified species
+#' list are included in the calculations. This is the default. If the function
+#' is called with `check_species = FALSE`then all rows are counted.
 #'
 #' @param df          a dataframe of species observations
 #' @param by          a vector of column names found in `df` by which calculations
@@ -16,7 +17,7 @@
 #' @param var_species name of the column in `df` containing species names
 #' @param var_count   name of the column in `df` containing count/density/abundance
 #' @param check_species boolean, default = TRUE. If TRUE, then only species found
-#'                      in the species list are included in H' index. By default,
+#'                      in the species list are included in *H'* index. By default,
 #'                      the AZTI species list is used.
 #' @param df_species  _optional_ dataframe with user-specified species list.
 #'
@@ -24,15 +25,15 @@
 #'
 #'  * `H` : results of the AMBI index calculations. For each unique
 #'  combination of `by`variables the following values are calculated:
-#'    - `H` : the Shannon Diversity Index, H'
+#'    - `H` : the Shannon-Wiener Diversity Index, *H'*
 #'    - `S` : the number of species
 #'    - `N` : the number of individuals
 #'
 #'  * `match` : the original dataframe with columns added from the species list.
 #'  For a user-specified list provided `df_species`, all columns will be included.
 #'  If the user-specified species list contains only a single column with species
-#'   names, then a new column `match` will be created, with a value of 1 indicating
-#'   a match and an _NA_ value where no match was found.
+#'   names, then a new column `match` will be created, with a value of `1` indicating
+#'   a match and an `NA` value where no match was found.
 #'
 #'  For the default AZTI species list the following additional columns will be
 #'  included:
