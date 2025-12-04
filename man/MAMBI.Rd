@@ -3,23 +3,6 @@
 \name{MAMBI}
 \alias{MAMBI}
 \title{Calculates M-AMBI, the multivariate AZTI Marine Biotic Index}
-\source{
-\emph{"AMBI, richness and diversity, combined with the use, in a further
-development, of factor analysis together with discriminant analysis, is
-presented as an objective tool (named here M-AMBI) in assessing
-ecological quality status"} (Muxika et al. 2007)
-
-Borja, A., Franco, J., Pérez, V. (2000) A marine biotic index to establish the
-ecological quality of soft bottom benthos within European estuarine and
-coastal environments. Marine Pollution Bulletin 40(12): 1100-1114.
-\url{https://doi.org/10.1016/S0025-326X(00)00061-8}
-
-Muxika, I., Borja, A., Bald, J. (2007) Using historical data, expert judgement
-and multivariate analysis in assessing reference conditions and benthic
-ecological status, according to the European Water Framework Directive.
-Marine Pollution Bulletin, 55: 16-29.
-\url{https://doi.org/10.1016/j.marpolbul.2006.05.025}
-}
 \usage{
 MAMBI(
   df,
@@ -102,13 +85,18 @@ the limits applied for each of the metrics, corresponding to \code{"bad"}
 \code{limits_AMBI}, \code{limits_H}, \code{limits_S} or taken from data.
 }
 \description{
-Calculate M-AMBI the multivariate AMBI index, based on the three separate
+Calculates M-AMBI the multivariate AMBI index, based on the three separate
 species diversity metrics:
 \itemize{
 \item AMBI index \code{AMBI}.
-\item Shannon Wiener diversity index \verb{H'}
+\item Shannon diversity index \verb{H'}
 \item Species richness \code{S}.
 }
+
+\emph{"AMBI, richness and diversity, combined with the use, in a further
+development, of factor analysis together with discriminant analysis, is
+presented as an objective tool (named here M-AMBI) in assessing
+ecological quality status"} \href{\doi{10.1016/j.marpolbul.2006.05.025}}{Muxika et al., 2007}
 }
 \details{
 The input dataframe \code{df} should contain the three metrics \code{AMBI}, \verb{H'} and \code{S},

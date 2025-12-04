@@ -3,25 +3,6 @@
 \name{DKI}
 \alias{DKI}
 \title{Calculates DKI (v1)}
-\source{
-The Danish quality index is described in:
-
-Carstensen, J., Krause-Jensen, D., Josefson, A. (2014) Development and testing
-of tools for intercalibration of phytoplankton, macrovegetation and benthic
-fauna in Danish coastal areas. Scientific Report from DCE – Danish Centre for
-Environment and Energy No. 93. \url{https://dce2.au.dk/pub/SR93.pdf}
-
-Reference for default value of \emph{H_max = 5}:
-
-\emph{"However, in the present exercise, the Danish method used Hmax (∼5)
-as a kind of reference"}
-
-Borja, A., Josefson, A.B., Miles, A., Muxika, I., Olsgaard, F., Phillips, G.,
-Rodríguez, J.G. & Rygg, B. 2007: An approach to the intercalibration of benthic
-ecological status assessment in the North Atlantic ecoregion, according
-to the European Water Framework Directive. - Marine Pollution Bulletin 55:42-52.
-\url{https://doi.org/10.1016/j.marpolbul.2006.08.018}
-}
 \usage{
 DKI(AMBI, H, N, S, H_max = 5)
 }
@@ -40,15 +21,20 @@ DKI(AMBI, H, N, S, H_max = 5)
 \code{DKI} index value
 }
 \description{
-Calculates the Danish quality index DKI (v1)
+\code{\link[=DKI]{DKI()}} calculates the Danish quality index DKI (v1)
+(\href{https://dce2.au.dk/pub/SR93.pdf}{Carstensen et al., 2014})
 
 The DKI is based on AMBI and can only be calculated after first calculating
 \emph{AMBI}, the AZTI Marine Biotic Index, and \emph{H'}, the Shannon diversity index.
 Both indices are included in output from the function \code{\link[=AMBI]{AMBI()}}.
 
-The function uses an estimated maximum value of H' \code{H_max} in Danish waters
-as a reference value to normalise DKI. If this value is not specified as an
-argument, the function uses the default value (5.0)
+The function uses an estimated maximum possible value of H' \code{H_max} in Danish
+waters as a reference value to normalise DKI. If this value is not specified
+as an argument, the default value is used \code{5.0}
+
+\emph{"However, in the present exercise, the Danish method used Hmax (∼5)
+as a kind of reference"}
+\href{\doi{10.1016/j.marpolbul.2006.08.018}}{Borja et al., 2007}
 }
 \details{
 The \code{\link[=AMBI]{AMBI()}} and \code{\link[=Hdash]{Hdash()}} functions take a dataframe of observations as an

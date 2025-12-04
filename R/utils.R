@@ -1,18 +1,21 @@
 #' Minimum AMBI as a linear function of salinity
 #'
-#' _AMBI_sal_ and _H_sal_ are called _AMBI_min_ and
-#' _H_max_ in the DKI documentation
-#' They are renamed to reflect the fact that they are
-#' functions of salinity and not min/max  values from
-#'  the data being used in the function
+#' Used by [DKI2()], adjusting the `AMBI` index to
+#' account for decreasing species diversity with
+#' decreasing salinity.
+#'
+#' [AMBI_sal()] and [H_sal()] are named, respectively,
+#'  _AMBI_min_ and _H_max_ in the DKI documentation
+#'  [(Carstensen et al., 2014)](https://dce2.au.dk/pub/SR93.pdf).
+#' They are renamed in {ambiR} to reflect the fact that
+#' they are functions of salinity and _not_ minimum or
+#' maximum values from data being used.
 #'
 #' @return a numeric value AMBI_min
 #'
-#' @source <https://dce2.au.dk/pub/SR93.pdf>
-#'
-#' @param psal numeric salinity
+#' @param psal numeric, salinity
 #' @param intercept numeric, default 3.083
-#' @param slope numeric default -0.111
+#' @param slope numeric, default -0.111
 #'
 #' @examples AMBI_sal(20.1)
 #'
@@ -27,15 +30,18 @@ AMBI_sal <- function(psal, intercept=3.083, slope=-0.111){
 
 #' Maximum H' as a linear function of salinity
 #'
-#' _AMBI_sal_ and _H_sal_ are called _AMBI_min_ and
-#' _H_max_ in the DKI documentation
-#' They are renamed to reflect the fact that they are
-#' functions of salinity and not min/max  values from
-#'  the data being used in the function
+#' Used by [DKI2()], adjusting the Shannon diversity
+#' index `H'` to account for decreasing species
+#' diversity with decreasing salinity.
+#'
+#' [AMBI_sal()] and [H_sal()] are named, respectively,
+#'  _AMBI_min_ and _H_max_ in the DKI documentation
+#' [(Carstensen et al., 2014)](https://dce2.au.dk/pub/SR93.pdf).
+#' They are renamed in {ambiR} to reflect the fact that
+#' they are functions of salinity and _not_ minimum or
+#' maximum values from data being used.
 #'
 #' @return a numeric value H_max
-#'
-#' @source <https://dce2.au.dk/pub/SR93.pdf>
 #'
 #' @param psal numeric salinity
 #' @param intercept numeric, default 2.117

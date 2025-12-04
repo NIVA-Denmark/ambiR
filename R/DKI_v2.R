@@ -1,22 +1,23 @@
 #' Calculates DKI (v2)
 #'
 #' @description
-#' This function calculates a salinity-normalised version of the Danish quality
-#' index (DKI)
+#' [DKI2()] calculate a salinity-normalised version of the Danish quality
+#' index (DKI) ([Carstensen et al., 2014](https://dce2.au.dk/pub/SR93.pdf))
 #'
-#' The DKI is based on AMBI and can only be calculated after first calculating
+#' The *DKI* index is based on AMBI and can only be calculated after first calculating
 #' *AMBI*, the AZTI Marine Biotic Index, and *H'*, the Shannon diversity index.
 #' Both indices are included in output from the function [AMBI()].
 #'
 #' This function uses linear relationships between salinity and limits for `AMBI`
-#' and `Hdash` to normalise the index.
+#' and `Hdash` to normalise the index. This is done to account for expected
+#' lower species diversity in regions with lower salinity.
 #'
 #' Since the index is normalised to salinity, the function also requires
 #' measured or estimated salinity `psal` as an argument.
 #'
 #' @details
 #' The [AMBI()] and [Hdash()] functions take a dataframe of observations as an
-#' argument. The DKI functions, [DKI2()] and [DKI()], do *not* take a dataframe
+#' argument. The *DKI* functions, [DKI2()] and [DKI()], do *not* take a dataframe
 #' as an argument. Instead they take values of the input parameters, either
 #' single values or as vectors.
 #'
@@ -28,14 +29,6 @@
 #' * [AMBI_sal()] minimum AMBI for normalisation _= f(salinity)_
 #' * [H_sal()] maximum H' for normalisation _= f(salinity)_
 #'
-#' @source
-#'
-#' The Danish quality index is described in Carstensen et al (2014)
-#'
-#' Carstensen, J., Krause-Jensen, D., Josefson, A. (2014) Development and testing
-#' of tools for intercalibration of phytoplankton, macrovegetation and benthic
-#' fauna in Danish coastal areas. Scientific Report from DCE – Danish Centre for
-#' Environment and Energy No. 93. <https://dce2.au.dk/pub/SR93.pdf>
 #'
 #' @param AMBI        AMBI, the AZTI Marine Biotic Index, calculated using [AMBI()]
 #' @param H           H', the Shannon diversity index, calculated using [Hdash()]

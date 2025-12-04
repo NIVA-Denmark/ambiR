@@ -3,9 +3,6 @@
 \name{H_sal}
 \alias{H_sal}
 \title{Maximum H' as a linear function of salinity}
-\source{
-\url{https://dce2.au.dk/pub/SR93.pdf}
-}
 \usage{
 H_sal(psal, intercept = 2.117, slope = 0.086)
 }
@@ -20,11 +17,17 @@ H_sal(psal, intercept = 2.117, slope = 0.086)
 a numeric value H_max
 }
 \description{
-\emph{AMBI_sal} and \emph{H_sal} are called \emph{AMBI_min} and
-\emph{H_max} in the DKI documentation
-They are renamed to reflect the fact that they are
-functions of salinity and not min/max  values from
-the data being used in the function
+Used by \code{\link[=DKI2]{DKI2()}}, adjusting the Shannon diversity
+index \verb{H'} to account for decreasing species
+diversity with decreasing salinity.
+}
+\details{
+\code{\link[=AMBI_sal]{AMBI_sal()}} and \code{\link[=H_sal]{H_sal()}} are named, respectively,
+\emph{AMBI_min} and \emph{H_max} in the DKI documentation
+\href{https://dce2.au.dk/pub/SR93.pdf}{(Carstensen et al., 2014)}.
+They are renamed in {ambiR} to reflect the fact that
+they are functions of salinity and \emph{not} minimum or
+maximum values from data being used.
 }
 \examples{
 H_sal(20.1)

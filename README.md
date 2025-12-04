@@ -47,7 +47,16 @@ devtools::install_github("NIVA-Denmark/ambiR")
 
 ## Examples
 
-This is a basic example using a small dataset.
+This is a basic example using a very small dataset, with 2 stations. In
+each station there are 3 species counts. The data is organised in a
+dataframe with 3 columns in a so-called “long” format. That is, each
+count is recorded in a separate row.
+
+By default, the `AMBI` function returns both the AMBI results *and* a
+list of which AMBI groups species names in input data were assigned to.
+Here, we also use the argument `format_pct` to show the estimated
+fractions as percentages. See the function documentation for more
+details: `AMBI()`.
 
 ``` r
 library(ambiR)

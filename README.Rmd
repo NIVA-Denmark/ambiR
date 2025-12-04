@@ -40,12 +40,14 @@ To get started, see `vignette("ambiR")`. For details about running in
 interactive mode, see `vignette("interactive")`.
 
 The AMBI index was developed by Ángel Borja and colleagues at AZTI. For 
-background and explanation of the method for calculation of the AMBI index see `vignette("about-AMBI")`. You can also find a link to download the original AMBI
-software.
+background and explanation of the method for calculation of the AMBI index 
+see `vignette("about-AMBI")`. You can also find a link to download the 
+original AMBI software.
 
 ## Installation
 
-You can install the development version of ambiR from [GitHub](https://github.com/niva-denmark/ambiR/) with:
+You can install the development version of ambiR from
+[GitHub](https://github.com/niva-denmark/ambiR/) with:
 
 ```{r install, eval = FALSE}
 # install.packages("devtools")
@@ -55,7 +57,10 @@ devtools::install_github("NIVA-Denmark/ambiR")
 
 ## Examples
 
-This is a basic example using a small dataset.
+This is a basic example using a very small dataset, with 2 stations. In each station there are 3 species counts.
+The data is organised in a dataframe with 3 columns in a so-called "long" format. That is, each count is recorded in a separate row.
+
+By default, the `AMBI` function returns both the AMBI results _and_ a list of which AMBI groups species names in input data were assigned to. Here, we also use the argument `format_pct` to show the estimated fractions as percentages. See the function documentation for more details: `AMBI()`.
 
 ```{r example}
 library(ambiR)

@@ -1,7 +1,8 @@
 #' Species list for AMBI calculations
 #'
-#' Returns a dataframe with list of species and AMBI group. Called by the
-#' function [AMBI()] to match species in observed data and find species groups.
+#' Called from the function [AMBI()]. Returns a dataframe with list of species
+#' and the AMBI group they are assigned to. Used within to match species in
+#' observed data and find species groups.
 #'
 #' *Group I*. Species very sensitive to organic enrichment
 #' and present under unpolluted conditions (initial state). They include the
@@ -37,7 +38,7 @@
 #'
 #' @source <https://ambi.azti.es/download/>
 #'
-#' *08 October 2024
+#' *02 December 2025
 #'
 #' @param version string, version of the species list,
 #'     default is "" - returns the latest version
@@ -45,25 +46,75 @@
 #'
 #' @examples .AMBI_species()
 #'
+#' @seealso [AMBI()] which calculates the AMBI index.#'
+#'
 #' @import cli
 #'
 #' @noRd
 
 .AMBI_species <- function(version = ""){
   version <- as.character(version)
-  versions_alternative <- c("2022")
-  if(version!="" & !version %in% versions_alternative){
-    versions_alternative <-  paste0(versions_alternative, collapse="', '")
-    cli::cli_inform(paste0(
-      "The specified version of species list was not found: '{.emph {version}}'.\f",
-      "Available older versions of species list are: '{.emph {versions_alternative}}.\f",
-      "Returning the latest version from October 2024."
-    ))
-  }
 
-  if(version=="2022"){
-    return(AZTI_species_list_20220531)
-  }else{
-    return(AZTI_species_list)
+  # list of available species list versions
+  versions <- .species_versions()
+
+  cli_div(theme = list(
+    span.classavailable = list(color = "#96CBFE"),
+    span.classunavailable = list(color = "orange" )))
+
+
+  if(version!="" & !version %in% names(versions)){
+
+    msg <- paste0("The specified version of species list was not found: {.classunavailable '{version}'}.\f",
+      "Available versions of species list are:")
+    for(i in 1:length(versions)){
+      date <- as.Date(versions[i], format="%Y%m%d")
+      msg <- msg %>%
+        paste0("\f   {.classavailable '", names(versions)[i],
+               "'} {.emph (",
+               date, ")}")
+    }
+    msg <- msg %>%
+      paste0("\fReturning the default version: {.classavailable '", names(versions)[1], "'} ")
+
+    cli::cli_warn(msg)
+
+    version <- versions[1]
   }
+  if(version == ""){
+    version <- names(versions)[1]
+  }
+  version <- versions[version]
+  dataname <- paste0("AMBI_species_list",
+                     ifelse(version=="", "", "_"),
+                     version)
+
+  return(get(dataname))
+
 }
+
+# return a list of available versions for the species lists
+.species_versions <- function(){
+
+  version_names <- c("2025","2024","2022")
+  versions <- c("20251205", "20241008", "20220531")
+
+  names(versions) <- version_names
+
+  return(versions)
+
+}
+
+# return the date of the latest version of the species lists
+.latest_version <- function(){
+
+  versions <- .species_versions()
+
+  latest <- as.Date(versions, format="%Y%m%d") %>% sort(decreasing = T)
+  latest <- latest[1]
+
+  return(format(latest, "%d %B %Y"))
+
+}
+
+

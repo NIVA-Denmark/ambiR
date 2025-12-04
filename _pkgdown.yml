@@ -28,3 +28,16 @@ reference:
   - H_sal
   - AMBI_sal
   - test_data
+
+news:
+- title: News
+  one_page: true
+  releases:
+
+articles:
+- title: Background
+  navbar: ~
+  contents:
+  - background
+  - interactive
+  - ambi-figures

@@ -3,14 +3,6 @@
 \name{DKI2}
 \alias{DKI2}
 \title{Calculates DKI (v2)}
-\source{
-The Danish quality index is described in Carstensen et al (2014)
-
-Carstensen, J., Krause-Jensen, D., Josefson, A. (2014) Development and testing
-of tools for intercalibration of phytoplankton, macrovegetation and benthic
-fauna in Danish coastal areas. Scientific Report from DCE – Danish Centre for
-Environment and Energy No. 93. \url{https://dce2.au.dk/pub/SR93.pdf}
-}
 \usage{
 DKI2(AMBI, H, N, psal)
 }
@@ -27,22 +19,23 @@ DKI2(AMBI, H, N, psal)
 \code{DKI} index value
 }
 \description{
-This function calculates a salinity-normalised version of the Danish quality
-index (DKI)
+\code{\link[=DKI2]{DKI2()}} calculate a salinity-normalised version of the Danish quality
+index (DKI) (\href{https://dce2.au.dk/pub/SR93.pdf}{Carstensen et al., 2014})
 
-The DKI is based on AMBI and can only be calculated after first calculating
+The \emph{DKI} index is based on AMBI and can only be calculated after first calculating
 \emph{AMBI}, the AZTI Marine Biotic Index, and \emph{H'}, the Shannon diversity index.
 Both indices are included in output from the function \code{\link[=AMBI]{AMBI()}}.
 
 This function uses linear relationships between salinity and limits for \code{AMBI}
-and \code{Hdash} to normalise the index.
+and \code{Hdash} to normalise the index. This is done to account for expected
+lower species diversity in regions with lower salinity.
 
 Since the index is normalised to salinity, the function also requires
 measured or estimated salinity \code{psal} as an argument.
 }
 \details{
 The \code{\link[=AMBI]{AMBI()}} and \code{\link[=Hdash]{Hdash()}} functions take a dataframe of observations as an
-argument. The DKI functions, \code{\link[=DKI2]{DKI2()}} and \code{\link[=DKI]{DKI()}}, do \emph{not} take a dataframe
+argument. The \emph{DKI} functions, \code{\link[=DKI2]{DKI2()}} and \code{\link[=DKI]{DKI()}}, do \emph{not} take a dataframe
 as an argument. Instead they take values of the input parameters, either
 single values or as vectors.
 
