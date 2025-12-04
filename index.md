@@ -30,8 +30,9 @@ For details about running in interactive mode, see
 
 The AMBI index was developed by Ángel Borja and colleagues at AZTI. For
 background and explanation of the method for calculation of the AMBI
-index see `vignette("about-AMBI")`. You can also find a link to download
-the original AMBI software.
+index see
+[`vignette("background")`](https://niva-denmark.github.io/ambiR/articles/background.md).
+You can also find a link to download the original AMBI software.
 
 ## Installation
 
