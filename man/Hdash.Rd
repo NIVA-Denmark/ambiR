@@ -35,7 +35,7 @@ a list of two dataframes:
 \item \code{H} : results of the AMBI index calculations. For each unique
 combination of \code{by}variables the following values are calculated:
 \itemize{
-\item \code{H} : the Shannon-Wiener Diversity Index, \emph{H'}
+\item \code{H} : the Shannon diversity Index, \emph{H'}
 \item \code{S} : the number of species
 \item \code{N} : the number of individuals
 }
