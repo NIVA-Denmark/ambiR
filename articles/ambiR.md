@@ -240,8 +240,8 @@ unique combination of `by` variables, in our case the results are per
 `station`.
 
 In addition to the `AMBI` index, the results also include the *Shannon
-Wiener diversity index* `H'` and the *Species richness* `S`, the three
-metrics which are necessary to calculate [M-AMBI](#calculate-m-ambi).
+diversity index* `H'` and the *Species richness* `S`, the three metrics
+which are necessary to calculate [M-AMBI](#calculate-m-ambi).
 
 ``` r
 res$AMBI
@@ -302,7 +302,7 @@ Calculate M-AMBI the multivariate AMBI index, based on the three
 separate species diversity metrics:
 
 - AMBI index `AMBI`.
-- Shannon Wiener diversity index `H`
+- Shannon diversity index `H`
 - Species richness `S`.
 
 All three indices required to calculate
