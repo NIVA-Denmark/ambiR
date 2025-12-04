@@ -97,7 +97,7 @@
 #'
 #' ### _interactive_ mode
 #'
-#' If the function is called in  [interactive](./articles/interactive.html) mode, by using
+#' If the function is called in  [interactive](../articles/interactive.html) mode, by using
 #' the argument `interactive = TRUE` then the user has an opportunity to
 #' _manually_ assign species groups (_I, II, III, IV, V_) for any species
 #' names which were not identified. The user does this by typing `1`, `2`, `3`,

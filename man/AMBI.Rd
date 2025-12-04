@@ -236,7 +236,7 @@ the \code{matched} output.
 
 \subsection{\emph{interactive} mode}{
 
-If the function is called in  \href{./articles/interactive.html}{interactive} mode, by using
+If the function is called in  \href{../articles/interactive.html}{interactive} mode, by using
 the argument \code{interactive = TRUE} then the user has an opportunity to
 \emph{manually} assign species groups (\emph{I, II, III, IV, V}) for any species
 names which were not identified. The user does this by typing \code{1}, \code{2}, \code{3},
