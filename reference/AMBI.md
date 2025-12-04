@@ -284,7 +284,7 @@ output.
 #### *interactive* mode
 
 If the function is called in
-[interactive](https://niva-denmark.github.io/ambiR/reference/articles/interactive.md)
+[interactive](https://niva-denmark.github.io/ambiR/articles/interactive.md)
 mode, by using the argument `interactive = TRUE` then the user has an
 opportunity to *manually* assign species groups (*I, II, III, IV, V*)
 for any species names which were not identified. The user does this by
