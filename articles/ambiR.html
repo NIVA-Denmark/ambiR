@@ -39,10 +39,12 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/about-AMBI.html">The AMBI index</a></li>
+<li><a class="dropdown-item" href="../articles/background.html">The AMBI index</a></li>
     <li><a class="dropdown-item" href="../articles/interactive.html">Interactive mode</a></li>
+    <li><a class="dropdown-item" href="../articles/ambi-figures.html">AMBI figures</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -70,7 +72,8 @@
 
     
     
-<p>This is a brief introduction to calculating AMBI index results.</p>
+<p>This is a brief introduction to AMBI index calculations with
+ambiR.</p>
 <div class="section level2">
 <h2 id="structuring-species-observation-data">Structuring species observation data<a class="anchor" aria-label="anchor" href="#structuring-species-observation-data"></a>
 </h2>
@@ -79,8 +82,8 @@ arranged in <em>long</em> format. That is, species names are in one
 column and species counts in another column. If the data represents
 several stations and/or if there are replicates, then the data should
 include columns with this information.</p>
-<p>The example dataset included with the <code>ambiR</code> package,
-<code>test_data</code>, illustrates how the data should be arranged:</p>
+<p>Looking at the <code>test_data</code> example dataset included with
+the ambiR package, one can see how the data should be arranged:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niva-denmark.github.io/ambiR/">ambiR</a></span><span class="op">)</span></span>
 <span></span>
@@ -119,14 +122,14 @@ separate columns:</p>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Prionospio fallax` &lt;dbl&gt;, `Scolaricia sp.` &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Spio martinensis` &lt;dbl&gt;, `Tapes decussatus` &lt;dbl&gt;, `Tellina sp.` &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Lekanesphaera rugicauda` &lt;dbl&gt;, `Lepidochitona cinerea` &lt;dbl&gt;, …</span></span></span></code></pre></div>
-<p>To arrange the data in the correct form, use the
-<code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">tidyr::pivot_longer()</a></code> function:</p>
+<p>To arrange the data in the correct form, use
+<code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">tidyr::pivot_longer()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># columns 1 and 2 contain station and replicate information</span></span>
 <span><span class="co"># so, select all columns from 3 to be pivoted </span></span>
 <span></span>
 <span><span class="va">long_data</span> <span class="op">&lt;-</span> <span class="va">wide_data_species</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">wide_data_species</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fl">3</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">wide_data_species</span><span class="op">)</span>, </span>
 <span>               names_to <span class="op">=</span> <span class="st">"species"</span>,</span>
 <span>               values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span>
 <span></span>
@@ -163,6 +166,9 @@ step, as in the <a href="#data-with-species-names-in-columns">previous
 example</a>. But in this case, the station and replicate information are
 in separate rows. The restructuring process is a little more
 complicated.</p>
+<div class="section level4">
+<h4 id="combine-station-and-replicate-values">Combine station and replicate values<a class="anchor" aria-label="anchor" href="#combine-station-and-replicate-values"></a>
+</h4>
 <p>Before we can use a pivot function, we need to combine the station ID
 and replicate ID for each column into a single value. In this example,
 each station ID and replicate ID are joined into a single character
@@ -200,6 +206,10 @@ station/replicate IDs.</p>
 <span><span class="co">#&gt; 6 Bathyporeia elegans   0   1   0   0   0   0   0   0</span></span>
 <span><span class="co">#&gt; 7     Dispio uncinata   0   1   0   0   0   0   0   0</span></span>
 <span><span class="co">#&gt; 8         Astarte sp.   0   0   1   0   0   0   0   0</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="transpose-using-the-combined-stationreplicate-variable">Transpose using the combined station/replicate variable<a class="anchor" aria-label="anchor" href="#transpose-using-the-combined-stationreplicate-variable"></a>
+</h4>
 <p>We can see that the column names now contain the combined station and
 replicate information. We are ready to transpose the data.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -207,7 +217,7 @@ replicate information. We are ready to transpose the data.</p>
 <span><span class="co"># so, select all columns from 2 to be pivoted </span></span>
 <span></span>
 <span><span class="va">long_data</span> <span class="op">&lt;-</span> <span class="va">wide_data_stns</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">wide_data_stns</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">wide_data_stns</span><span class="op">)</span>, </span>
 <span>               names_to <span class="op">=</span> <span class="st">"stn_rep"</span>,</span>
 <span>               values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span></span>
 <span></span>
@@ -221,12 +231,17 @@ replicate information. We are ready to transpose the data.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Cumopsis fagei 2_a     1    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Cumopsis fagei 2_b     1    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Cumopsis fagei 2_c     0</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="retrieve-station-and-replicate-variables-from-the-transposed-data">Retrieve station and replicate variables from the transposed
+data<a class="anchor" aria-label="anchor" href="#retrieve-station-and-replicate-variables-from-the-transposed-data"></a>
+</h4>
 <p>Now we can split the <em>stn_rep</em> column into separate columns
 for <em>station</em> and <em>replicate</em>, We will use the underscore
 we introduced earlier to indentify where the split should occur:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">long_data</span> <span class="op">&lt;-</span> <span class="va">long_data</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">separate_wider_delim</span><span class="op">(</span>cols<span class="op">=</span><span class="st">"stn_rep"</span>, </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate_wider_delim.html" class="external-link">separate_wider_delim</a></span><span class="op">(</span>cols<span class="op">=</span><span class="st">"stn_rep"</span>, </span>
 <span>                       delim <span class="op">=</span> <span class="va">sep_character</span>,</span>
 <span>                       names<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"station"</span>, <span class="st">"replicate"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -241,6 +256,7 @@ we introduced earlier to indentify where the split should occur:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Cumopsis fagei 2       b         1    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Cumopsis fagei 2       c         0</span></span></code></pre></div>
 <p>Now we are ready to calculate AMBI…</p>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -270,11 +286,11 @@ provided:</p>
 <p>The <code><a href="../reference/AMBI.html">AMBI()</a></code> function returns a list of three
 dataframes:</p>
 <ul>
-<li><code>res$AMBI</code></li>
-<li><code>res$AMBI_rep</code></li>
-<li><code>res$matched</code></li>
+<li><code>.$AMBI</code></li>
+<li><code>.$AMBI_rep</code></li>
+<li><code>.$matched</code></li>
 </ul>
-<p><code>res$AMBI</code>- the main results with the <code>AMBI</code>
+<p><code>.$AMBI</code>- the main results with the <code>AMBI</code>
 index calculated for each unique combination of <code>by</code>
 variables, in our case the results are per <code>station</code>.</p>
 <p>In addition to the <code>AMBI</code> index, the results also include
@@ -290,7 +306,7 @@ necessary to calculate <a href="#calculate-m-ambi">M-AMBI</a>.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>       2  1.89   0.238  3.54    22     0    80 0.4   0.138 0.3   0.15   0.012<span style="text-decoration: underline;">5</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>       3  4.12   0.884  2.50     9     0    24 0     0.125 0.292 0.083<span style="text-decoration: underline;">3</span> 0.5   </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: Disturbance &lt;chr&gt;</span></span></span></code></pre></div>
-<p><code>res$AMBI_rep</code> - if the observations include replicates,
+<p><code>.$AMBI_rep</code> - if the observations include replicates,
 then the function also returns results calculated for each replicate,
 within each unique combination of <code>by</code> variables:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -306,7 +322,7 @@ within each unique combination of <code>by</code> variables:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>       2 c          1.66    10     0    29 0.448 0.103  0.345 0.103 0     </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span>       3 a          3.5      5     0     6 0     0.333  0.167 0.333 0.167 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span>       3 b          4.75     6     0    18 0     0.055<span style="text-decoration: underline;">6</span> 0.333 0     0.611</span></span></code></pre></div>
-<p><code>res$matched</code> - for each observation, this dataframe shows
+<p><code>.$matched</code> - for each observation, this dataframe shows
 which species in the <code>AMBI</code> list the observed species was
 matched with, if any. It also shows the <code>AMBI</code> species group
 assigned. This dataframe has the same number of rows as the input
@@ -335,7 +351,7 @@ AMBI</a></p>
 separate species diversity metrics:</p>
 <ul>
 <li>AMBI index <code>AMBI</code>.</li>
-<li>Shannon Wiener diversity index <code>H'</code>
+<li>Shannon Wiener diversity index <code>H</code>
 </li>
 <li>Species richness <code>S</code>.</li>
 </ul>
@@ -355,9 +371,9 @@ more details.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">limits_AMBI</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bad"</span> <span class="op">=</span> <span class="fl">6</span>, <span class="st">"high"</span> <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">limits_H</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bad"</span> <span class="op">=</span> <span class="fl">0</span>, <span class="st">"high"</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="va">limits_H</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bad"</span> <span class="op">=</span> <span class="fl">0</span>, <span class="st">"high"</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">limits_S</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bad"</span> <span class="op">=</span> <span class="fl">0</span>, <span class="st">"high"</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">limits_S</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bad"</span> <span class="op">=</span> <span class="fl">0</span>, <span class="st">"high"</span> <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <p>By default, upper limit values for <code>H</code> and <code>S</code>
 are not provided (<code>= NA</code>. If they are not provided
 explicitly, then the maximum values found in the input data will be
@@ -382,7 +398,7 @@ the boundaries between status classes.</p>
 <code>GM</code> - <em>Good</em> / <em>Moderate</em>
 </li>
 <li>
-<code>HG</code> _ <em>High</em> / <em>Good</em>
+<code>HG</code> - <em>High</em> / <em>Good</em>
 </li>
 </ul>
 <p>The default values for the class boundaries are:</p>
@@ -401,7 +417,7 @@ the boundaries between status classes.</p>
 <h3 id="m-ambi-results">M-AMBI results<a class="anchor" aria-label="anchor" href="#m-ambi-results"></a>
 </h3>
 <p>In addition to retaining the values for <code>AMBI</code>.
-<code>H'</code> and <code>S</code>, the results include the following
+<code>H</code> and <code>S</code>, the results include the following
 information:</p>
 <ul>
 <li>
@@ -423,7 +439,7 @@ values for each of the three metrics used in the M-AMBI
 caclulations.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res_mambi</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">station</span>, <span class="va">AMBI</span>, <span class="va">H</span>, <span class="va">S</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span>, <span class="va">MAMBI</span>, <span class="va">Status</span>, <span class="va">EQR</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">station</span>, <span class="va">AMBI</span>, <span class="va">H</span>, <span class="va">S</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span>, <span class="va">MAMBI</span>, <span class="va">Status</span>, <span class="va">EQR</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 10</span></span></span>
 <span><span class="co">#&gt;   station  AMBI     H     S        x       y      z MAMBI Status   EQR</span></span>
 <span><span class="co">#&gt;     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -487,7 +503,7 @@ Water Framework Directive.”</span> <em>Marine Pollution Bulletin</em> 55
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

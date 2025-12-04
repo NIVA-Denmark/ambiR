@@ -1,0 +1,240 @@
+# Interactive mode
+
+By default, the
+[`AMBI()`](https://niva-denmark.github.io/ambiR/reference/AMBI.md)function
+works in the same way as many other functions you are familiar with: it
+is called in an *unsupervised* manner. That is, the function is called
+and then returns a set of results, or possibly an error message, without
+any additional interaction with the user.
+
+After checking the results, the user can check if there are any species
+which were not recognized and, if necessary, make corrections to input
+data before calling the function again. These steps are repeated, as
+necessary, in an iterative process.
+
+Users familiar with the original `AMBI`software will recall that the
+process of checking species names and group assignments is done in an
+*interactive* way. The ambiR package allows the user to work in a
+similar way where it is possible to interact with the function and make
+corrections to data before the results are generated. Where species
+names in the observation data were not recognized, the user can manually
+assign the species to an `AMBI` species group.
+
+## Test data
+
+We create a test data set with species names and counts
+
+``` r
+df <- data.frame(station = c("1","1","1","1","1","1",
+                             "2","2","2","2","2","2"),
+                 species = c("Acidostoma neglectum",
+                             "Acrocirrus validus",
+                             "Acteocina bullata",
+                             "Austrohelice crassa",
+                             "Capitella nonatoi",
+                             "Watersipora subatra",
+                             "Zanclea giancarloi",
+                             "Zanclea sessilis",
+                             "Zonorhynchus sp.",
+                             "Acholoe squamosa",
+                             "Aglaophenia kirchenpaueri",
+                             "Tricellaria sp."),
+                 count = c(2, 4, 5, 3, 7, 2, 4, 5, 3, 7, 2, 3))
+```
+
+## Instructions
+
+To run
+[`AMBI()`](https://niva-denmark.github.io/ambiR/reference/AMBI.md) in
+interactive mode, use the `interactive = TRUE` argument.
+
+If any of the species names in the input data frame were not recognized
+as belonging to the `AMBI` species list *or* to a user-defined species
+list, if this was specified, then a message is displayed showing the
+number of unrecognized species, and giving instructions for how to
+proceed with assigning groups to each of these species.
+
+The first species in the list of unrecognized names will be displayed.
+To proceed you should type at the console prompt:
+
+- `1`,`2`,`3`,`4` or `5` - the species will be assigned to the selected
+  ([AMBI species
+  groups](https://niva-denmark.github.io/ambiR/articles/about-AMBI.html#species-groups))
+
+- `0` - assigning Group `0` means that the species will be inclued in
+  the AMBI calculations and count towards the number of *Not assigned*
+  species.
+
+- `Enter` - the species name will be treated as unrecognized and will
+  *not* be included in `AMBI` calculations.
+
+- `s` - a list of recognized species names from the `AMBI` list will be
+  displayed. These are species which appear close to the the
+  unrecognized species when they are sorted in alphabetical order. 10
+  species names will be displayed. Typing `s` repeatedly will display
+  consecutive names from the `AMBI` list, 10 at a time.
+
+- `x` - the interactive species assignment process will be aborted. Any
+  species groups assigned manually up to this point will be discarded
+  and the AMBI calculations will continue using the default,
+  unsupervised, method.
+
+## Interactive AMBI calculation
+
+``` r
+library(ambiR)
+
+AMBI(df, by = c("station"), quiet=F, interactive = T)
+#> 
+#> ── Assigning unrecognized species ──────────────────────────────────────────────
+#> 
+#> • 7 species names were not recognized. These will now be displayed, one at a
+#> time.
+#> 
+#> • For each species, you can assign it to one of the five AMBI categories (I,
+#> II, III, IV, V). Do this by entering an integer value from 1 to 5.
+#> Alternatively, you can assign a value of 0. This indicates that the species
+#> name is recognized but it is not possible to assign it to one of the five
+#> categories.
+#> 
+#> • If Enter is pressed, without providing a value, no change will be made. The
+#> species name in question will be treated as unrecognized.
+#> 
+#> • Enter s at the prompt to see a list of similar species names and their
+#> corresponding AMBI categories.
+#> 
+#> • Enter x to abort the interactive species selection. Any entries made up to
+#> that point will be discarded. All 7 species will be treated as unrecognized.
+#> 
+#> ── 1 Acholoe squamosa ──
+#> 
+#> ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
+Typing `s` will show species names which are close to the unrecognized
+species when arranged in alphabetical order.
+
+``` r
+s
+
+#> • Achelous ordwayi                                 (Group 1)
+#> • Acidostoma hancocki                              (Group 2)
+#> • Acidostoma neglectum                             (Group 0)
+#> • Acidostoma nodiferum                             (Group 1)
+#> • Acidostoma obesum                                (Group 1)
+#> • Acidostoma sarsi                                 (Group 1)
+#> • Acidostoma sp.                                   (Group 1)
+#> • Acila castrensis                                 (Group 2)
+#> • Acila insignis                                   (Group 2)
+#> • Aclis gulsonae                                   (Group 1)
+#> ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
+There were no similar species names which might give us a clue about
+this species. In this case, we are satisfied that the name is a valid
+species name[¹](#fn1) but we are unsure which group the species should
+be assigned to, so we assign group `0`.
+
+Assigning group `0` means that the species will be included in the count
+of `Not assigned` species when calculating the `AMBI` index. If we typed
+`Enter` the species would be ignored and not included in the `AMBI`
+calculations.
+
+A message is displayed confirming our selection (`Not assigned`) and
+then we are asked to consider the next unrecognized species name,
+*Aglaophenia kirchenpaueri*.
+
+``` r
+0
+
+#> ✔ Acholoe squamosa - Not assigned
+#> 
+#> ── 2 Aglaophenia kirchenpaueri ──
+#>
+#> ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
+We type `s` to see similar names:
+
+``` r
+s
+
+#> • Aglaophamus verrilli                             (Group 2)
+#> • Aglaophenia acacia                               (Group 0)
+#> • Aglaophenia pluma                                (Group 0)
+#> • Agnezia septentrionalis                          (Group 2)
+#> • Aidanosagitta crassa                             (Group 1)
+#> • Aiptasia diaphana                                (Group 3)
+#> • Aiptasia mutabilis                               (Group 3)
+#> • Akanthophoreus gracilis                          (Group 1)
+#> • Akera bullata                                    (Group 1)
+#> • Akera sp.                                        (Group 1)
+#> ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
+In this case we can see two species belonging to the same genus,
+*Aglaophenia*. They are both assigned to group `0` (`Not assigned`) so
+we could make the assumption that our unrecognized species should be
+assigned to the same group.
+
+``` r
+0
+
+#> ✔ Aglaophenia kirchenpaueri - Not assigned
+#>
+#> ── 3 Tricellaria sp. ──
+#>
+#> ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
+This process is repeated for each unrecognized species name.
+
+## Results
+
+[`AMBI()`](https://niva-denmark.github.io/ambiR/reference/AMBI.md)
+returns a list of three dataframes, including `matched`. This dataframe
+shows which groups species have been assigned to and after interactive
+species matching, it will include the column `source`. An *‘I’* in this
+column indicates that the group was assigned interactively.
+
+``` r
+$matched
+   station                   species           species_matched count group source RA
+1        1      Acidostoma neglectum      Acidostoma neglectum     2     0   <NA>  0
+2        1        Acrocirrus validus        Acrocirrus validus     4     4   <NA>  0
+3        1         Acteocina bullata         Acteocina bullata     5     1   <NA>  0
+4        1       Austrohelice crassa       Austrohelice crassa     3     5   <NA>  0
+5        1         Capitella nonatoi         Capitella nonatoi     7     5   <NA>  0
+6        1       Watersipora subatra       Watersipora subatra     2     0      I NA
+7        2        Zanclea giancarloi        Zanclea giancarloi     4     0      I NA
+8        2          Zanclea sessilis          Zanclea sessilis     5     0      I NA
+9        2          Zonorhynchus sp.          Zonorhynchus sp.     3     0      I NA
+10       2          Acholoe squamosa          Acholoe squamosa     7     0      I NA
+11       2 Aglaophenia kirchenpaueri Aglaophenia kirchenpaueri     2     0      I NA
+12       2           Tricellaria sp.           Tricellaria sp.     3     3      I NA
+```
+
+## Aborting interactive mode
+
+Typing `x` at any point in the interactive species assignment process
+will abort the interactive process. The following message will be
+displayed:
+
+``` r
+x
+
+#> ! interactive species assignment cancelled
+```
+
+Any species groups assigned manually up to this point will be discarded
+and the AMBI calculations will proceed using the default, unsupervised,
+method.
+
+------------------------------------------------------------------------
+
+1.  <https://www.marinespecies.org/aphia.php?p=taxdetails&id=146474>

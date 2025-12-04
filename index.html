@@ -16,8 +16,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Calculate AZTI’s Marine Biotic Index">
-<meta name="description" content="This package implements calculations of AZTI’s Marine Biotic Index _AMBI_, as well as the Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12): 1100-1114_.">
-<meta property="og:description" content="This package implements calculations of AZTI’s Marine Biotic Index _AMBI_, as well as the Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12): 1100-1114_.">
+<meta name="description" content="Calculate AZTI’s Marine Biotic Index _AMBI_, as well as the Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12) 1100-1114_.">
+<meta property="og:description" content="Calculate AZTI’s Marine Biotic Index _AMBI_, as well as the Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12) 1100-1114_.">
 <meta property="og:image" content="https://niva-denmark.github.io/ambiR/logo.png">
 </head>
 <body>
@@ -42,10 +42,12 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/about-AMBI.html">The AMBI index</a></li>
+<li><a class="dropdown-item" href="articles/background.html">The AMBI index</a></li>
     <li><a class="dropdown-item" href="articles/interactive.html">Interactive mode</a></li>
+    <li><a class="dropdown-item" href="articles/ambi-figures.html">AMBI figures</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -86,7 +88,7 @@
 <code><a href="reference/DKI.html">DKI()</a></code> - calculates the Danish quality index <em>DKI</em>.</li>
 </ul>
 <p>To get started, see <code><a href="articles/ambiR.html">vignette("ambiR")</a></code>. For details about running in interactive mode, see <code><a href="articles/interactive.html">vignette("interactive")</a></code>.</p>
-<p>The AMBI index was developed by Ángel Borja and colleagues at AZTI. For background and explanation of the method for calculation of the AMBI index see <code><a href="articles/about-AMBI.html">vignette("about-AMBI")</a></code>. You can also find a link to download the original AMBI software.</p>
+<p>The AMBI index was developed by Ángel Borja and colleagues at AZTI. For background and explanation of the method for calculation of the AMBI index see <code>vignette("about-AMBI")</code>. You can also find a link to download the original AMBI software.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -99,7 +101,8 @@
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>This is a basic example using a small dataset.</p>
+<p>This is a basic example using a very small dataset, with 2 stations. In each station there are 3 species counts. The data is organised in a dataframe with 3 columns in a so-called “long” format. That is, each count is recorded in a separate row.</p>
+<p>By default, the <code>AMBI</code> function returns both the AMBI results <em>and</em> a list of which AMBI groups species names in input data were assigned to. Here, we also use the argument <code>format_pct</code> to show the estimated fractions as percentages. See the function documentation for more details: <code><a href="reference/AMBI.html">AMBI()</a></code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niva-denmark.github.io/ambiR/">ambiR</a></span><span class="op">)</span></span>
 <span></span>
@@ -190,6 +193,13 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
@@ -206,6 +216,7 @@
 <li>Sarai Pouso <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3208-9882" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Iñigo Muxika <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9181-3781" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Joxe Mikel Garmendia <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9403-1777" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
@@ -225,7 +236,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
