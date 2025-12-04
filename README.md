@@ -32,7 +32,7 @@ interactive mode, see `vignette("interactive")`.
 
 The AMBI index was developed by Ángel Borja and colleagues at AZTI. For
 background and explanation of the method for calculation of the AMBI
-index see `vignette("about-AMBI")`. You can also find a link to download
+index see `vignette("background")`. You can also find a link to download
 the original AMBI software.
 
 ## Installation
