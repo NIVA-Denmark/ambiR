@@ -53,6 +53,12 @@ each group $i \in {}I,II,III,IV,V$, then the index is given by:
 
 $$AMBI = 0*f_{I} + 1.5*f_{II} + 3*f_{III} + 4.5*f_{IV} + 6*f_{V}$$
 
+So, the greater the proportion of sensitive species, the lower the
+resulting AMBI index. A sample consisting 100% of species from the most
+sensitive category (Group I) will have an AMBI index of 0.0. A
+population consisting entirely of species from Group V will have an
+index of 6.0.
+
 ## M-AMBI - the multivariate AMBI index
 
 [`MAMBI()`](https://niva-denmark.github.io/ambiR/reference/MAMBI.md)

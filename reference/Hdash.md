@@ -53,7 +53,7 @@ a list of two dataframes:
 - `H` : results of the AMBI index calculations. For each unique
   combination of `by`variables the following values are calculated:
 
-  - `H` : the Shannon-Wiener Diversity Index, *H'*
+  - `H` : the Shannon diversity Index, *H'*
 
   - `S` : the number of species
 
