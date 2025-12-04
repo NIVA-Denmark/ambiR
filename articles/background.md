@@ -49,7 +49,7 @@ the authors of the AMBI software. The version of the list used here is
 from 5. December 2024.
 
 After calculating the fractions of all individuals belonging to each
-group $f_{i}$, where $i \in {}I,II,III,IV,V$ then the index is given by:
+group $f_{i}$ where $i \in {}I,II,III,IV,V$ then the index is given by:
 
 $$AMBI = 0*f_{I} + 1.5*f_{II} + 3*f_{III} + 4.5*f_{IV} + 6*f_{V}$$
 
