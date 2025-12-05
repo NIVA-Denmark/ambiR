@@ -6,7 +6,7 @@
 #' Called by the function [AMBI()] and then used to match species in observed
 #' data and find species groups.
 #'
-#' *latest version 5th December 2025*
+#' *latest version 8th October 2024*
 #'
 #' @details
 #'
@@ -53,9 +53,8 @@
 #' @param version _string_, version of the species list to return.
 #'                The default value is the empty string (`""`)
 #'                which returns the latest version of the list
-#'                _(5. December 2025)_. Other valid values for
-#'                `version` are `"2024"` _(8. October 2024)_
-#'                or `"2022"` _(31. May 2022)_.
+#'                _(8. October 2024)_. Currently, the only other valid value for
+#'                `version` is `"2022"` _(31. May 2022)_.
 #'
 #' @examples
 #'

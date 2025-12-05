@@ -13,16 +13,4 @@ for(version in version_names){
 }
 
 
-test_that("Check duplicate species", {
-
-  n <- ambiR::AMBI_species() %>%
-    group_by(species) %>%
-    summarise(n=n(), .groups="drop") %>%
-    filter(n>1) %>%
-    nrow()
-
-  testthat::expect_equal(n, 0)
-
-})
-
 

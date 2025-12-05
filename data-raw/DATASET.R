@@ -37,24 +37,12 @@ RA <- res[[3]][,1]
 
 AMBI_species_list_20241008 <- data.frame(species, group, RA)
 
-# the newest version of the species list is just named species
 
-# version 2025
-AMBI_species_list_20251205 <- AMBI_species_list_20241008
-
-AMBI_species_list_20251205 <- AMBI_species_list_20251205 %>%
-  group_by(species, group) %>%
-  arrange(desc(RA)) %>%
-  slice(1) %>%
-  ungroup()
-
-usethis::use_data(AMBI_species_list_20251205,
-                  AMBI_species_list_20241008,
+usethis::use_data(AMBI_species_list_20241008,
                   AMBI_species_list_20220531,
                   overwrite=TRUE, internal = TRUE)
 
-
-write.table(AMBI_species_list_20251205, file = "data-raw/AMBI_species_list.csv", sep=",", row.names=F)
+write.table(AMBI_species_list_20241008, file = "data-raw/AMBI_species_list.csv", sep=",", row.names=F)
 
 ## -------  test data set -------
 

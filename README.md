@@ -8,16 +8,17 @@
 [![R-CMD-check](https://github.com/NIVA-Denmark/ambiR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NIVA-Denmark/ambiR/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-This is an R package implementing **AZTI’s Marine Biotic Index**.
+Implementing **AZTI’s Marine Biotic Index** [(Borja et al.,
+2000)](\doi%7B10.1016/S0025-326X(00)00061-8%7D)
 
 ## Overview
 
-The package allows the user to calculate both the *AMBI* index and the
-multivariate *M-AMBI* from count or abundance data for benthic fauna
-species.
+The ambiR package allows the user to calculate both the *AMBI* index and
+the multivariate *M-AMBI* from count or abundance data for benthic fauna
+species, using the included species list.
 
 In addition, this package includes functions to calculate different
-versions of the *Danish Quality Index* (*DKI*) (in Danish: *Dansk
+versions of the *Danish Quality Index* (*DKI*) (*Dansk
 Kvalitetsindeks*), a derived benthic index based on AMBI.
 
 - `AMBI()` - calculates the *AMBI* index.
@@ -134,3 +135,28 @@ AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=1)
 #> 10       2 a         Glycera tridactyla  Glycera tridactyla      2     2     0
 #> # ℹ 43 more rows
 ```
+
+## Acknowledgments
+
+The ambiR logo was designed by Steen Knudsen
+<a href="https://orcid.org/0000-0003-0428-9940"
+class="fa-orcid fab orcid"></a>
+
+Development work on the ambiR package is funded in part by the GES4SEAS
+project.
+
+<img src="man/figures/Co-Funded-by-the-EU.png" class="fundingtext" />
+<img src="man/figures/UKRI20logo-300x88.png" class="fundingtext" />
+
+<span class="fundingtext">Grant Agreement 101059877 - GES4SEAS</span>
+
+<span class="fundingtext">The GES4SEAS project has been approved under
+the HORIZON-CL6-2021-BIODIV-01-04 call: *‘Assess and predict integrated
+impacts of cumulative direct and indirect stressors on coastal and
+marine biodiversity, ecosystems and their services’*.</span>
+
+<span class="fundingtext">Funded by the European Union. Views and
+opinions expressed are however those of the authors only and do not
+necessarily reflect those of the European Union or UK Research and
+Innovation. Neither the European Union nor the granting authority can be
+held responsible for them.</span>
