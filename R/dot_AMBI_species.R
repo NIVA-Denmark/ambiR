@@ -38,7 +38,7 @@
 #'
 #' @source <https://ambi.azti.es/download/>
 #'
-#' *02 December 2025
+#' *8th October 2024*
 #'
 #' @param version string, version of the species list,
 #'     default is "" - returns the latest version
@@ -96,8 +96,8 @@
 # return a list of available versions for the species lists
 .species_versions <- function(){
 
-  version_names <- c("2025","2024","2022")
-  versions <- c("20251205", "20241008", "20220531")
+  version_names <- c("2024","2022")
+  versions <- c("20241008", "20220531")
 
   names(versions) <- version_names
 

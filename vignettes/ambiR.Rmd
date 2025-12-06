@@ -245,7 +245,8 @@ head(res$matched)
 ```
 
 For more information about the principles underlying the `AMBI` calculations and
-the grouping of species according to sensitivity to pollution, see [about AMBI](./about-AMBI.html)
+the grouping of species according to sensitivity to pollution,
+see `vignette("background")`.
 
 ## Calculate M-AMBI {#calculate-m-ambi}
 
@@ -277,7 +278,7 @@ limits_H  <- c("bad" = 0, "high" = NA)
 limits_S  <- c("bad" = 0, "high" = NA)
 ```
 
-By default, upper limit values for `H` and `S` are not provided (`= NA`.
+By default, upper limit values for `H` and `S` are not provided (`= NA`).
 If they are not provided explicitly, then the maximum values found in
 the input data will be used. The results returned by `MAMBI()` show the
 limits used.
@@ -322,7 +323,7 @@ results include the following information:
 The dataframe returned contains 2 more rows than the input data. Our
 input data contained 3 rows (1 for each `station`). The results contain
 5 rows. The 2 *additional* rows show the limit values for each of the
-three metrics used in the M-AMBI caclulations.
+three metrics used in the M-AMBI calculations.
 
 ```{r mambi_results}
 res_mambi %>%

@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "man/figures/"
 )
 ```
 
@@ -67,7 +68,7 @@ The first species in the list of unrecognized names will be displayed. To procee
 you should type at the console prompt:
 
 -   `1`,`2`,`3`,`4` or `5` - the species will be assigned to the selected
-([AMBI species groups](./about-AMBI.html#species-groups))
+AMBI species groups. See also `vignette("background")`.
 
 -   `0` - assigning Group `0` means that the species will be inclued in the AMBI 
 calculations and count towards the number of *Not assigned* species.

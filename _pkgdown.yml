@@ -41,3 +41,10 @@ articles:
   - background
   - interactive
   - ambi-figures
+
+authors:
+  GES4SEAS:
+    href: "https://www.ges4seas.eu"
+    html: "<img src='https://www.ges4seas.eu/wp-content/uploads/2022/07/Ges4Seas_logo3.png' width=140 alt='GES4SEAS logo'>"
+
+

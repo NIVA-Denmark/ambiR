@@ -10,9 +10,8 @@ AMBI_species(version = "")
 \item{version}{\emph{string}, version of the species list to return.
 The default value is the empty string (\code{""})
 which returns the latest version of the list
-\emph{(5. December 2025)}. Other valid values for
-\code{version} are \code{"2024"} \emph{(8. October 2024)}
-or \code{"2022"} \emph{(31. May 2022)}.}
+\emph{(8. October 2024)}. Currently, the only other valid value for
+\code{version} is \code{"2022"} \emph{(31. May 2022)}.}
 }
 \value{
 A data frame with 11,952 rows* and 3 columns:
@@ -32,7 +31,7 @@ species group.}
 Called by the function \code{\link[=AMBI]{AMBI()}} and then used to match species in observed
 data and find species groups.
 
-\emph{latest version 5th December 2025}
+\emph{latest version 8th October 2024}
 }
 \details{
 The species groups, as described by \href{\doi{10.1016/S0025-326X(00)00061-8}}{Borja et al. (2000)}:
