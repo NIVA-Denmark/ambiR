@@ -104,7 +104,7 @@ p
 ```
 
 ![Bar chart with default ggplot2
-formatting](ambi-figures_files/figure-html/plot1-1.png)
+formatting](reference/figures/plot1-1.png)
 
 ## Bar chart with AMBI theme
 
@@ -151,7 +151,7 @@ p <- ggplot() +
 p
 ```
 
-![Bar chart with AMBI theme](ambi-figures_files/figure-html/plot2-1.png)
+![Bar chart with AMBI theme](reference/figures/plot2-1.png)
 
 There are still some small differences compared with the original. For
 example:

@@ -15,9 +15,10 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Calculate AZTI’s Marine Biotic Index">
-<meta name="description" content="Calculate AZTI’s Marine Biotic Index _AMBI_, as well as the Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12) 1100-1114_.">
-<meta property="og:description" content="Calculate AZTI’s Marine Biotic Index _AMBI_, as well as the Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12) 1100-1114_.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<meta property="og:title" content="Calculate AZTI’s Marine Biotic Index">
+<meta name="description" content="Calculate AZTI’s Marine Biotic Index _AMBI_. The included list of benthic fauna species according to their sensitivity to pollution. Matching species in sample data to the list allows the calculation of fractions of individuals in the different sensitivity categories and thereafter the AMBI index. The Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_ can also be calculated, as well as the multivariate _M-AMBI_ index. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12) 1100-1114_.">
+<meta property="og:description" content="Calculate AZTI’s Marine Biotic Index _AMBI_. The included list of benthic fauna species according to their sensitivity to pollution. Matching species in sample data to the list allows the calculation of fractions of individuals in the different sensitivity categories and thereafter the AMBI index. The Shannon Diversity Index _H'_ and the Danish benthic fauna quality index _DKI_ can also be calculated, as well as the multivariate _M-AMBI_ index. _Borja, A., J. Franco, V. Pérez, 2000. A marine biotic index to establish the ecological quality of soft bottom benthos within European estuarine and coastal environments Marine Pollution Bulletin 40(12) 1100-1114_.">
 <meta property="og:image" content="https://niva-denmark.github.io/ambiR/logo.png">
 </head>
 <body>
@@ -69,12 +70,12 @@
 </div>
 <!-- badges: start -->
 
-<p>This is an R package implementing <strong>AZTI’s Marine Biotic Index</strong>.</p>
+<p>Implementing <strong>AZTI’s Marine Biotic Index</strong> <a href="%5Cdoi%7B10.1016/S0025-326X(00)00061-8%7D">(Borja et al., 2000)</a></p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The package allows the user to calculate both the <em>AMBI</em> index and the multivariate <em>M-AMBI</em> from count or abundance data for benthic fauna species.</p>
-<p>In addition, this package includes functions to calculate different versions of the <em>Danish Quality Index</em> (<em>DKI</em>) (in Danish: <em>Dansk Kvalitetsindeks</em>), a derived benthic index based on AMBI.</p>
+<p>The ambiR package allows the user to calculate both the <em>AMBI</em> index and the multivariate <em>M-AMBI</em> from count or abundance data for benthic fauna species, using the included species list.</p>
+<p>In addition, this package includes functions to calculate different versions of the <em>Danish Quality Index</em> (<em>DKI</em>) (<em>Dansk Kvalitetsindeks</em>), a derived benthic index based on AMBI.</p>
 <ul>
 <li>
 <code><a href="reference/AMBI.html">AMBI()</a></code> - calculates the <em>AMBI</em> index.</li>
@@ -176,6 +177,16 @@
 <span><span class="co">#&gt; 10       2 a         Glycera tridactyla  Glycera tridactyla      2     2     0</span></span>
 <span><span class="co">#&gt; # ℹ 43 more rows</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
+</h2>
+<p>The ambiR logo was designed by Steen Knudsen <a href="https://orcid.org/0000-0003-0428-9940" class="external-link fa-orcid fab orcid"></a></p>
+<p>Development work on the ambiR package is funded in part by the GES4SEAS project.</p>
+<p><img src="reference/figures/Co-Funded-by-the-EU.png" class="fundingtext"><img src="reference/figures/UKRI20logo-300x88.png" class="fundingtext"></p>
+<p><span class="fundingtext">Grant Agreement 101059877 - GES4SEAS</span></p>
+<p><span class="fundingtext">The GES4SEAS project has been approved under the HORIZON-CL6-2021-BIODIV-01-04 call: <em>‘Assess and predict integrated impacts of cumulative direct and indirect stressors on coastal and marine biodiversity, ecosystems and their services’</em>.</span></p>
+<p><span class="fundingtext">Funded by the European Union. Views and opinions expressed are however those of the authors only and do not necessarily reflect those of the European Union or UK Research and Innovation. Neither the European Union nor the granting authority can be held responsible for them.</span></p>
+</div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
@@ -216,6 +227,8 @@
 <li>Sarai Pouso <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3208-9882" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Iñigo Muxika <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9181-3781" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Joxe Mikel Garmendia <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9403-1777" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>
+<a href="https://www.ges4seas.eu" class="external-link"><img src="https://www.ges4seas.eu/wp-content/uploads/2022/07/Ges4Seas_logo3.png" width="140" alt="GES4SEAS logo"></a> <br><small class="roles"> Funder </small>   </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -232,7 +245,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Ciarán J. Murray, Ángel Borja, Sarai Pouso, Iñigo Muxika, Joxe Mikel Garmendia.</p>
+  <p>Developed by Ciarán J. Murray, Ángel Borja, Sarai Pouso, Iñigo Muxika, Joxe Mikel Garmendia, <a href="https://www.ges4seas.eu" class="external-link"><img src="https://www.ges4seas.eu/wp-content/uploads/2022/07/Ges4Seas_logo3.png" width="140" alt="GES4SEAS logo"></a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -31,7 +31,7 @@ The test dataset `test_data` has 53 rows and 4 variables:
 
 ## Source
 
-<https://ambi.azti.es/download/>
+AZTI.ES
 
 ## Examples
 

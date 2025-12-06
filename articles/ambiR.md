@@ -293,8 +293,8 @@ head(res$matched)
 
 For more information about the principles underlying the `AMBI`
 calculations and the grouping of species according to sensitivity to
-pollution, see [about
-AMBI](https://niva-denmark.github.io/ambiR/articles/about-AMBI.md)
+pollution, see
+[`vignette("background")`](https://niva-denmark.github.io/ambiR/articles/background.md).
 
 ## Calculate M-AMBI
 
@@ -331,9 +331,9 @@ limits_H  <- c("bad" = 0, "high" = NA)
 limits_S  <- c("bad" = 0, "high" = NA)
 ```
 
-By default, upper limit values for `H` and `S` are not provided (`= NA`.
-If they are not provided explicitly, then the maximum values found in
-the input data will be used. The results returned by
+By default, upper limit values for `H` and `S` are not provided
+(`= NA`). If they are not provided explicitly, then the maximum values
+found in the input data will be used. The results returned by
 [`MAMBI()`](https://niva-denmark.github.io/ambiR/reference/MAMBI.md)
 show the limits used.
 
@@ -380,7 +380,7 @@ include the following information:
 The dataframe returned contains 2 more rows than the input data. Our
 input data contained 3 rows (1 for each `station`). The results contain
 5 rows. The 2 *additional* rows show the limit values for each of the
-three metrics used in the M-AMBI caclulations.
+three metrics used in the M-AMBI calculations.
 
 ``` r
 res_mambi %>%

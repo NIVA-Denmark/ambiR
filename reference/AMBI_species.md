@@ -5,7 +5,7 @@ group. Called by the function
 [`AMBI()`](https://niva-denmark.github.io/ambiR/reference/AMBI.md) and
 then used to match species in observed data and find species groups.
 
-*latest version 5th December 2025*
+*latest version 8th October 2024*
 
 ## Usage
 
@@ -19,8 +19,8 @@ AMBI_species(version = "")
 
   *string*, version of the species list to return. The default value is
   the empty string (`""`) which returns the latest version of the list
-  *(5. December 2025)*. Other valid values for `version` are `"2024"`
-  *(8. October 2024)* or `"2022"` *(31. May 2022)*.
+  *(8. October 2024)*. Currently, the only other valid value for
+  `version` is `"2022"` *(31. May 2022)*.
 
 ## Value
 
@@ -81,24 +81,20 @@ uses the species list to calculate the AMBI index.
 
 ``` r
 AMBI_species() %>% head()
-#> # A tibble: 6 × 3
-#>   species                       group    RA
-#>   <chr>                         <dbl> <dbl>
-#> 1 Aartsenia candida                 1     0
-#> 2 Abarenicola affinis               1     0
-#> 3 Abarenicola affinis affinis       1     0
-#> 4 Abarenicola affinis chilensis     3     0
-#> 5 Abarenicola claparedei            1     0
-#> 6 Abarenicola claparedi             1     0
+#>                         species group RA
+#> 1             Aartsenia candida     1  0
+#> 2           Abarenicola affinis     1  0
+#> 3   Abarenicola affinis affinis     1  0
+#> 4 Abarenicola affinis chilensis     3  0
+#> 5        Abarenicola claparedei     1  0
+#> 6         Abarenicola claparedi     1  0
 
 AMBI_species() %>% tail()
-#> # A tibble: 6 × 3
-#>   species                  group    RA
-#>   <chr>                    <dbl> <dbl>
-#> 1 Zoantharia                   1     0
-#> 2 Zoidbergus tenuimanus        3     0
-#> 3 Zoobotryon verticillatum     2     0
-#> 4 Zygochlamys patagonica       1     0
-#> 5 Zygonemertes virescens       2     0
-#> 6 Zygophylax sp.               2     0
+#>                        species group RA
+#> 11947               Zoantharia     1  0
+#> 11948    Zoidbergus tenuimanus     3  0
+#> 11949 Zoobotryon verticillatum     2  0
+#> 11950   Zygochlamys patagonica     1  0
+#> 11951   Zygonemertes virescens     2  0
+#> 11952           Zygophylax sp.     2  0
 ```

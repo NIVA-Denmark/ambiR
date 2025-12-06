@@ -46,7 +46,7 @@ species is classified, as described by Borja, Franco, and Pérez (2000).
 
 The list of species and their groups has been updated several times by
 the authors of the AMBI software. The version of the list used here is
-from 5. December 2024.
+from 8. October 2024.
 
 After calculating the fractions $f_{i}$ of all individuals belonging to
 each group $i \in {}I,II,III,IV,V$, then the index is given by:
@@ -119,7 +119,7 @@ users to perform AMBI index calculations. Later versions were updated to
 include the multivariate index M-AMBI calculations and adjustments to
 the species list used to assign species to ecological groups. The
 software is maintained and updated by AZTI. The latest version can be
-downloaded from <https://ambi.azti.es/>.
+downloaded from AZTI.ES.
 
 The ambiR package has been extensively tested and gives identical
 results to the AMBI software, as long as the version of species list

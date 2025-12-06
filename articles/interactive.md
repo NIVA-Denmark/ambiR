@@ -58,8 +58,8 @@ The first species in the list of unrecognized names will be displayed.
 To proceed you should type at the console prompt:
 
 - `1`,`2`,`3`,`4` or `5` - the species will be assigned to the selected
-  ([AMBI species
-  groups](https://niva-denmark.github.io/ambiR/articles/about-AMBI.html#species-groups))
+  AMBI species groups. See also
+  [`vignette("background")`](https://niva-denmark.github.io/ambiR/articles/background.md).
 
 - `0` - assigning Group `0` means that the species will be inclued in
   the AMBI calculations and count towards the number of *Not assigned*
