@@ -65,5 +65,5 @@ dplyr::mutate(dfAMBI, DKI = DKI(AMBI, H, N, S))
 
 }
 \seealso{
-DKI v1 has been superceded by \code{\link[=DKI2]{DKI2()}} a salinity-normalised version of DKI.
+DKI v1 has been superseded by \code{\link[=DKI2]{DKI2()}} a salinity-normalised version of DKI.
 }

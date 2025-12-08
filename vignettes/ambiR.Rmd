@@ -178,7 +178,7 @@ head(long_data)
 
 Now we can split the *stn_rep* column into separate columns for
 *station* and *replicate*, We will use the underscore we introduced
-earlier to indentify where the split should occur:
+earlier to identify where the split should occur:
 
 ```{r split_stations}
 long_data <- long_data %>%

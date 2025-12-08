@@ -1,7 +1,7 @@
 #' Calculates AMBI, the AZTI Marine Biotic Index
 #'
 #' @description
-#' [AMBI()] matches a list of species counts with the AMBI species list
+#' [AMBI()] matches a list of species counts with the official AMBI species list
 #' and calculates the AMBI index.
 #'
 #' @details
@@ -102,11 +102,11 @@
 #' _manually_ assign species groups (_I, II, III, IV, V_) for any species
 #' names which were not identified. The user does this by typing `1`, `2`, `3`,
 #' `4` or `5` and pressing _Enter_. Alternatively, the user can type `0` to mark
-#' the species as recognized but not assigned to a group. By typing _Enter_ without
+#' the species as recognised but not assigned to a group. By typing _Enter_ without
 #' any number the species will be recorded as unidentified (`NA`). This is the
 #' same result which would have been returned when calling the function in
 #' non-interactive mode. There are two other options: typing `s` will display a
-#' list of 10 species names which occur close to the unrecognized name when names
+#' list of 10 species names which occur close to the unrecognised name when names
 #' are sorted in alphabetical order. Entering `s` a second time will display the
 #' next 10 names, and so on. Finally, entering `x` will abort the interactive
 #' species assignment process. Any species groups assigned manually at this point
@@ -145,8 +145,8 @@
 #'                    then `var_group_AMBI` will be ignored.
 #'
 #' @param groups_strict By default, any user-assigned species group which
-#'                    conflicts with an AZTI group assignment will be ignored and
-#'                    the original group remains unchanged. If the argument
+#'                    conflicts with an original AMBI group assignment will be
+#'                    ignored and the original group remains unchanged. If the argument
 #'                     `groups_strict = FALSE` is used then user-assigned groups
 #'                     will always override AMBI groups in case of conflict.
 #'                     _DO NOT use this option unless you are sure you know what
@@ -159,7 +159,7 @@
 #'                    then warnings will not be displayed in the console.
 #'
 #' @param interactive (default `FALSE`) if a species name in the input data is not
-#'                     found in the AZTI species list, then this will be seen in
+#'                     found in the AMBI species list, then this will be seen in
 #'                     the output dataframe `matched`. If _interactive_ mode is
 #'                     selected, the user will be given the opportunity to assign
 #'                     _manually_ a species group (_I, II, III, IV, V_) or to
@@ -199,9 +199,9 @@
 #'    - `S` : number of species
 #'    - `H` : Shannon diversity index *H'*
 #'    - `fNA` : fraction of individuals _not assigned_, that is, matched to
-#'       a species in the AZTI species with *Group 0*. Note that this is
-#'      different from the number of rows where no match was found. These
-#'      are excluded from the totals.
+#'       a species in the AMBI species list with *Group 0*. Note that this is
+#'      different from the number of rows where no match was found. Species not
+#'      matched are excluded from the totals.
 #'
 #'  * `AMBI_rep` : results of the AMBI index calculations _per replicate_. This
 #'  dataframe is present only if the observation data includes replicates and
@@ -214,8 +214,8 @@
 #'  Contains the following columns:
 #'    - `group` : showing the species group. Any species/taxa in `df` which were not
 #'    matched will have an `NA` value in this column.
-#'    -  `RA` : indicating that the species is
-#'  _reallocatable_ according to the AZTI list. That is, it could be re-assigned to
+#'    -  `RA` : indicating that the species is _reallocatable_ according to the
+#'     AMBI list. That is, it could be re-assigned to
 #'  a different species group.
 #'    - `source` : this column is included only if a user-specified list was
 #'    provided `df_species`, or if species groups were assigned interactively.
@@ -247,7 +247,7 @@
 #'
 #'
 #' # example (2)
-#'
+#' \donttest{
 #' df <- data.frame(station = c("1","1","2","2","2"),
 #' species = c("Acidostoma neglectum",
 #'             "Acrocirrus validus",
@@ -266,7 +266,7 @@
 #'               group = c(1))
 #'
 #' AMBI(test_data, by=c("station"), var_rep="replicate", df_species=df_user)
-#'
+#' }
 #' @export
 
 AMBI <- function(df, by = NULL,
@@ -533,25 +533,25 @@ AMBI <- function(df, by = NULL,
   if(length(unmatched)>0){
     if(interactive){
       list_ok <- c("I","II","III","IV","V")
-      msg <- c("{length(unmatched)} species name{?s} {?was/were} not recognized.
+      msg <- c("{length(unmatched)} species name{?s} {?was/were} not recognised.
                These will now be displayed, one at a time.",
                "For each species, you can assign it to one of the five
                AMBI categories ({.emph I, II, III, IV, V}).
                Do this by entering an integer value from {.emph 1} to {.emph {length(list_ok)}}.
                Alternatively, you can assign a value of {.emph 0}.
-               This indicates that the species name is recognized but it is
+               This indicates that the species name is recognised but it is
                not possible to assign it to one of the five categories.",
                "If {.emph Enter} is pressed, without providing a value,
                no change will be made. The species name in question
-               will be treated as unrecognized.",
+               will be treated as unrecognised.",
                "Enter {.emph s} at the prompt to see a list of similar species
                names and their corresponding AMBI categories.",
                "Enter {.emph x} to abort the interactive species selection.
                Any entries made up to that point will be discarded. All
-               {length(unmatched)} species will be treated as unrecognized.")
+               {length(unmatched)} species will be treated as unrecognised.")
 
       cli::cli_par()
-      cli::cli_h1("Assigning unrecognized species")
+      cli::cli_h1("Assigning unrecognised species")
       cli::cli_end()
       for(msgi in msg){
         cli::cli_par()
@@ -577,9 +577,9 @@ AMBI <- function(df, by = NULL,
 
     }else{
       # we are not running interactively but if quiet == FALSE then we should
-      # show unrecognized species names in the console
+      # show unrecognised species names in the console
       if(quiet==F){
-        cli::cli_alert_info("{length(unmatched)} species name{?s} {?was/were} not recognized:")
+        cli::cli_alert_info("{length(unmatched)} species name{?s} {?was/were} not recognised:")
         unmatched <- paste0("{.emph ", unmatched,"}")
         cli::cli_ol(unmatched)
       }
@@ -622,7 +622,7 @@ AMBI <- function(df, by = NULL,
   # vars_group <- c(var_group_AMBI, by)
   if(nrow(df)==0){
     df <- NULL
-    msg <- paste0("No recognized species were found. Please check the ",
+    msg <- paste0("No recognised species were found. Please check the ",
                   cli::style_italic(cli::col_br_blue("matched")), " results or try to run with ",
                   cli::style_italic(cli::col_br_blue("interactive = "), cli::col_red("TRUE")))
 
@@ -666,8 +666,8 @@ AMBI <- function(df, by = NULL,
     by_rep <- by
   }
 
-  # if a species is not recognized, it is not counted AT ALL
-  # if a species is recognized (matched to the list of species)
+  # if a species is not recognised, it is not counted AT ALL
+  # if a species is recognised (matched to the list of species)
   # but does not have a category, then it counts towards the fNA
 
   df <- df %>%

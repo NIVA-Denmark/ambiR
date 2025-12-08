@@ -6,7 +6,7 @@ forms of feedback so that we can maintain and improve the package.
 ### Code of Conduct
 
 By _participating_, that is by contributing to, or commenting on the ambiR 
-_project_, you agree to abide by the [code of conduct](CODE_OF_CONDUCT.md).
+_project_, you agree to abide by the [code of conduct](https://niva-denmark.github.io/ambiR/CODE_OF_CONDUCT.html).
 
 ### Raising issues
 
@@ -114,12 +114,11 @@ be explained more clearly, please let us know. Either by opening a new issue
 
 Again, you are welcome to make your own contributions. 
 
-We have created the [AMBI figures](./articles/ambi-figures.html) _vignette_ to
-demonstrate how to produce a figure showing AMBI results. As explained, this 
-is not a core feature of the AMBI package but is intended only as a helpful 
-example and to provide inspiration. If you have similar examples or ideas for 
-vignettes, this is the place
-to suggest them.
+We have created the [AMBI figures](https://niva-denmark.github.io/ambiR/docs/articles/ambi-figures.html) 
+_vignette_ to demonstrate how to produce a figure showing AMBI results. As 
+explained, this is not a core feature of the AMBI package but is intended as a 
+helpful example and to provide inspiration. If you have similar examples or ideas for 
+vignettes, this is the place to suggest them.
 
 ### Feature requests
 
