@@ -1,12 +1,8 @@
 .fundingtext {
   display:inline-block;
-  }
-
-span.fundingtext {
   font-size: 0.9em;
   line-height: 1.2em;
   }
-
-img.fundingtext {
-  height: 60px;
+.fundinglogo {
+  display:inline-block;
   }

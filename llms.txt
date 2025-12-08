@@ -144,8 +144,8 @@ The artwork for the ambiR logo was created by Steen Knudsen.
 Development work on the ambiR package is funded in part by the GES4SEAS
 project.
 
-![EU logo](reference/figures/Co-Funded-by-the-EU.png)![UKRI
-logo](reference/figures/UKRI20logo-300x88.png)
+![EU logo](reference/figures/EUlogo60.png "EU logo")![UKRI
+logo](reference/figures/UKRI20logo60.png "UKRI logo")
 
 Grant Agreement 101059877 - GES4SEAS
 
