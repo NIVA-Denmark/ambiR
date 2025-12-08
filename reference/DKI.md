@@ -71,7 +71,7 @@ function call. See the examples below.
 
 ## See also
 
-DKI v1 has been superceded by
+DKI v1 has been superseded by
 [`DKI2()`](https://niva-denmark.github.io/ambiR/reference/DKI2.md) a
 salinity-normalised version of DKI.
 

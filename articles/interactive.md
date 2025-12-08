@@ -8,7 +8,7 @@ and then returns a set of results, or possibly an error message, without
 any additional interaction with the user.
 
 After checking the results, the user can check if there are any species
-which were not recognized and, if necessary, make corrections to input
+which were not recognised and, if necessary, make corrections to input
 data before calling the function again. These steps are repeated, as
 necessary, in an iterative process.
 
@@ -17,7 +17,7 @@ process of checking species names and group assignments is done in an
 *interactive* way. The ambiR package allows the user to work in a
 similar way where it is possible to interact with the function and make
 corrections to data before the results are generated. Where species
-names in the observation data were not recognized, the user can manually
+names in the observation data were not recognised, the user can manually
 assign the species to an `AMBI` species group.
 
 ## Test data
@@ -48,13 +48,13 @@ To run
 [`AMBI()`](https://niva-denmark.github.io/ambiR/reference/AMBI.md) in
 interactive mode, use the `interactive = TRUE` argument.
 
-If any of the species names in the input data frame were not recognized
+If any of the species names in the input data frame were not recognised
 as belonging to the `AMBI` species list *or* to a user-defined species
 list, if this was specified, then a message is displayed showing the
-number of unrecognized species, and giving instructions for how to
+number of unrecognised species, and giving instructions for how to
 proceed with assigning groups to each of these species.
 
-The first species in the list of unrecognized names will be displayed.
+The first species in the list of unrecognised names will be displayed.
 To proceed you should type at the console prompt:
 
 - `1`,`2`,`3`,`4` or `5` - the species will be assigned to the selected
@@ -65,12 +65,12 @@ To proceed you should type at the console prompt:
   the AMBI calculations and count towards the number of *Not assigned*
   species.
 
-- `Enter` - the species name will be treated as unrecognized and will
+- `Enter` - the species name will be treated as unrecognised and will
   *not* be included in `AMBI` calculations.
 
-- `s` - a list of recognized species names from the `AMBI` list will be
+- `s` - a list of recognised species names from the `AMBI` list will be
   displayed. These are species which appear close to the the
-  unrecognized species when they are sorted in alphabetical order. 10
+  unrecognised species when they are sorted in alphabetical order. 10
   species names will be displayed. Typing `s` repeatedly will display
   consecutive names from the `AMBI` list, 10 at a time.
 
@@ -86,25 +86,25 @@ library(ambiR)
 
 AMBI(df, by = c("station"), quiet=F, interactive = T)
 #> 
-#> ── Assigning unrecognized species ──────────────────────────────────────────────
+#> ── Assigning unrecognised species ──────────────────────────────────────────────
 #> 
-#> • 7 species names were not recognized. These will now be displayed, one at a
+#> • 7 species names were not recognised. These will now be displayed, one at a
 #> time.
 #> 
 #> • For each species, you can assign it to one of the five AMBI categories (I,
 #> II, III, IV, V). Do this by entering an integer value from 1 to 5.
 #> Alternatively, you can assign a value of 0. This indicates that the species
-#> name is recognized but it is not possible to assign it to one of the five
+#> name is recognised but it is not possible to assign it to one of the five
 #> categories.
 #> 
 #> • If Enter is pressed, without providing a value, no change will be made. The
-#> species name in question will be treated as unrecognized.
+#> species name in question will be treated as unrecognised.
 #> 
 #> • Enter s at the prompt to see a list of similar species names and their
 #> corresponding AMBI categories.
 #> 
 #> • Enter x to abort the interactive species selection. Any entries made up to
-#> that point will be discarded. All 7 species will be treated as unrecognized.
+#> that point will be discarded. All 7 species will be treated as unrecognised.
 #> 
 #> ── 1 Acholoe squamosa ──
 #> 
@@ -112,7 +112,7 @@ AMBI(df, by = c("station"), quiet=F, interactive = T)
 #>  names. x - abort interactive assignment.
 ```
 
-Typing `s` will show species names which are close to the unrecognized
+Typing `s` will show species names which are close to the unrecognised
 species when arranged in alphabetical order.
 
 ``` r
@@ -143,7 +143,7 @@ of `Not assigned` species when calculating the `AMBI` index. If we typed
 calculations.
 
 A message is displayed confirming our selection (`Not assigned`) and
-then we are asked to consider the next unrecognized species name,
+then we are asked to consider the next unrecognised species name,
 *Aglaophenia kirchenpaueri*.
 
 ``` r
@@ -178,7 +178,7 @@ s
 
 In this case we can see two species belonging to the same genus,
 *Aglaophenia*. They are both assigned to group `0` (`Not assigned`) so
-we could make the assumption that our unrecognized species should be
+we could make the assumption that our unrecognised species should be
 assigned to the same group.
 
 ``` r
@@ -192,7 +192,7 @@ assigned to the same group.
 #>  names. x - abort interactive assignment.
 ```
 
-This process is repeated for each unrecognized species name.
+This process is repeated for each unrecognised species name.
 
 ## Results
 

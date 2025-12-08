@@ -60,8 +60,8 @@ The species groups, as described by [Borja et al.
 - *Group III*  
   Species tolerant to excess organic matter enrichment. These species
   may occur under normal conditions, but their populations are
-  stimulated by organic richment (slight unbalance situations). They are
-  surface deposit-feeding species, such as *tubicolous spionids*.  
+  stimulated by organic enrichment (slight unbalance situations). They
+  are surface deposit-feeding species, such as *tubicolous spionids*.  
 
 - *Group IV*  
   Second-order opportunistic species (slight to pronounced unbalanced

@@ -1,7 +1,7 @@
 # Calculates AMBI, the AZTI Marine Biotic Index
 
-`AMBI()` matches a list of species counts with the AMBI species list and
-calculates the AMBI index.
+`AMBI()` matches a list of species counts with the official AMBI species
+list and calculates the AMBI index.
 
 ## Usage
 
@@ -69,9 +69,9 @@ AMBI(
 - groups_strict:
 
   By default, any user-assigned species group which conflicts with an
-  AZTI group assignment will be ignored and the original group remains
-  unchanged. If the argument `groups_strict = FALSE` is used then
-  user-assigned groups will always override AMBI groups in case of
+  original AMBI group assignment will be ignored and the original group
+  remains unchanged. If the argument `groups_strict = FALSE` is used
+  then user-assigned groups will always override AMBI groups in case of
   conflict. *DO NOT use this option unless you are sure you know what
   you are doing! It could invalidate your results.*
 
@@ -86,7 +86,7 @@ AMBI(
 - interactive:
 
   (default `FALSE`) if a species name in the input data is not found in
-  the AZTI species list, then this will be seen in the output dataframe
+  the AMBI species list, then this will be seen in the output dataframe
   `matched`. If *interactive* mode is selected, the user will be given
   the opportunity to assign *manually* a species group (*I, II, III, IV,
   V*) or to mark the species as *not assigned* to a species group (see
@@ -134,9 +134,9 @@ a list of dataframes:
   - `H` : Shannon diversity index *H'*
 
   - `fNA` : fraction of individuals *not assigned*, that is, matched to
-    a species in the AZTI species with *Group 0*. Note that this is
-    different from the number of rows where no match was found. These
-    are excluded from the totals.
+    a species in the AMBI species list with *Group 0*. Note that this is
+    different from the number of rows where no match was found. Species
+    not matched are excluded from the totals.
 
 - `AMBI_rep` : results of the AMBI index calculations *per replicate*.
   This dataframe is present only if the observation data includes
@@ -152,7 +152,7 @@ a list of dataframes:
     were not matched will have an `NA` value in this column.
 
   - `RA` : indicating that the species is *reallocatable* according to
-    the AZTI list. That is, it could be re-assigned to a different
+    the AMBI list. That is, it could be re-assigned to a different
     species group.
 
   - `source` : this column is included only if a user-specified list was
@@ -289,12 +289,12 @@ mode, by using the argument `interactive = TRUE` then the user has an
 opportunity to *manually* assign species groups (*I, II, III, IV, V*)
 for any species names which were not identified. The user does this by
 typing `1`, `2`, `3`, `4` or `5` and pressing *Enter*. Alternatively,
-the user can type `0` to mark the species as recognized but not assigned
+the user can type `0` to mark the species as recognised but not assigned
 to a group. By typing *Enter* without any number the species will be
 recorded as unidentified (`NA`). This is the same result which would
 have been returned when calling the function in non-interactive mode.
 There are two other options: typing `s` will display a list of 10
-species names which occur close to the unrecognized name when names are
+species names which occur close to the unrecognised name when names are
 sorted in alphabetical order. Entering `s` a second time will display
 the next 10 names, and so on. Finally, entering `x` will abort the
 interactive species assignment process. Any species groups assigned
@@ -357,7 +357,7 @@ AMBI(test_data, by=c("station"), var_rep="replicate")
 
 
 # example (2)
-
+# \donttest{
 df <- data.frame(station = c("1","1","2","2","2"),
 species = c("Acidostoma neglectum",
             "Acrocirrus validus",
@@ -445,4 +445,5 @@ AMBI(test_data, by=c("station"), var_rep="replicate", df_species=df_user)
 #> 10       2 a         Glycer… Glycera tridac…     2     2 NA         0 NA        
 #> # ℹ 43 more rows
 #> 
+# }
 ```

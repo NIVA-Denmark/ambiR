@@ -37,8 +37,21 @@ You can also find a link to download the original AMBI software.
 
 ## Installation
 
+Install from [CRAN](https://cran.r-project.org/) with:
+
+``` r
+install.packages("ambiR")
+```
+
 You can install the development version of ambiR from
 [GitHub](https://github.com/niva-denmark/ambiR/) with:
+
+``` r
+# install.packages("remotes)
+remotes::install_github("NIVA-Denmark/ambiR")
+```
+
+or, if you prefer to use devtools:
 
 ``` r
 # install.packages("devtools")
@@ -136,7 +149,7 @@ AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=1)
 #> # ℹ 43 more rows
 ```
 
-## Acknowledgments
+## Acknowledgements
 
 The artwork for the ambiR logo was created by Steen Knudsen.
 [](https://orcid.org/0000-0003-0428-9940)

@@ -8,7 +8,7 @@ package.
 
 By *participating*, that is by contributing to, or commenting on the
 ambiR *project*, you agree to abide by the [code of
-conduct](https://niva-denmark.github.io/ambiR/CODE_OF_CONDUCT.md).
+conduct](https://niva-denmark.github.io/ambiR/CODE_OF_CONDUCT.html).
 
 ### Raising issues
 
@@ -127,12 +127,12 @@ contacting us through other means.
 Again, you are welcome to make your own contributions.
 
 We have created the [AMBI
-figures](https://niva-denmark.github.io/ambiR/articles/ambi-figures.md)
+figures](https://niva-denmark.github.io/ambiR/docs/articles/ambi-figures.html)
 *vignette* to demonstrate how to produce a figure showing AMBI results.
 As explained, this is not a core feature of the AMBI package but is
-intended only as a helpful example and to provide inspiration. If you
-have similar examples or ideas for vignettes, this is the place to
-suggest them.
+intended as a helpful example and to provide inspiration. If you have
+similar examples or ideas for vignettes, this is the place to suggest
+them.
 
 ### Feature requests
 

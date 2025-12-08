@@ -34,8 +34,8 @@ species is classified, as described by Borja, Franco, and Pérez (2000).
 - *Group III*  
   Species tolerant to excess organic matter enrichment. These species
   may occur under normal conditions, but their populations are
-  stimulated by organic richment (slight unbalance situations). They are
-  surface deposit-feeding species, as *tubicolous spionids*.
+  stimulated by organic enrichment (slight unbalance situations). They
+  are surface deposit-feeding species, as *tubicolous spionids*.
 - *Group IV*  
   Second-order opportunistic species (slight to pronounced unbalanced
   situations). Mainly small sized *polychaetes*: subsurface
@@ -118,8 +118,9 @@ The AMBI software was developed as a free standalone software to allow
 users to perform AMBI index calculations. Later versions were updated to
 include the multivariate index M-AMBI calculations and adjustments to
 the species list used to assign species to ecological groups. The
-software is maintained and updated by AZTI. The latest version can be
-downloaded from AZTI.ES.
+software is maintained and updated by
+[AZTI](https://www.azti.es/en/?s=AMBI), where the latest version can be
+downloaded.
 
 The ambiR package has been extensively tested and gives identical
 results to the AMBI software, as long as the version of species list
