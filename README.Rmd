@@ -92,10 +92,9 @@ The artwork for the ambiR logo was created by Steen Knudsen. [](https://orcid.or
 
 Development work on the ambiR package is funded in part by the GES4SEAS project.
 
-![](man/figures/Co-Funded-by-the-EU.png){.fundingtext alt="EU logo"} 
-![](man/figures/UKRI20logo-300x88.png){.fundingtext alt="UKRI logo"}
+![EU logo](man/figures/EUlogo60.png "EU logo"){.fundinglogo} ![UKRI logo](man/figures/UKRI20logo60.png "UKRI logo"){.fundinglogo} 
 
-[Grant Agreement 101059877 - GES4SEAS]{.fundingtext}  
+[Grant Agreement 101059877 - GES4SEAS]{.fundingtext}
 
 [The GES4SEAS project has been approved under the HORIZON-CL6-2021-BIODIV-01-04 call: _'Assess and predict integrated impacts of cumulative direct and indirect stressors on coastal and marine biodiversity, ecosystems and their services'_.]{.fundingtext}  
 

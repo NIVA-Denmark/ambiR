@@ -145,10 +145,10 @@ class="fa-orcid fab orcid"></a>
 Development work on the ambiR package is funded in part by the GES4SEAS
 project.
 
-<img src="man/figures/Co-Funded-by-the-EU.png" class="fundingtext"
+<img src="man/figures/EUlogo60.png" title="EU logo" class="fundinglogo"
 alt="EU logo" />
-<img src="man/figures/UKRI20logo-300x88.png" class="fundingtext"
-alt="UKRI logo" />
+<img src="man/figures/UKRI20logo60.png" title="UKRI logo"
+class="fundinglogo" alt="UKRI logo" />
 
 <span class="fundingtext">Grant Agreement 101059877 - GES4SEAS</span>
 
