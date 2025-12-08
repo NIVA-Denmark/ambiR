@@ -47,7 +47,7 @@ These include suspension feeders, less selective carnivores and scavengers.\cr
 
 \item \emph{Group III} \cr Species tolerant to excess organic matter enrichment. These species
 may occur under normal conditions, but their populations are stimulated by
-organic richment (slight unbalance situations). They are surface
+organic enrichment (slight unbalance situations). They are surface
 deposit-feeding species, such as \emph{tubicolous spionids}. \cr
 
 \item \emph{Group IV} \cr Second-order opportunistic species (slight to pronounced unbalanced

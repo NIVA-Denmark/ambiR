@@ -25,7 +25,7 @@ diversity with decreasing salinity.
 \code{\link[=AMBI_sal]{AMBI_sal()}} and \code{\link[=H_sal]{H_sal()}} are named, respectively,
 \emph{AMBI_min} and \emph{H_max} in the DKI documentation
 \href{https://dce2.au.dk/pub/SR93.pdf}{(Carstensen et al., 2014)}.
-They are renamed in {ambiR} to reflect the fact that
+They are renamed in ambiR to reflect the fact that
 they are functions of salinity and \emph{not} minimum or
 maximum values from data being used.
 }

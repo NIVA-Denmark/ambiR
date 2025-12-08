@@ -7,7 +7,7 @@
 #' [AMBI_sal()] and [H_sal()] are named, respectively,
 #'  _AMBI_min_ and _H_max_ in the DKI documentation
 #'  [(Carstensen et al., 2014)](https://dce2.au.dk/pub/SR93.pdf).
-#' They are renamed in {ambiR} to reflect the fact that
+#' They are renamed in ambiR to reflect the fact that
 #' they are functions of salinity and _not_ minimum or
 #' maximum values from data being used.
 #'
@@ -37,7 +37,7 @@ AMBI_sal <- function(psal, intercept=3.083, slope=-0.111){
 #' [AMBI_sal()] and [H_sal()] are named, respectively,
 #'  _AMBI_min_ and _H_max_ in the DKI documentation
 #' [(Carstensen et al., 2014)](https://dce2.au.dk/pub/SR93.pdf).
-#' They are renamed in {ambiR} to reflect the fact that
+#' They are renamed in ambiR to reflect the fact that
 #' they are functions of salinity and _not_ minimum or
 #' maximum values from data being used.
 #'

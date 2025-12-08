@@ -44,7 +44,7 @@ is classified, as described by @BORJA20001100.
 -   *Group III* \
     Species tolerant to excess organic matter enrichment.
     These species may occur under normal conditions, but their
-    populations are stimulated by organic richment (slight unbalance
+    populations are stimulated by organic enrichment (slight unbalance
     situations). They are surface deposit-feeding species, as
     *tubicolous spionids*.
 -   *Group IV* \
@@ -124,7 +124,8 @@ The AMBI software was developed as a free standalone software to allow users
 to perform AMBI index calculations. Later versions were updated to include 
 the multivariate index M-AMBI calculations and adjustments to the species list
 used to assign species to ecological groups. The software is maintained and 
-updated by AZTI. The latest version can be downloaded from AZTI.ES.
+updated by [AZTI](https://www.azti.es/en/?s=AMBI), where the latest version 
+can be downloaded.
 
 The ambiR package has been extensively tested and gives identical results to the
 AMBI software, as long as the version of species list select corresponds to the

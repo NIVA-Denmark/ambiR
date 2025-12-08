@@ -1,7 +1,7 @@
 Package: ambiR
 Type: Package
 Title: Calculate AZTI’s Marine Biotic Index
-Version: 0.1.0
+Version: 0.0.1
 Authors@R: c( 
     person("Ciarán J.", "Murray", ,"cjm@niva-dk.dk", role = c("aut", "cre", "cph"),
     comment = c(ORCID = "0000-0003-0260-2008")),
@@ -39,7 +39,8 @@ Description: Calculate AZTI’s Marine Biotic Index _AMBI_. The included list of
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: 
+Suggests:
+    spelling, 
     testthat (>= 3.0.0),
     usethis,
     devtools,
@@ -63,3 +64,4 @@ URL: https://niva-denmark.github.io/ambiR/, https://github.com/niva-denmark/ambi
 BugReports: https://github.com/niva-denmark/ambiR/issues
 Config/Needs/website: rmarkdown
 VignetteBuilder: knitr
+Language: en-GB

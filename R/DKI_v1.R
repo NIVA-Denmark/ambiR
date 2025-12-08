@@ -26,7 +26,7 @@
 #' e.g. within a [dplyr::mutate()] function call. See the examples below.
 #'
 #' @seealso
-#' DKI v1 has been superceded by [DKI2()] a salinity-normalised version of DKI.
+#' DKI v1 has been superseded by [DKI2()] a salinity-normalised version of DKI.
 #'
 #'
 #' @param AMBI        AMBI, the AZTI Marine Biotic Index, calculated using [AMBI()]

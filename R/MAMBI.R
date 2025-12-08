@@ -144,7 +144,7 @@ MAMBI <- function(df,
     df <- df %>%
       dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
       dplyr::summarise(across(all_of(c(var_AMBI, var_H, var_S)),
-                              \(x) mean(x, na.rm = TRUE)),
+                              ~ mean(.x, na.rm = TRUE)),
                        .groups="drop")
   }
 
