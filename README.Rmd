@@ -88,12 +88,12 @@ AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=1)
 
 ## Acknowledgments
 
-The ambiR logo was designed by Steen Knudsen [](https://orcid.org/0000-0003-0428-9940){.fa-orcid .fab .orcid}  
+The artwork for the ambiR logo was created by Steen Knudsen. [](https://orcid.org/0000-0003-0428-9940){.fa-orcid .fab .orcid}  
 
 Development work on the ambiR package is funded in part by the GES4SEAS project.
 
-![](man/figures/Co-Funded-by-the-EU.png){.fundingtext} 
-![](man/figures/UKRI20logo-300x88.png){.fundingtext}
+![](man/figures/Co-Funded-by-the-EU.png){.fundingtext alt="EU logo"} 
+![](man/figures/UKRI20logo-300x88.png){.fundingtext alt="UKRI logo"}
 
 [Grant Agreement 101059877 - GES4SEAS]{.fundingtext}  
 
