@@ -145,19 +145,7 @@ class="fa-orcid fab orcid"></a>
 Development work on the ambiR package is funded in part by the GES4SEAS
 project.
 
-|  |  |
-|----|----|
 | <img src="man/figures/EUlogo60.png" alt="EU logo" /> | <img src="man/figures/UKRI20logo60.png" alt="UKRI logo" /> |
-
-<span class="fundingtext">Grant Agreement 101059877 - GES4SEAS</span>
-
-<span class="fundingtext">The GES4SEAS project has been approved under
-the HORIZON-CL6-2021-BIODIV-01-04 call: *‘Assess and predict integrated
-impacts of cumulative direct and indirect stressors on coastal and
-marine biodiversity, ecosystems and their services’*.</span>
-
-<span class="fundingtext">Funded by the European Union. Views and
-opinions expressed are however those of the authors only and do not
-necessarily reflect those of the European Union or UK Research and
-Innovation. Neither the European Union nor the granting authority can be
-held responsible for them.</span>
+|----|----|
+| <span class="fundingtext">Grant Agreement 101059877 - GES4SEAS</span> |  |
+| <span class="fundingtext">The GES4SEAS project has been approved under the HORIZON-CL6-2021-BIODIV-01-04 call: *‘Assess and predict integrated impacts of cumulative direct and indirect stressors on coastal and marine biodiversity, ecosystems and their services’*.</span> | <span class="fundingtext">Funded by the European Union. Views and opinions expressed are however those of the authors only and do not necessarily reflect those of the European Union or UK Research and Innovation. Neither the European Union nor the granting authority can be held responsible for them.</span> |
