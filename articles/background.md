@@ -1,7 +1,5 @@
 # The AMBI index
 
-## The AMBI index
-
 The basis of the AMBI index is that soft-bottom macrofauna are divided
 into groups according to their sensitivity to increasing environmental
 stress. The distribution of counts of individuals or relative abundance
@@ -16,11 +14,12 @@ function is a dataframe of species counts with optional grouping
 variables, e.g. station or replicate IDs. The function matches species
 names in the input data with names in the AMBI species list, in order to
 categorise the observed species according to the AMBI method. The tool
-then calculates the *AMBI* index resulting from the distribution of
+then calculates the `AMBI` index resulting from the distribution of
 individuals between the groups.
 
 The AMBI species list gives the groups (I, II, III, IV, V) in which each
-species is classified, as described by Borja, Franco, and Pérez (2000).
+species is classified, as described by Borja, Franco, and Pérez
+([2000](#ref-BORJA20001100)).
 
 - *Group I*  
   Species very sensitive to organic enrichment and present under
@@ -48,10 +47,12 @@ The list of species and their groups has been updated several times by
 the authors of the AMBI software. The version of the list used here is
 from 8. October 2024.
 
-After calculating the fractions $f_{i}$ of all individuals belonging to
-each group $i \in {}I,II,III,IV,V$, then the index is given by:
+After calculating the fractions \\f_i\\ of all individuals belonging to
+each group \\i \in{} \\I, II, III, IV, V\\\\, then the index is given
+by:
 
-$$AMBI = 0*f_{I} + 1.5*f_{II} + 3*f_{III} + 4.5*f_{IV} + 6*f_{V}$$
+\\ AMBI = 0.0 \* f\_{I} + 1.5 \* f\_{II} + 3 \* f\_{III} + 4.5 \*
+f\_{IV} + 6 \* f\_{V} \\
 
 So, the greater the proportion of sensitive species, the lower the
 resulting AMBI index. A sample consisting 100% of species from the most
@@ -70,7 +71,7 @@ separate species diversity metrics:
 - Species richness *S*
 
 The principles of the M-AMBI index are described by Muxika, Borja, and
-Bald (2007)
+Bald ([2007](#ref-MUXIKA200716))
 
 *“AMBI, richness and diversity, combined with the use, in a further
 development, of factor analysis together with discriminant analysis, is
@@ -78,7 +79,7 @@ presented as an objective tool (named here M-AMBI) in assessing
 ecological quality status”*
 
 It is, of course, possible to calculate M-AMBI using data generated in
-other analyses, outside the {ambiR} package but the
+other analyses, outside the ambiR package but the
 [`AMBI()`](https://niva-denmark.github.io/ambiR/reference/AMBI.md)
 function can conveniently provide all 3 of the metrics used as variables
 in the M-AMBI factorial analysis.
@@ -118,9 +119,9 @@ The AMBI software was developed as a free standalone software to allow
 users to perform AMBI index calculations. Later versions were updated to
 include the multivariate index M-AMBI calculations and adjustments to
 the species list used to assign species to ecological groups. The
-software is maintained and updated by
-[AZTI](https://www.azti.es/en/?s=AMBI), where the latest version can be
-downloaded.
+software is maintained and updated by AZTI
+[https://www.azti.es](https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/),
+where the latest version can be downloaded.
 
 The ambiR package has been extensively tested and gives identical
 results to the AMBI software, as long as the version of species list

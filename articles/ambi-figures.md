@@ -35,8 +35,8 @@ Using the test data set included with the package, we generate some AMBI
 index results to be plotted.
 
 ``` r
-library(ambiR)
-library(dplyr)
+  library(ambiR)
+  library(dplyr)
 #> 
 #> Attaching package: 'dplyr'
 #> The following objects are masked from 'package:stats':
@@ -45,10 +45,10 @@ library(dplyr)
 #> The following objects are masked from 'package:base':
 #> 
 #>     intersect, setdiff, setequal, union
-library(tidyr)
-library(ggplot2)
-
-res <- AMBI(test_data, by=c("station"), var_rep = "replicate")
+  library(tidyr)
+  library(ggplot2)
+  
+  res <- AMBI(test_data, by=c("station"), var_rep = "replicate")
 ```
 
 We first take the dataframe with results for replicates `AMBI_rep`. This
@@ -58,15 +58,15 @@ convert the group variable to a factor so that the groups are arranged
 in the order we want, rather than in alphabetical order.
 
 ``` r
-df <- res$AMBI_rep
-
-df_group_freq <- df %>%
-  pivot_longer(cols=c("I","II","III","IV","V"),
-               names_to = "EcoGroup",
-               values_to = "f")
-
-df_group_freq$EcoGroup <- factor(df_group_freq$EcoGroup, 
-                           levels = c("V","IV","III","II","I"))
+  df <- res$AMBI_rep
+  
+  df_group_freq <- df %>%
+    pivot_longer(cols=c("I","II","III","IV","V"),
+                 names_to = "EcoGroup",
+                 values_to = "f")
+  
+  df_group_freq$EcoGroup <- factor(df_group_freq$EcoGroup, 
+                             levels = c("V","IV","III","II","I"))
 ```
 
 Plotting the stacked bars is relatively straightforward. We also need to
@@ -86,25 +86,25 @@ We can now create this first version of the figure which includes all
 required features but uses only default formatting.
 
 ``` r
-p <- ggplot() +
-  geom_bar(data=df_group_freq, 
-       aes(x=replicate, y=f, fill=EcoGroup),
-       position = "fill", stat="identity", width=0.4) +
-  geom_point(data=df, aes(x=replicate, y=(AMBI/6))) +
-  scale_y_continuous(
-    limits = c(0,1), 
-    name= "Species group distribution",
-    expand = c(0,0), 
-    breaks = seq(0,1,0.25),
-    labels = scales::label_percent(),
-    sec.axis = sec_axis( transform =~.*6, name="AMBI")) +
-  facet_grid(.~station, switch="x", scales="free_x",space="free")
+  p <- ggplot() +
+    geom_bar(data = df_group_freq, 
+         aes(x = replicate, y = f, fill = EcoGroup),
+         position = "fill", stat="identity", width = 0.4) +
+    geom_point(data = df, aes(x = replicate, y = (AMBI / 6))) +
+    scale_y_continuous(
+      limits = c(0, 1), 
+      name= "Species group distribution",
+      expand = c(0, 0), 
+      breaks = seq(0, 1, 0.25),
+      labels = scales::label_percent(),
+      sec.axis = sec_axis( transform = ~.*6, name = "AMBI")) +
+    facet_grid(. ~ station, switch="x", scales="free_x", space = "free")
  
-p
+  p
 ```
 
 ![Bar chart with default ggplot2
-formatting](reference/figures/plot1-1.png)
+formatting](ambi-figures_files/figure-html/plot1-1.png)
 
 ## Bar chart with AMBI theme
 
@@ -114,57 +114,57 @@ we can modify the figure to give it a similar feel to the figures
 produced by the original AMBI software.
 
 ``` r
-p <- ggplot() +
-  geom_bar(data=df_group_freq,
-           aes(x=replicate, y=f, fill=EcoGroup), 
-           colour=alpha("grey20",1), position = "fill", stat="identity", 
-           width=0.6, linewidth = 0.1, alpha=0.6) +
-  geom_point(data=df, aes(x=replicate, y=(AMBI/6))) +
-  scale_fill_manual(values=c("#ff0000","#ff8000","#ffff00","#00ff00","#0000ff"),
-                    name="Ecological Group") +
-  facet_grid(.~station, switch="x", scales="free_x",space="free") +
-  scale_y_continuous(
-    limits = c(0,1),
-    name= "Species group distribution",
-    expand = c(0,0),
-    breaks = seq(0,1,0.25),
-    labels = scales::label_percent(),
-    sec.axis = sec_axis( transform =~.*6, name="AMBI")) +
-  theme(text = element_text(size=9),
-        strip.text.x.bottom = element_text(colour="grey20"),
-        strip.placement = "outside",
-        strip.background = element_blank(),
-        panel.spacing.x = unit(0.5, units="cm"),
-        panel.border = element_blank(),
-        panel.background = element_blank(),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y =  element_blank(),
-        panel.grid.minor.y = element_blank(),
-        axis.line.x = element_line(colour="grey20", linewidth = 0.2),
-        axis.line.y = element_line(colour="grey20", linewidth = 0.2),
-        axis.title.x = element_blank(),
-        axis.text.x.bottom = element_text(size=8),
-        plot.background = element_blank(),
-        legend.position = "bottom") +
-  guides(fill = guide_legend(reverse=T))
-p
+  p <- ggplot() +
+    geom_bar(data = df_group_freq,
+             aes(x = replicate, y = f, fill = EcoGroup), 
+             colour = alpha("grey20", 1), position = "fill", stat="identity", 
+             width = 0.6, linewidth = 0.1, alpha=0.6) +
+    geom_point(data = df, aes(x = replicate, y = (AMBI / 6))) +
+    scale_fill_manual(values=c("#ff0000", "#ff8000", "#ffff00", "#00ff00", "#0000ff"),
+                      name="Ecological Group") +
+    facet_grid(. ~ station, switch="x", scales="free_x", space="free") +
+    scale_y_continuous(
+      limits = c(0, 1),
+      name= "Species group distribution",
+      expand = c(0, 0),
+      breaks = seq(0, 1, 0.25),
+      labels = scales::label_percent(),
+      sec.axis = sec_axis( transform = ~.*6, name="AMBI")) +
+    theme(text = element_text(size=9),
+          strip.text.x.bottom = element_text(colour="grey20"),
+          strip.placement = "outside",
+          strip.background = element_blank(),
+          panel.spacing.x = unit(0.5, units = "cm"),
+          panel.border = element_blank(),
+          panel.background = element_blank(),
+          panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
+          panel.grid.major.y =  element_blank(),
+          panel.grid.minor.y = element_blank(),
+          axis.line.x = element_line(colour = "grey20", linewidth = 0.2),
+          axis.line.y = element_line(colour = "grey20", linewidth = 0.2),
+          axis.title.x = element_blank(),
+          axis.text.x.bottom = element_text(size = 8),
+          plot.background = element_blank(),
+          legend.position = "bottom") +
+    guides(fill = guide_legend(reverse=T))
+  p
 ```
 
-![Bar chart with AMBI theme](reference/figures/plot2-1.png)
+![Bar chart with AMBI theme](ambi-figures_files/figure-html/plot2-1.png)
 
 There are still some small differences compared with the original. For
 example:
 
-- colour transparency - the `alpha=0.6` argument in
+- colour transparency - the `alpha = 0.6` argument in
   [`ggplot2::geom_bar()`](https://ggplot2.tidyverse.org/reference/geom_bar.html)
   causes the bar colours to be slightly transparent. This is deliberate.
   To have solid colours, remove this argument.
 
 - legend text - the names of the Ecological Groups appear over their
   respective colour keys in the original figure. Here they appear next
-  to them. Challenge: can you reproduce the original style of legend
-  keys?
+  to them. *Challenge: can you reproduce the original style of legend
+  keys?*
 
 Starting with this example, only a few modifications are needed to
 replicate other variations of AMBI figures. For example, showing subsets

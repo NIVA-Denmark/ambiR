@@ -16,8 +16,11 @@ AMBI.
 
 - [`Hdash()`](https://niva-denmark.github.io/ambiR/reference/Hdash.md) :
   Calculates H' the Shannon diversity index
+
 - [`DKI()`](https://niva-denmark.github.io/ambiR/reference/DKI.md) :
-  Calculates DKI (v1)
+
+  Calculates DKI (*v1*)
+
 - [`DKI2()`](https://niva-denmark.github.io/ambiR/reference/DKI2.md) :
   Calculates DKI (v2)
 

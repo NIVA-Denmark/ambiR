@@ -31,17 +31,19 @@ The test dataset `test_data` has 53 rows and 4 variables:
 
 ## Source
 
-AZTI.ES
+[AZTI](https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/)
 
 ## Examples
 
 ``` r
-summary(test_data)
-#>     station       replicate           species              count       
-#>  Min.   :1.000   Length:53          Length:53          Min.   : 1.000  
-#>  1st Qu.:2.000   Class :character   Class :character   1st Qu.: 1.000  
-#>  Median :2.000   Mode  :character   Mode  :character   Median : 1.000  
-#>  Mean   :2.057                                         Mean   : 2.264  
-#>  3rd Qu.:2.000                                         3rd Qu.: 2.000  
-#>  Max.   :3.000                                         Max.   :11.000  
+head(test_data)
+#> # A tibble: 6 × 4
+#>   station replicate species             count
+#>     <dbl> <chr>     <chr>               <dbl>
+#> 1       1 a         Cumopsis fagei          2
+#> 2       1 a         Diogenes pugilator      2
+#> 3       1 a         Paradoneis armata       1
+#> 4       1 b         Bathyporeia elegans     1
+#> 5       1 b         Diogenes pugilator      5
+#> 6       1 b         Dispio uncinata         1
 ```

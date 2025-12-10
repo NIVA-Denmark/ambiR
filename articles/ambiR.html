@@ -11,7 +11,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -474,8 +480,8 @@ This lies between the M-AMBI value corresponding to the
 <em>Moderate/Poor</em> status class boundary (<code>"MP" = 0.39</code>)
 and the M-AMBI value corresponding to the <em>Good/Moderate</em> status
 class boundary (<code>"GM" = 0.53</code>).</p>
-<p>The normalised EQR value is given by linear interpolation:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>Q</mi><mi>R</mi><mo>=</mo><mn>0.4</mn><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0.6</mn><mo>−</mo><mn>0.4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mfrac><mrow><mn>0.478</mn><mo>−</mo><mn>0.39</mn></mrow><mrow><mn>0.53</mn><mo>−</mo><mn>0.39</mn></mrow></mfrac></mrow><annotation encoding="application/x-tex"> EQR = 0.4 + (0.6 - 0.4) \frac{0.478 - 0.39}{0.53 - 0.39 } </annotation></semantics></math></p>
+<p>The normalised EQR value is given by linear interpolation: <span class="math display">\[ EQR = 0.4 + (0.6 - 0.4) \frac{0.478 - 0.39}{0.53
+- 0.39 } \]</span></p>
 </div>
 </div>
 </div>

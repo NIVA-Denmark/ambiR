@@ -151,17 +151,16 @@ a list of dataframes:
   - `group` : showing the species group. Any species/taxa in `df` which
     were not matched will have an `NA` value in this column.
 
-  - `RA` : indicating that the species is *reallocatable* according to
-    the AMBI list. That is, it could be re-assigned to a different
-    species group.
+  - `RA` : a value of `1` indicates that the species is *reallocatable*
+    according to the AMBI list. That is, it could be re-assigned to a
+    different species group.
 
   - `source` : this column is included only if a user-specified list was
     provided `df_species`, or if species groups were assigned
-    interactively. An `'I'` in this column indicates that the group was
-    assigned interactively. A
-    `'U'`\_`shows that the group information came from a user-provided species list. An`NA\`
-    value indicates that no interactive or user-provided changes were
-    applied.
+    interactively. An `"I"` in this column indicates that the group was
+    assigned interactively. A `"U"` shows that the group information
+    came from a user-provided species list. An `NA` value indicates that
+    no interactive or user-provided changes were applied.
 
 - `warnings` : a dataframe showing warnings for any combination of `by`
   variables a warning where
@@ -176,8 +175,7 @@ a list of dataframes:
 ## Details
 
 The theory behind the AMBI index calculations and details of the method,
-as developed by [Borja et al.
-(2000)](https://niva-denmark.github.io/ambiR/reference/%5Cdoi%7B10.1016/S0025-326X(00)00061-8%7D)
+as developed by [Borja et al. (2000)](#references),
 
 ### AMBI method
 
@@ -208,16 +206,17 @@ the ecosystem.
   situations). These are deposit- feeders, which proliferate in reduced
   sediments.
 
-The distribution of these ecological groups, according to their
-sensitivity to pollution stress, provides a BI with eight levels, from 0
-to 7
+The distribution of individuals between these ecological groups,
+according to their sensitivity to pollution stress, gives a biotic index
+ranging from 0.0 to 6.0.
 
-*Biotic Coefficient = (0.0 \* GI + l.5 \* GII + 3.0 \* GIII + 4.5 \*
-GIV + 6.0 \* GV)*
+\\Biotic\\ Index = 0.0 \* f\_{I} + 1.5 \* f\_{II} + 3.0 \* f\_{III} +
+4.5 \* f\_{IV} + 6.0 \* f_V\\
 
 where:
 
-*Gn := fraction of individuals in Group n \[I, II, III, IV, V\]*
+\\f_i\\ = fraction of individuals in Group \\i \in\\I, II, III, IV,
+V\\\\
 
 Under certain circumstances, the AMBI index should not be used:
 
@@ -240,14 +239,14 @@ dataframes:
   information.
 
 - (`AMBI_rep`) generated only if replicates are used, showing the `AMBI`
-  index for each replicate
+  index for each replicate.
 
-- `matched` showing the species matches used
+- `matched` showing the species matches used.
 
 - `warnings` containing any warnings generated regarding numbers of of
-  species or numbers of individuals
+  species or numbers of individuals.
 
-### Species matching and *interactive* mode
+### Species matching and interactive mode
 
 The function will check for a species list supplied in the function call
 using the argument `df_species`, if this is specified. The function will
@@ -283,26 +282,37 @@ output.
 
 #### *interactive* mode
 
-If the function is called in
-[interactive](https://niva-denmark.github.io/ambiR/articles/interactive.md)
-mode, by using the argument `interactive = TRUE` then the user has an
-opportunity to *manually* assign species groups (*I, II, III, IV, V*)
-for any species names which were not identified. The user does this by
-typing `1`, `2`, `3`, `4` or `5` and pressing *Enter*. Alternatively,
-the user can type `0` to mark the species as recognised but not assigned
-to a group. By typing *Enter* without any number the species will be
-recorded as unidentified (`NA`). This is the same result which would
-have been returned when calling the function in non-interactive mode.
-There are two other options: typing `s` will display a list of 10
-species names which occur close to the unrecognised name when names are
-sorted in alphabetical order. Entering `s` a second time will display
-the next 10 names, and so on. Finally, entering `x` will abort the
-interactive species assignment process. Any species groups assigned
-manually at this point will be discarded and the calculations will
-process as in the non-interactive mode.
+If the function is called using the argument `interactive = TRUE` then
+the user has an opportunity to *manually* assign species groups (*I, II,
+III, IV, V*) for any species names which were not identified. The user
+does this by typing `1`, `2`, `3`, `4` or `5` and pressing *Enter*.
+Alternatively, the user can type `0` to mark the species as recognised
+but not assigned to a group. By typing *Enter* without any number the
+species will be recorded as unidentified (`NA`). This is the same result
+which would have been returned when calling the function in
+non-interactive mode. There are two other options: typing `s` will
+display a list of 10 species names which occur close to the unrecognised
+name when names are sorted in alphabetical order. Entering `s` a second
+time will display the next 10 names, and so on. Finally, entering `x`
+will abort the interactive species assignment process. Any species
+groups assigned manually at this point will be discarded and the
+calculations will process as in the non-interactive mode.
 
 Any user-provided group information will be recorded in the `matched`
 results.
+
+See
+[`vignette("interactive")`](https://niva-denmark.github.io/ambiR/articles/interactive.md)
+for an example.
+
+## References
+
+Borja, Á., Franco, J., Pérez, V. (2000). “A Marine Biotic Index to
+Establish the Ecological Quality of Soft-Bottom Benthos Within European
+Estuarine and Coastal Environments.” *Marine Pollution Bulletin* 40 (12)
+1100–1114.
+[doi:10.1016/S0025-326X(00)00061-8](https://doi.org/10.1016/S0025-326X%2800%2900061-8)
+.
 
 ## See also
 
@@ -315,7 +325,7 @@ which calculates *M-AMBI* the multivariate AMBI index using results of
 ``` r
 # example (1) - using test data included with package
 
-AMBI(test_data, by=c("station"), var_rep="replicate")
+  AMBI(test_data, by = c("station"), var_rep = "replicate")
 #> $AMBI
 #> # A tibble: 3 × 13
 #>   station  AMBI AMBI_SD     H     S   fNA     N     I    II   III     IV      V
@@ -357,16 +367,16 @@ AMBI(test_data, by=c("station"), var_rep="replicate")
 
 
 # example (2)
-# \donttest{
-df <- data.frame(station = c("1","1","2","2","2"),
-species = c("Acidostoma neglectum",
+
+  df <- data.frame(station = c("1", "1", "2", "2", "2"),
+  species = c("Acidostoma neglectum",
             "Acrocirrus validus",
             "Acteocina bullata",
             "Austrohelice crassa",
             "Capitella nonatoi"),
             count = c(2, 4, 5, 3, 7))
 
- AMBI(df, by = c("station"))
+   AMBI(df, by = c("station"))
 #> Warning: station 1: The percentage of individuals not assigned to a group is higher than
 #> 20% [33.3%].
 #> Warning: station 1: The (not null) number of species is less than 3 [2].
@@ -399,11 +409,11 @@ species = c("Acidostoma neglectum",
 
 # example (3) - conflict with AZTI species group
 
-df_user <- data.frame(
+  df_user <- data.frame(
               species = c("Cumopsis fagei"),
               group = c(1))
 
-AMBI(test_data, by=c("station"), var_rep="replicate", df_species=df_user)
+  AMBI(test_data, by = c("station"), var_rep = "replicate", df_species = df_user)
 #> ℹ 1 user-assigned group in conflict with AMBI was ignored:
 #> ✖ Cumopsis fagei (II)→(I)
 #> 
@@ -445,5 +455,5 @@ AMBI(test_data, by=c("station"), var_rep="replicate", df_species=df_user)
 #> 10       2 a         Glycer… Glycera tridac…     2     2 NA         0 NA        
 #> # ℹ 43 more rows
 #> 
-# }
+
 ```

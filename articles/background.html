@@ -11,7 +11,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -73,9 +79,6 @@
 
     
     
-<div class="section level2">
-<h2 id="the-ambi-index">The AMBI index<a class="anchor" aria-label="anchor" href="#the-ambi-index"></a>
-</h2>
 <p>The basis of the AMBI index is that soft-bottom macrofauna are
 divided into groups according to their sensitivity to increasing
 environmental stress. The distribution of counts of individuals or
@@ -89,10 +92,10 @@ environment.</p>
 counts with optional grouping variables, e.g. station or replicate IDs.
 The function matches species names in the input data with names in the
 AMBI species list, in order to categorise the observed species according
-to the AMBI method. The tool then calculates the <em>AMBI</em> index
+to the AMBI method. The tool then calculates the <code>AMBI</code> index
 resulting from the distribution of individuals between the groups.</p>
 <p>The AMBI species list gives the groups (I, II, III, IV, V) in which
-each species is classified, as described by <span class="citation">Borja, Franco, and Pérez (2000)</span>.</p>
+each species is classified, as described by <span class="citation">Borja, Franco, and Pérez (<a href="#ref-BORJA20001100">2000</a>)</span>.</p>
 <ul>
 <li>
 <em>Group I</em><br>
@@ -125,18 +128,16 @@ These are deposit- feeders, which proliferate in reduced sediments.</li>
 <p>The list of species and their groups has been updated several times
 by the authors of the AMBI software. The version of the list used here
 is from 8. October 2024.</p>
-<p>After calculating the fractions
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>i</mi></msub><annotation encoding="application/x-tex">f_i</annotation></semantics></math>
-of all individuals belonging to each group
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mrow></mrow><mi>I</mi><mo>,</mo><mi>I</mi><mi>I</mi><mo>,</mo><mi>I</mi><mi>I</mi><mi>I</mi><mo>,</mo><mi>I</mi><mi>V</mi><mo>,</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">i \in{}  I, II, III, IV, V</annotation></semantics></math>,
-then the index is given by:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>M</mi><mi>B</mi><mi>I</mi><mo>=</mo><mn>0</mn><mo>*</mo><msub><mi>f</mi><mi>I</mi></msub><mo>+</mo><mn>1.5</mn><mo>*</mo><msub><mi>f</mi><mrow><mi>I</mi><mi>I</mi></mrow></msub><mo>+</mo><mn>3</mn><mo>*</mo><msub><mi>f</mi><mrow><mi>I</mi><mi>I</mi><mi>I</mi></mrow></msub><mo>+</mo><mn>4.5</mn><mo>*</mo><msub><mi>f</mi><mrow><mi>I</mi><mi>V</mi></mrow></msub><mo>+</mo><mn>6</mn><mo>*</mo><msub><mi>f</mi><mi>V</mi></msub></mrow><annotation encoding="application/x-tex"> AMBI = 0 * f_{I} + 1.5 * f_{II} + 3 * f_{III} + 4.5 * f_{IV} + 6 * f_{V} </annotation></semantics></math></p>
+<p>After calculating the fractions <span class="math inline">\(f_i\)</span> of all individuals belonging to each
+group <span class="math inline">\(i \in{}  \{I, II, III, IV,
+V\}\)</span>, then the index is given by:</p>
+<p><span class="math display">\[ AMBI = 0.0 * f_{I} + 1.5 * f_{II} + 3 *
+f_{III} + 4.5 * f_{IV} + 6 * f_{V} \]</span></p>
 <p>So, the greater the proportion of sensitive species, the lower the
 resulting AMBI index. A sample consisting 100% of species from the most
 sensitive category (Group I) will have an AMBI index of 0.0. A
 population consisting entirely of species from Group V will have an
 index of 6.0.</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="m-ambi---the-multivariate-ambi-index">M-AMBI - the multivariate AMBI index<a class="anchor" aria-label="anchor" href="#m-ambi---the-multivariate-ambi-index"></a>
@@ -151,15 +152,15 @@ based on the three separate species diversity metrics:</p>
 <li>Species richness <em>S</em>
 </li>
 </ul>
-<p>The principles of the M-AMBI index are described by <span class="citation">Muxika, Borja, and Bald (2007)</span></p>
+<p>The principles of the M-AMBI index are described by <span class="citation">Muxika, Borja, and Bald (<a href="#ref-MUXIKA200716">2007</a>)</span></p>
 <p><em>“AMBI, richness and diversity, combined with the use, in a
 further development, of factor analysis together with discriminant
 analysis, is presented as an objective tool (named here M-AMBI) in
 assessing ecological quality status”</em></p>
 <p>It is, of course, possible to calculate M-AMBI using data generated
-in other analyses, outside the {ambiR} package but the
-<code><a href="../reference/AMBI.html">AMBI()</a></code> function can conveniently provide all 3 of the
-metrics used as variables in the M-AMBI factorial analysis.</p>
+in other analyses, outside the ambiR package but the <code><a href="../reference/AMBI.html">AMBI()</a></code>
+function can conveniently provide all 3 of the metrics used as variables
+in the M-AMBI factorial analysis.</p>
 <ul>
 <li><p>from the input data with values of <em>AMBI</em>, <em>H’</em> and
 <em>S</em>, the variables are first standardized, by subtracting by the
@@ -196,8 +197,8 @@ value where the Good/Moderate boundary is at EQR = 0.6.</p></li>
 allow users to perform AMBI index calculations. Later versions were
 updated to include the multivariate index M-AMBI calculations and
 adjustments to the species list used to assign species to ecological
-groups. The software is maintained and updated by <a href="https://www.azti.es/en/?s=AMBI" class="external-link">AZTI</a>, where the latest version
-can be downloaded.</p>
+groups. The software is maintained and updated by AZTI <a href="https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/" class="external-link">https://www.azti.es</a>,
+where the latest version can be downloaded.</p>
 <p>The ambiR package has been extensively tested and gives identical
 results to the AMBI software, as long as the version of species list
 select corresponds to the to the version used by the software.</p>

@@ -12,8 +12,7 @@ separate species diversity metrics:
 *"AMBI, richness and diversity, combined with the use, in a further
 development, of factor analysis together with discriminant analysis, is
 presented as an objective tool (named here M-AMBI) in assessing
-ecological quality status"* [Muxika et al.,
-2007](https://niva-denmark.github.io/ambiR/reference/%5Cdoi%7B10.1016/j.marpolbul.2006.05.025%7D)
+ecological quality status"* [(Muxika et al., 2007)](#references)
 
 ## Usage
 
@@ -35,28 +34,28 @@ MAMBI(
 
 - df:
 
-  a dataframe of diversity metrics
+  a dataframe of diversity metrics.
 
 - by:
 
   a vector of column names found in `df` by which calculations should be
   grouped *e.g.* `c("station")`. If grouping columns are specified, then
   the mean values of the 3 metrics will be calculated within each group
-  before calculating `M-AMBI` (default `NULL`)
+  before calculating `M-AMBI` (default `NULL`).
 
 - var_H:
 
   name of the column in `df` containing `H'` Shannon species diversity
-  (default `"H"`)
+  (default `"H"`).
 
 - var_S:
 
   name of the column in `df` containing `S` species richness (default
-  `"S"`)
+  `"S"`).
 
 - var_AMBI:
 
-  name of the column in `df` containing `AMBI` index (default `"AMBI"`)
+  name of the column in `df` containing `AMBI` index (default `"AMBI"`).
 
 - limits_AMBI:
 
@@ -95,7 +94,7 @@ MAMBI(
   (`"PB"`), *(ii)* *Moderate* and *Poor* status (`"MP"`), *(iii)* *Good*
   and *Moderate* status (`"GM"`), and *(iv)* *High* and *Good* status
   (`"HG"`). Default
-  `c("PB" = 0.2, "MP" = 0.39, "GM" = 0.53, "HG" = 0.77)`
+  `c("PB" = 0.2, "MP" = 0.39, "GM" = 0.53, "HG" = 0.77)`.
 
 ## Value
 
@@ -103,9 +102,9 @@ a dataframe containing results of the M-AMBI index calculations. For
 each unique combination of `by` variables, the following values are
 calculated:
 
-- `M-AMBI` : the M-AMBI index value
+- `M-AMBI` : the M-AMBI index value.
 
-- `X`,`Y`,`Z` : factor scores giving coordinates in the new factor
+- `x`,`y`,`z` : factor scores giving coordinates in the new factor
   space.
 
 If no `by` variables are specified (`by = NULL`), then `M-AMBI` will be
@@ -141,6 +140,15 @@ count data using only using the
 [`AMBI()`](https://niva-denmark.github.io/ambiR/reference/AMBI.md)
 function.
 
+## References
+
+Muxika, I., Borja, A., Bald, J. (2007) "Using historical data, expert
+judgement and multivariate analysis in assessing reference conditions
+and benthic ecological status, according to the European Water Framework
+Directive", Marine Pollution Bulletin, 55, 1–6,
+[doi:10.1016/j.marpolbul.2006.05.025](https://doi.org/10.1016/j.marpolbul.2006.05.025)
+.
+
 ## See also
 
 [`AMBI()`](https://niva-denmark.github.io/ambiR/reference/AMBI.md) which
@@ -149,13 +157,13 @@ calculates the indices required as input for `MAMBI()`.
 ## Examples
 
 ``` r
-df <- data.frame(station = c(1, 1, 1, 2, 2, 2, 3, 3),
+  df <- data.frame(station = c(1, 1, 1, 2, 2, 2, 3, 3),
                  replicates = c("a", "b", "c", "a", "b", "c", "a", "b"),
                  AMBI = c(1.8, 1.5, 1.125, 1.875, 2.133, 1.655, 3.5, 4.75),
                  H = c(1.055, 0.796, 0.562, 2.072, 2.333, 1.789, 1.561, 1.303),
                  S = c(3, 3, 2, 12, 12, 10, 5, 6))
 
-MAMBI(df, by = c("station"))
+ MAMBI(df, by = c("station"))
 #> # A tibble: 5 × 11
 #>   station Bounds  AMBI     H     S      x      y        z MAMBI Status   EQR
 #>     <dbl> <chr>  <dbl> <dbl> <dbl>  <dbl>  <dbl>    <dbl> <dbl> <chr>  <dbl>

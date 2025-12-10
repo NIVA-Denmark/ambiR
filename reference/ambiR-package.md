@@ -1,15 +1,15 @@
 # ambiR: Calculate AZTI’s Marine Biotic Index
 
-Calculate AZTI’s Marine Biotic Index \_AMBI\_. The included list of
+Calculate AZTI’s Marine Biotic Index - AMBI. The included list of
 benthic fauna species according to their sensitivity to pollution.
 Matching species in sample data to the list allows the calculation of
 fractions of individuals in the different sensitivity categories and
-thereafter the AMBI index. The Shannon Diversity Index \_H'\_ and the
-Danish benthic fauna quality index \_DKI\_ can also be calculated, as
-well as the multivariate \_M-AMBI\_ index. \_Borja, A., J. Franco, V.
-Pérez, 2000. A marine biotic index to establish the ecological quality
-of soft bottom benthos within European estuarine and coastal
-environments Marine Pollution Bulletin 40(12) 1100-1114\_.
+thereafter the AMBI index. The Shannon Diversity Index H' and the Danish
+benthic fauna quality index DKI can also be calculated, as well as the
+multivariate M-AMBI index. Borja, A., J. Franco, V. Pérez, 2000. A
+marine biotic index to establish the ecological quality of soft bottom
+benthos within European estuarine and coastal environments Marine
+Pollution Bulletin 40(12) 1100-1114.
 
 ## See also
 

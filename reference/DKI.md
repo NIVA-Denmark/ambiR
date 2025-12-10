@@ -1,7 +1,7 @@
-# Calculates DKI (v1)
+# Calculates DKI (*v1*)
 
-`DKI()` calculates the Danish quality index DKI (v1) ([Carstensen et
-al., 2014](https://dce2.au.dk/pub/SR93.pdf))
+`DKI()` calculates the original version of the Danish quality index DKI
+[(Carstensen et al., 2014)](#references)
 
 The DKI is based on AMBI and can only be calculated after first
 calculating *AMBI*, the AZTI Marine Biotic Index, and *H'*, the Shannon
@@ -12,9 +12,8 @@ The function uses an estimated maximum possible value of H' `H_max` in
 Danish waters as a reference value to normalise DKI. If this value is
 not specified as an argument, the default value is used `5.0`
 
-*"However, in the present exercise, the Danish method used Hmax (∼5) as
-a kind of reference"* [Borja et al.,
-2007](https://niva-denmark.github.io/ambiR/reference/%5Cdoi%7B10.1016/j.marpolbul.2006.08.018%7D)
+*"However, in the present exercise, the Danish method used \\H\_{max}\\
+(~5) as a kind of reference"* [(Borja et al., 2007)](#references)
 
 ## Usage
 
@@ -68,6 +67,22 @@ To calculate DKI for a dataframe of `AMBI` values, it could be called
 from e.g. within a
 [`dplyr::mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
 function call. See the examples below.
+
+## References
+
+Borja, A., Josefson, A., Miles, A., Muxika, I., Olsgard, F., Phillips,
+G., Rodriguez, J., Rygg, B. (2007). An Approach to the Intercalibration
+of Benthic Ecological Status Assessment in the North Atlantic Ecoregion,
+According to the European Water Framework Directive. *Marine Pollution
+Bulletin*, 55(1-6), 42-52. \#'
+[doi:10.1016/j.marpolbul.2006.08.018](https://doi.org/10.1016/j.marpolbul.2006.08.018)
+
+Carstensen, J., Krause-Jensen, D., Josefson, A. (2014). "Development and
+testing of tools for intercalibration of phytoplankton, macrovegetation
+and benthic fauna in Danish coastal areas." Aarhus University, DCE –
+Danish Centre for Environment and Energy, 85 pp. *Scientific Report from
+DCE – Danish Centre for Environment and Energy* No. 93.
+<https://dce2.au.dk/pub/SR93.pdf>
 
 ## See also
 

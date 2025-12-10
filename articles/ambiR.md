@@ -412,8 +412,8 @@ between the M-AMBI value corresponding to the *Moderate/Poor* status
 class boundary (`"MP" = 0.39`) and the M-AMBI value corresponding to the
 *Good/Moderate* status class boundary (`"GM" = 0.53`).
 
-The normalised EQR value is given by linear interpolation:
-$$EQR = 0.4 + (0.6 - 0.4)\frac{0.478 - 0.39}{0.53 - 0.39}$$
+The normalised EQR value is given by linear interpolation: \\ EQR =
+0.4 + (0.6 - 0.4) \frac{0.478 - 0.39}{0.53 - 0.39 } \\
 
 ## References
 

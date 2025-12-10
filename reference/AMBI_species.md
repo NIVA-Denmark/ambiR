@@ -43,8 +43,7 @@ A data frame with 11,952 rows\* and 3 columns:
 
 ## Details
 
-The species groups, as described by [Borja et al.
-(2000)](https://niva-denmark.github.io/ambiR/reference/%5Cdoi%7B10.1016/S0025-326X(00)00061-8%7D):
+The species groups, as described by [Borja et al. (2000)](#references):
 
 - *Group I*  
   Species very sensitive to organic enrichment and present under
@@ -71,6 +70,15 @@ The species groups, as described by [Borja et al.
 - *Group V*  
   First-order opportunistic species (pronounced unbalanced situations).
   These are deposit-feeders, which proliferate in reduced sediments.  
+
+## References
+
+Borja, Á., Franco, J., Pérez, V. (2000). “A Marine Biotic Index to
+Establish the Ecological Quality of Soft-Bottom Benthos Within European
+Estuarine and Coastal Environments.” *Marine Pollution Bulletin* 40
+(12): 1100–1114.
+[doi:10.1016/S0025-326X(00)00061-8](https://doi.org/10.1016/S0025-326X%2800%2900061-8)
+.
 
 ## See also
 

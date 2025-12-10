@@ -1,8 +1,8 @@
 # Calculates H' the Shannon diversity index
 
 `Hdash()` matches a list of species counts with the AMBI species list
-and calculates *H'* the Shannon diversity index [Shannon,
-1948](https://niva-denmark.github.io/ambiR/reference/%5Cdoi%7B10.1002/j.1538-7305.1948.tb01338.x%7D)
+and calculates *H'* the Shannon diversity index. [(Shannon,
+1948)](#references)
 
 ## Usage
 
@@ -82,6 +82,12 @@ only species which are successfully matched with the specified species
 list are included in the calculations. This is the default. If the
 function is called with `check_species = FALSE`then all rows are
 counted.
+
+## References
+
+Shannon, C. E. (1948) "A mathematical theory of communication," in *The
+Bell System Technical Journal*, vol. 27, no. 3, pp. 379-423.
+[doi:10.1002/j.1538-7305.1948.tb01338.x](https://doi.org/10.1002/j.1538-7305.1948.tb01338.x)
 
 ## Examples
 

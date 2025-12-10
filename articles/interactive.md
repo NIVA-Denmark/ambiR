@@ -65,7 +65,7 @@ To proceed you should type at the console prompt:
   the AMBI calculations and count towards the number of *Not assigned*
   species.
 
-- `Enter` - the species name will be treated as unrecognised and will
+- `<Enter>` - the species name will be treated as unrecognised and will
   *not* be included in `AMBI` calculations.
 
 - `s` - a list of recognised species names from the `AMBI` list will be
@@ -116,8 +116,7 @@ Typing `s` will show species names which are close to the unrecognised
 species when arranged in alphabetical order.
 
 ``` r
-s
-
+  s
 #> • Achelous ordwayi                                 (Group 1)
 #> • Acidostoma hancocki                              (Group 2)
 #> • Acidostoma neglectum                             (Group 0)
@@ -147,9 +146,8 @@ then we are asked to consider the next unrecognised species name,
 *Aglaophenia kirchenpaueri*.
 
 ``` r
-0
-
-#> ✔ Acholoe squamosa - Not assigned
+  0
+#> ✔  Acholoe squamosa - Not assigned
 #> 
 #> ── 2 Aglaophenia kirchenpaueri ──
 #>
@@ -160,8 +158,7 @@ then we are asked to consider the next unrecognised species name,
 We type `s` to see similar names:
 
 ``` r
-s
-
+  s
 #> • Aglaophamus verrilli                             (Group 2)
 #> • Aglaophenia acacia                               (Group 0)
 #> • Aglaophenia pluma                                (Group 0)
@@ -182,8 +179,7 @@ we could make the assumption that our unrecognised species should be
 assigned to the same group.
 
 ``` r
-0
-
+  0
 #> ✔ Aglaophenia kirchenpaueri - Not assigned
 #>
 #> ── 3 Tricellaria sp. ──
@@ -204,19 +200,19 @@ column indicates that the group was assigned interactively.
 
 ``` r
 $matched
-   station                   species           species_matched count group source RA
-1        1      Acidostoma neglectum      Acidostoma neglectum     2     0   <NA>  0
-2        1        Acrocirrus validus        Acrocirrus validus     4     4   <NA>  0
-3        1         Acteocina bullata         Acteocina bullata     5     1   <NA>  0
-4        1       Austrohelice crassa       Austrohelice crassa     3     5   <NA>  0
-5        1         Capitella nonatoi         Capitella nonatoi     7     5   <NA>  0
-6        1       Watersipora subatra       Watersipora subatra     2     0      I NA
-7        2        Zanclea giancarloi        Zanclea giancarloi     4     0      I NA
-8        2          Zanclea sessilis          Zanclea sessilis     5     0      I NA
-9        2          Zonorhynchus sp.          Zonorhynchus sp.     3     0      I NA
-10       2          Acholoe squamosa          Acholoe squamosa     7     0      I NA
-11       2 Aglaophenia kirchenpaueri Aglaophenia kirchenpaueri     2     0      I NA
-12       2           Tricellaria sp.           Tricellaria sp.     3     3      I NA
+#>  station                   species           species_matched count group source RA
+#>  1        1      Acidostoma neglectum      Acidostoma neglectum     2     0   <NA>  0
+#>  2        1        Acrocirrus validus        Acrocirrus validus     4     4   <NA>  0
+#>  3        1         Acteocina bullata         Acteocina bullata     5     1   <NA>  0
+#>  4        1       Austrohelice crassa       Austrohelice crassa     3     5   <NA>  0
+#>  5        1         Capitella nonatoi         Capitella nonatoi     7     5   <NA>  0
+#>  6        1       Watersipora subatra       Watersipora subatra     2     0      I NA
+#>  7        2        Zanclea giancarloi        Zanclea giancarloi     4     0      I NA
+#>  8        2          Zanclea sessilis          Zanclea sessilis     5     0      I NA
+#>  9        2          Zonorhynchus sp.          Zonorhynchus sp.     3     0      I NA
+#>  10       2          Acholoe squamosa          Acholoe squamosa     7     0      I NA
+#>  11       2 Aglaophenia kirchenpaueri Aglaophenia kirchenpaueri     2     0      I NA
+#>  12       2           Tricellaria sp.           Tricellaria sp.     3     3      I NA
 ```
 
 ## Aborting interactive mode
@@ -226,9 +222,9 @@ will abort the interactive process. The following message will be
 displayed:
 
 ``` r
-x
-
-#> ! interactive species assignment cancelled
+  x
+  
+> ! interactive species assignment cancelled
 ```
 
 Any species groups assigned manually up to this point will be discarded
@@ -237,4 +233,4 @@ method.
 
 ------------------------------------------------------------------------
 
-1.  <https://www.marinespecies.org/aphia.php?p=taxdetails&id=146474>
+1.  <https://www.marinespecies.org/aphia.php?p=taxdetails&id=146474#>
