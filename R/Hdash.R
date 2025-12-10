@@ -2,8 +2,12 @@
 #'
 #' @description
 #' [Hdash()] matches a list of species counts with the AMBI species list
-#' and calculates *H'* the Shannon diversity index
-#' [Shannon, 1948](\doi{10.1002/j.1538-7305.1948.tb01338.x})
+#' and calculates *H'* the Shannon diversity index.
+#' [(Shannon, 1948)](#references)
+#'
+#' @references
+#' Shannon, C. E. (1948) "A mathematical theory of communication," in _The Bell System Technical Journal_, vol. 27, no. 3, pp. 379-423.
+#' \doi{doi:10.1002/j.1538-7305.1948.tb01338.x}
 #'
 #' @details
 #' If the function is called with the argument `check_species = TRUE` then

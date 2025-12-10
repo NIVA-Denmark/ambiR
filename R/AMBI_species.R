@@ -8,9 +8,12 @@
 #'
 #' *latest version 8th October 2024*
 #'
+#' @references
+#' Borja, Á., Franco, J., Pérez, V. (2000). “A Marine Biotic Index to Establish the Ecological Quality of Soft-Bottom Benthos Within European Estuarine and Coastal Environments.” *Marine Pollution Bulletin* 40 (12): 1100–1114. \doi{doi:10.1016/S0025-326X(00)00061-8}.
+#'
 #' @details
 #'
-#' The species groups, as described by [Borja et al. (2000)](\doi{10.1016/S0025-326X(00)00061-8}):
+#' The species groups, as described by [Borja et al. (2000)](#references):
 #'
 #'    \itemize{
 #'    \item *Group&nbsp;I* \cr Species very sensitive to organic enrichment

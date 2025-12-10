@@ -1,7 +1,7 @@
 url: https://niva-denmark.github.io/ambiR/
 template:
   bootstrap: 5
-
+  math-rendering: mathjax
 reference:
 
 - subtitle: AMBI functions

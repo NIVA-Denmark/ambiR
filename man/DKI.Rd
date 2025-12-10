@@ -2,7 +2,7 @@
 % Please edit documentation in R/DKI_v1.R
 \name{DKI}
 \alias{DKI}
-\title{Calculates DKI (v1)}
+\title{Calculates DKI (\emph{v1})}
 \usage{
 DKI(AMBI, H, N, S, H_max = 5)
 }
@@ -21,8 +21,8 @@ DKI(AMBI, H, N, S, H_max = 5)
 \code{DKI} index value
 }
 \description{
-\code{\link[=DKI]{DKI()}} calculates the Danish quality index DKI (v1)
-(\href{https://dce2.au.dk/pub/SR93.pdf}{Carstensen et al., 2014})
+\code{\link[=DKI]{DKI()}} calculates the original version of the Danish quality index DKI
+\href{#references}{(Carstensen et al., 2014)}
 
 The DKI is based on AMBI and can only be calculated after first calculating
 \emph{AMBI}, the AZTI Marine Biotic Index, and \emph{H'}, the Shannon diversity index.
@@ -32,9 +32,8 @@ The function uses an estimated maximum possible value of H' \code{H_max} in Dani
 waters as a reference value to normalise DKI. If this value is not specified
 as an argument, the default value is used \code{5.0}
 
-\emph{"However, in the present exercise, the Danish method used Hmax (∼5)
-as a kind of reference"}
-\href{\doi{10.1016/j.marpolbul.2006.08.018}}{Borja et al., 2007}
+\emph{"However, in the present exercise, the Danish method used \eqn{H_{max}} (~5) as a kind of reference"}
+\href{#references}{(Borja et al., 2007)}
 }
 \details{
 The \code{\link[=AMBI]{AMBI()}} and \code{\link[=Hdash]{Hdash()}} functions take a dataframe of observations as an
@@ -63,6 +62,12 @@ dfAMBI
 # calculate DKI from AMBI results
 dplyr::mutate(dfAMBI, DKI = DKI(AMBI, H, N, S))
 
+}
+\references{
+Borja, A., Josefson, A., Miles, A., Muxika, I., Olsgard, F., Phillips, G., Rodriguez, J., Rygg, B. (2007). An Approach to the Intercalibration of Benthic Ecological Status Assessment in the North Atlantic Ecoregion, According to the European Water Framework Directive. \emph{Marine Pollution Bulletin}, 55(1-6), 42-52. #' \doi{doi:10.1016/j.marpolbul.2006.08.018}
+
+Carstensen, J., Krause-Jensen, D., Josefson, A. (2014). "Development and testing of tools for intercalibration of phytoplankton, macrovegetation and benthic fauna in Danish coastal areas." Aarhus University, DCE – Danish Centre for Environment and Energy, 85 pp. \emph{Scientific Report from DCE – Danish Centre for Environment and Energy} No. 93.
+\url{https://dce2.au.dk/pub/SR93.pdf}
 }
 \seealso{
 DKI v1 has been superseded by \code{\link[=DKI2]{DKI2()}} a salinity-normalised version of DKI.

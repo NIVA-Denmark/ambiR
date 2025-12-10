@@ -4,10 +4,13 @@
 #' [AMBI()] matches a list of species counts with the official AMBI species list
 #' and calculates the AMBI index.
 #'
+#' @references
+#' Borja, Á., Franco, J., Pérez, V. (2000). “A Marine Biotic Index to Establish the Ecological Quality of Soft-Bottom Benthos Within European Estuarine and Coastal Environments.” *Marine Pollution Bulletin* 40 (12) 1100–1114. \doi{doi:10.1016/S0025-326X(00)00061-8}.
+#'
 #' @details
 #'
 #' The theory behind the AMBI index calculations and details of the method, as
-#' developed by [Borja et al. (2000)](\doi{10.1016/S0025-326X(00)00061-8})
+#' developed by [Borja et al. (2000)](#references),
 #'
 #' ## AMBI method
 #'
@@ -35,14 +38,15 @@
 #' situations). These are deposit- feeders, which proliferate in reduced
 #' sediments.
 #'
-#' The distribution of these ecological groups, according to their sensitivity to
-#' pollution stress, provides a BI with eight levels, from 0 to 7
+#' The distribution of individuals between these ecological groups, according
+#' to their sensitivity to pollution stress, gives a biotic index ranging
+#' from 0.0 to 6.0.
 #'
-#' _Biotic Coefficient = (0.0 * GI + l.5 * GII + 3.0 * GIII + 4.5 * GIV + 6.0 * GV)_
+#'  \eqn{Biotic\ Index = 0.0 * f_{I} + 1.5 * f_{II} + 3.0 * f_{III} + 4.5 * f_{IV} + 6.0 * f_V}
 #'
 #' where:
 #'
-#' _Gn := fraction of individuals in Group n \[I, II, III, IV, V\]_
+#'  \eqn{f_i} = fraction of individuals in Group \eqn{i \in\{I, II, III, IV, V\}}
 #'
 #' Under certain circumstances, the AMBI index should not be used:
 #'
@@ -59,12 +63,12 @@
 #'
 #'  * `AMBI` containing the calculated `AMBI` index, as well as other information.
 #'  * (`AMBI_rep`) generated only if replicates are used, showing the `AMBI` index
-#'  for each replicate
-#'  * `matched` showing the species matches used
+#'  for each replicate.
+#'  * `matched` showing the species matches used.
 #'  * `warnings` containing any warnings generated regarding numbers of of species
-#'  or numbers of individuals
+#'  or numbers of individuals.
 #'
-#' ## Species matching and _interactive_ mode
+#' ## Species matching and interactive mode
 #'
 #' The function will check for a species list supplied in the function call
 #' using the argument `df_species`, if this is specified. The function will
@@ -97,11 +101,11 @@
 #'
 #' ### _interactive_ mode
 #'
-#' If the function is called in  [interactive](../articles/interactive.html) mode, by using
-#' the argument `interactive = TRUE` then the user has an opportunity to
-#' _manually_ assign species groups (_I, II, III, IV, V_) for any species
-#' names which were not identified. The user does this by typing `1`, `2`, `3`,
-#' `4` or `5` and pressing _Enter_. Alternatively, the user can type `0` to mark
+#' If the function is called using the argument `interactive = TRUE` then the
+#'  user has an opportunity to _manually_ assign species groups
+#'  (_I, II, III, IV, V_) for any species names which were not identified.
+#' The user does this by typing `1`, `2`, `3`,  `4` or `5` and pressing _Enter_.
+#' Alternatively, the user can type `0` to mark
 #' the species as recognised but not assigned to a group. By typing _Enter_ without
 #' any number the species will be recorded as unidentified (`NA`). This is the
 #' same result which would have been returned when calling the function in
@@ -114,6 +118,7 @@
 #'
 #' Any user-provided group information will be recorded in the `matched` results.
 #'
+#' See `vignette("interactive")` for an example.
 #'
 #' @param df          a dataframe of species observations
 #'
@@ -214,13 +219,12 @@
 #'  Contains the following columns:
 #'    - `group` : showing the species group. Any species/taxa in `df` which were not
 #'    matched will have an `NA` value in this column.
-#'    -  `RA` : indicating that the species is _reallocatable_ according to the
-#'     AMBI list. That is, it could be re-assigned to
-#'  a different species group.
+#'    -  `RA` : a value of `1` indicates that the species is _reallocatable_ according to the
+#'     AMBI list. That is, it could be re-assigned to a different species group.
 #'    - `source` : this column is included only if a user-specified list was
 #'    provided `df_species`, or if species groups were assigned interactively.
-#'    An `'I'` in this column indicates that the group was assigned interactively.
-#'    A `'U'`_` shows that the group information came from a user-provided species
+#'    An `"I"` in this column indicates that the group was assigned interactively.
+#'    A `"U"` shows that the group information came from a user-provided species
 #'    list. An `NA` value indicates that no interactive or user-provided changes
 #'    were applied.
 #'
@@ -243,33 +247,34 @@
 #'
 #' # example (1) - using test data included with package
 #'
-#' AMBI(test_data, by=c("station"), var_rep="replicate")
+#'   AMBI(test_data, by = c("station"), var_rep = "replicate")
 #'
 #'
 #' # example (2)
-#' \donttest{
-#' df <- data.frame(station = c("1","1","2","2","2"),
-#' species = c("Acidostoma neglectum",
+#'
+#'   df <- data.frame(station = c("1", "1", "2", "2", "2"),
+#'   species = c("Acidostoma neglectum",
 #'             "Acrocirrus validus",
 #'             "Acteocina bullata",
 #'             "Austrohelice crassa",
 #'             "Capitella nonatoi"),
 #'             count = c(2, 4, 5, 3, 7))
 #'
-#'  AMBI(df, by = c("station"))
+#'   \donttest{ AMBI(df, by = c("station"))}
 #'
 #'
 #' # example (3) - conflict with AZTI species group
 #'
-#' df_user <- data.frame(
+#'   df_user <- data.frame(
 #'               species = c("Cumopsis fagei"),
 #'               group = c(1))
 #'
-#' AMBI(test_data, by=c("station"), var_rep="replicate", df_species=df_user)
-#' }
+#'   \donttest{AMBI(test_data, by = c("station"), var_rep = "replicate", df_species = df_user)}
+#'
+#'
 #' @export
 
-AMBI <- function(df, by = NULL,
+  AMBI <- function(df, by = NULL,
                  var_rep = NA_character_,
                  var_species = "species",
                  var_count = "count",
@@ -314,8 +319,6 @@ AMBI <- function(df, by = NULL,
 
 
   missing <- c()
-  # var_check <- ifelse(ifelse(is.na(var_rep), c(), var_rep))
-  # var_check <- c(var_check, by, var_species, var_count)
 
   if(is.na(var_rep)){
     var_check <- c(by, var_species, var_count)
@@ -511,12 +514,6 @@ AMBI <- function(df, by = NULL,
       ungroup()
   }
 
-  # unmatched <- df %>%
-  #   distinct(!!as.name(var_species)) %>%
-  #   dplyr::left_join(df_species, by=dplyr::join_by(!!var_species==!!var_species)) %>%
-  #   filter(is.na(!!as.name(var_group_AMBI))) %>%
-  #   dplyr::pull(var_species)
-
   unmatched <- df %>%
     distinct(!!as.name(var_species)) %>%
     .species_match(df_species,
@@ -526,7 +523,7 @@ AMBI <- function(df, by = NULL,
     filter(is.na(!!as.name(var_species_matched))) %>%
     dplyr::pull(var_species)
 
-  # unmatched <- unmatched[,var_species]
+
   unmatched <- sort(unmatched)
   user_entry <- rep(NA, length(unmatched))
 

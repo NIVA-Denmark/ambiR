@@ -2,7 +2,7 @@
 #'
 #' @description
 #' [DKI2()] calculate a salinity-normalised version of the Danish quality
-#' index (DKI) ([Carstensen et al., 2014](https://dce2.au.dk/pub/SR93.pdf))
+#' index (DKI) [(Carstensen et al., 2014)](#references)
 #'
 #' The *DKI* index is based on AMBI and can only be calculated after first calculating
 #' *AMBI*, the AZTI Marine Biotic Index, and *H'*, the Shannon diversity index.
@@ -14,6 +14,10 @@
 #'
 #' Since the index is normalised to salinity, the function also requires
 #' measured or estimated salinity `psal` as an argument.
+#'
+#'#' @references
+#' Carstensen, J., Krause-Jensen, D., Josefson, A. (2014). "Development and testing of tools for intercalibration of phytoplankton, macrovegetation and benthic fauna in Danish coastal areas." Aarhus University, DCE – Danish Centre for Environment and Energy, 85 pp. _Scientific Report from DCE – Danish Centre for Environment and Energy_ No. 93.
+#' <https://dce2.au.dk/pub/SR93.pdf>
 #'
 #' @details
 #' The [AMBI()] and [Hdash()] functions take a dataframe of observations as an

@@ -9,7 +9,7 @@
 <!-- badges: end -->
 
 Implementing **AZTI’s Marine Biotic Index** [(Borja et al.,
-2000)](\doi%7B10.1016/S0025-326X(00)00061-8%7D)
+2000)](https://doi.org/10.1016/S0025-326X(00)00061-8)
 
 ## Overview
 

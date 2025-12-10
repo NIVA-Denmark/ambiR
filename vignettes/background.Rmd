@@ -1,6 +1,7 @@
 ---
 title: "The AMBI index"
 bibliography: references.bib
+link-citations: true
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{The AMBI index}
@@ -13,7 +14,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/"
 )
 ```
-## The AMBI index
 
 The basis of the AMBI index is that soft-bottom macrofauna are divided into 
 groups according to their sensitivity to increasing environmental stress. The 
@@ -27,7 +27,7 @@ Input to the `AMBI()` function is a dataframe of species counts with optional
 grouping variables, e.g. station or replicate IDs. The function matches species
 names in the input data with names in the AMBI species list, in order to categorise
 the observed species according to the AMBI method. The tool then calculates the
-*AMBI* index resulting from the distribution of individuals between the groups.
+`AMBI` index resulting from the distribution of individuals between the groups.
 
 The AMBI species list gives the groups (I, II, III, IV, V) in which each species 
 is classified, as described by @BORJA20001100.
@@ -61,9 +61,9 @@ authors of the AMBI software. The version of the list used here is from
 8. October 2024.
 
 After calculating the fractions $f_i$ of all individuals belonging to each group 
-  $i \in{}  I, II, III, IV, V$, then the index is given by:
+  $i \in{}  \{I, II, III, IV, V\}$, then the index is given by:
 
-$$ AMBI = 0 * f_{I} + 1.5 * f_{II} + 3 * f_{III} + 4.5 * f_{IV} + 6 * f_{V} $$
+$$ AMBI = 0.0 * f_{I} + 1.5 * f_{II} + 3 * f_{III} + 4.5 * f_{IV} + 6 * f_{V} $$
 
 So, the greater the proportion of sensitive species, the lower the resulting AMBI 
 index. A sample consisting 100% of species from the most sensitive category 
@@ -87,7 +87,7 @@ presented as an objective tool (named here M-AMBI) in assessing
 ecological quality status"_
 
 It is, of course, possible to calculate M-AMBI using data generated in other 
-analyses, outside the {ambiR} package but the `AMBI()` function can conveniently
+analyses, outside the ambiR package but the `AMBI()` function can conveniently
 provide all 3 of the metrics used as variables in the M-AMBI factorial analysis.
 
 * from the input data with values of *AMBI*, *H'* and *S*, the variables are first
@@ -117,15 +117,14 @@ corresponding to the Good/Moderate and other class boundaries can be used to
 convert M-AMBI values to a normalised EQR value where the Good/Moderate boundary 
 is at EQR = 0.6.
 
-
 ## AMBI software
 
 The AMBI software was developed as a free standalone software to allow users 
 to perform AMBI index calculations. Later versions were updated to include 
 the multivariate index M-AMBI calculations and adjustments to the species list
 used to assign species to ecological groups. The software is maintained and 
-updated by [AZTI](https://www.azti.es/en/?s=AMBI), where the latest version 
-can be downloaded.
+updated by AZTI [https://www.azti.es](https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/),
+where the latest version can be downloaded.
 
 The ambiR package has been extensively tested and gives identical results to the
 AMBI software, as long as the version of species list select corresponds to the
