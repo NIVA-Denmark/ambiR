@@ -6,7 +6,7 @@ Matching species in sample data to the list allows the calculation of
 fractions of individuals in the different sensitivity categories and
 thereafter the AMBI index. The Shannon Diversity Index H' and the Danish
 benthic fauna quality index DKI can also be calculated, as well as the
-multivariate M-AMBI index. Borja, A., J. Franco, V. Pérez, 2000. A
+multivariate M-AMBI index. Borja, A., Franco, J. ,Pérez, V. (2000). A
 marine biotic index to establish the ecological quality of soft bottom
 benthos within European estuarine and coastal environments Marine
 Pollution Bulletin 40(12) 1100-1114.
@@ -19,7 +19,9 @@ Useful links:
 
 - <https://github.com/niva-denmark/ambiR/>
 
-- Report bugs at <https://github.com/niva-denmark/ambiR/issues>
+- <https://github.com/NIVA-Denmark/ambiR>
+
+- Report bugs at <https://github.com/NIVA-Denmark/ambiR/issues>
 
 ## Author
 
