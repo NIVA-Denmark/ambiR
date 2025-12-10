@@ -60,8 +60,8 @@ Imports:
     utils,
     stats
 Roxygen: list(markdown = TRUE)
-URL: https://niva-denmark.github.io/ambiR/, https://github.com/niva-denmark/ambiR/
-BugReports: https://github.com/niva-denmark/ambiR/issues
+URL: https://niva-denmark.github.io/ambiR/, https://github.com/niva-denmark/ambiR/, https://github.com/NIVA-Denmark/ambiR
+BugReports: https://github.com/NIVA-Denmark/ambiR/issues
 Config/Needs/website: rmarkdown
 VignetteBuilder: knitr
 Language: en-GB
