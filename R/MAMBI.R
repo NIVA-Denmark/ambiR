@@ -11,7 +11,11 @@
 #' _"AMBI, richness and diversity, combined with the use, in a further
 #' development, of factor analysis together with discriminant analysis, is
 #' presented as an objective tool (named here M-AMBI) in assessing
-#' ecological quality status"_ [Muxika et al., 2007](\doi{10.1016/j.marpolbul.2006.05.025})
+#' ecological quality status"_ [(Muxika et al., 2007)](#references)
+#'
+#' @references
+#' Muxika, I., Borja, A., Bald, J. (2007) "Using historical data, expert judgement and multivariate analysis in assessing reference conditions and benthic ecological status, according to the European Water Framework Directive", Marine Pollution Bulletin, 55, 1–6,
+#'  \doi{doi:10.1016/j.marpolbul.2006.05.025}.
 #'
 #' @details
 #'

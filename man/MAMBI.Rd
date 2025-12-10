@@ -96,7 +96,7 @@ species diversity metrics:
 \emph{"AMBI, richness and diversity, combined with the use, in a further
 development, of factor analysis together with discriminant analysis, is
 presented as an objective tool (named here M-AMBI) in assessing
-ecological quality status"} \href{\doi{10.1016/j.marpolbul.2006.05.025}}{Muxika et al., 2007}
+ecological quality status"} \href{#references}{(Muxika et al., 2007)}
 }
 \details{
 The input dataframe \code{df} should contain the three metrics \code{AMBI}, \verb{H'} and \code{S},
@@ -125,6 +125,10 @@ data using only using the \code{\link[=AMBI]{AMBI()}} function.
  MAMBI(df, by = c("station"))
 
 
+}
+\references{
+Muxika, I., Borja, A., Bald, J. (2007) "Using historical data, expert judgement and multivariate analysis in assessing reference conditions and benthic ecological status, according to the European Water Framework Directive", Marine Pollution Bulletin, 55, 1–6,
+\doi{doi:10.1016/j.marpolbul.2006.05.025}.
 }
 \seealso{
 \code{\link[=AMBI]{AMBI()}} which calculates the indices required as input for \code{MAMBI()}.

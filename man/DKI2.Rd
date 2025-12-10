@@ -20,7 +20,7 @@ DKI2(AMBI, H, N, psal)
 }
 \description{
 \code{\link[=DKI2]{DKI2()}} calculate a salinity-normalised version of the Danish quality
-index (DKI) (\href{https://dce2.au.dk/pub/SR93.pdf}{Carstensen et al., 2014})
+index (DKI) \href{#references}{(Carstensen et al., 2014)}
 
 The \emph{DKI} index is based on AMBI and can only be calculated after first calculating
 \emph{AMBI}, the AZTI Marine Biotic Index, and \emph{H'}, the Shannon diversity index.
@@ -32,6 +32,10 @@ lower species diversity in regions with lower salinity.
 
 Since the index is normalised to salinity, the function also requires
 measured or estimated salinity \code{psal} as an argument.
+
+#' @references
+Carstensen, J., Krause-Jensen, D., Josefson, A. (2014). "Development and testing of tools for intercalibration of phytoplankton, macrovegetation and benthic fauna in Danish coastal areas." Aarhus University, DCE – Danish Centre for Environment and Energy, 85 pp. \emph{Scientific Report from DCE – Danish Centre for Environment and Energy} No. 93.
+\url{https://dce2.au.dk/pub/SR93.pdf}
 }
 \details{
 The \code{\link[=AMBI]{AMBI()}} and \code{\link[=Hdash]{Hdash()}} functions take a dataframe of observations as an

@@ -4,10 +4,13 @@
 #' [AMBI()] matches a list of species counts with the official AMBI species list
 #' and calculates the AMBI index.
 #'
+#' @references
+#' Borja, Á., Franco, J., Pérez, V. (2000). “A Marine Biotic Index to Establish the Ecological Quality of Soft-Bottom Benthos Within European Estuarine and Coastal Environments.” *Marine Pollution Bulletin* 40 (12) 1100–1114. \doi{doi:10.1016/S0025-326X(00)00061-8}.
+#'
 #' @details
 #'
 #' The theory behind the AMBI index calculations and details of the method, as
-#' developed by [Borja et al. (2000)](\doi{10.1016/S0025-326X(00)00061-8})
+#' developed by [Borja et al. (2000)](#references),
 #'
 #' ## AMBI method
 #'
@@ -39,11 +42,11 @@
 #' to their sensitivity to pollution stress, gives a biotic index ranging
 #' from 0.0 to 6.0.
 #'
-#'   _Biotic Index = 0.0 * G_I + 1.5 * G_II + 3.0 * G_III + 4.5 * G_IV + 6.0 * G_V_
+#'  \eqn{Biotic\ Index = 0.0 * f_{I} + 1.5 * f_{II} + 3.0 * f_{III} + 4.5 * f_{IV} + 6.0 * f_V}
 #'
 #' where:
 #'
-#'   _Gn := fraction of individuals in Group n \[I, II, III, IV, V\]_
+#'  \eqn{f_i} = fraction of individuals in Group \eqn{i \in\{I, II, III, IV, V\}}
 #'
 #' Under certain circumstances, the AMBI index should not be used:
 #'
@@ -65,7 +68,7 @@
 #'  * `warnings` containing any warnings generated regarding numbers of of species
 #'  or numbers of individuals.
 #'
-#' ## Species matching and _interactive_ mode
+#' ## Species matching and interactive mode
 #'
 #' The function will check for a species list supplied in the function call
 #' using the argument `df_species`, if this is specified. The function will
@@ -98,11 +101,11 @@
 #'
 #' ### _interactive_ mode
 #'
-#' If the function is called in  [interactive](../articles/interactive.html) mode, by using
-#' the argument `interactive = TRUE` then the user has an opportunity to
-#' _manually_ assign species groups (_I, II, III, IV, V_) for any species
-#' names which were not identified. The user does this by typing `1`, `2`, `3`,
-#' `4` or `5` and pressing _Enter_. Alternatively, the user can type `0` to mark
+#' If the function is called using the argument `interactive = TRUE` then the
+#'  user has an opportunity to _manually_ assign species groups
+#'  (_I, II, III, IV, V_) for any species names which were not identified.
+#' The user does this by typing `1`, `2`, `3`,  `4` or `5` and pressing _Enter_.
+#' Alternatively, the user can type `0` to mark
 #' the species as recognised but not assigned to a group. By typing _Enter_ without
 #' any number the species will be recorded as unidentified (`NA`). This is the
 #' same result which would have been returned when calling the function in
@@ -115,6 +118,7 @@
 #'
 #' Any user-provided group information will be recorded in the `matched` results.
 #'
+#' See `vignette("interactive")` for an example.
 #'
 #' @param df          a dataframe of species observations
 #'
@@ -258,6 +262,14 @@
 #'
 #'   \donttest{ AMBI(df, by = c("station"))}
 #'
+#'
+#' # example (3) - conflict with AZTI species group
+#'
+#'   df_user <- data.frame(
+#'               species = c("Cumopsis fagei"),
+#'               group = c(1))
+#'
+#'   \donttest{AMBI(test_data, by = c("station"), var_rep = "replicate", df_species = df_user)}
 #'
 #'
 #' @export

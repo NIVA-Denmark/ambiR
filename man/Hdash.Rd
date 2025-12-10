@@ -56,8 +56,8 @@ AZTI list. That is, it could be re-assigned to a different species group.
 }
 \description{
 \code{\link[=Hdash]{Hdash()}} matches a list of species counts with the AMBI species list
-and calculates \emph{H'} the Shannon diversity index
-\href{\doi{10.1002/j.1538-7305.1948.tb01338.x}}{Shannon, 1948}
+and calculates \emph{H'} the Shannon diversity index.
+\href{#references}{(Shannon, 1948)}
 }
 \details{
 If the function is called with the argument \code{check_species = TRUE} then
@@ -69,4 +69,8 @@ is called with \code{check_species = FALSE}then all rows are counted.
 
 Hdash(test_data, by=c("station"))
 
+}
+\references{
+Shannon, C. E. (1948) "A mathematical theory of communication," in \emph{The Bell System Technical Journal}, vol. 27, no. 3, pp. 379-423.
+\doi{doi:10.1002/j.1538-7305.1948.tb01338.x}
 }
