@@ -30,18 +30,18 @@
 #' This means that the input to `MAMBI()` can be generated from species count
 #' data using only using the [AMBI()] function.
 #'
-#' @param df          a dataframe of diversity metrics
+#' @param df          a dataframe of diversity metrics.
 #' @param by          a vector of column names found in `df` by which calculations
 #'                    should be grouped  _e.g._ `c("station")`. If grouping columns
 #'                    are specified, then the mean values of the 3 metrics will
 #'                    be calculated within each group before calculating `M-AMBI`
-#'                    (default `NULL`)
+#'                    (default `NULL`).
 #' @param var_AMBI    name of the column in `df` containing `AMBI` index (default
-#'                    `"AMBI"`)
+#'                    `"AMBI"`).
 #' @param var_H       name of the column in `df` containing `H'` Shannon species
-#'                    diversity  (default `"H"`)
+#'                    diversity  (default `"H"`).
 #' @param var_S       name of the column in `df` containing `S` species richness
-#'                    (default `"S"`)
+#'                    (default `"S"`).
 #'
 #' @param limits_AMBI named vector with length 2, specifying the values of `AMBI`
 #'                    corresponding to _(i)_ worst possible condition (`"bad"`)
@@ -75,13 +75,14 @@
 #'                     _Moderate_ and _Poor_ status (`"MP"`), _(iii)_ _Good_ and
 #'                     _Moderate_ status (`"GM"`), and _(iv)_ _High_ and _Good_
 #'                     status (`"HG"`). Default `c("PB" = 0.2, "MP" = 0.39,
-#'                     "GM" = 0.53, "HG" = 0.77)`
+#'                     "GM" = 0.53, "HG" = 0.77)`.
 #'
-#' @return a dataframe containing results of the M-AMBI index calculations.
+#' @return
+#' a dataframe containing results of the M-AMBI index calculations.
 #' For each unique combination of `by` variables, the following values are
 #' calculated:
-#'    - `M-AMBI` : the M-AMBI index value
-#'    - `X`,`Y`,`Z` : factor scores giving coordinates in the new factor space.
+#'    - `M-AMBI` : the M-AMBI index value.
+#'    - `x`,`y`,`z` : factor scores giving coordinates in the new factor space.
 #'
 #' If no `by` variables are specified (`by = NULL`), then `M-AMBI` will be
 #' calculated for each row in `df`.
@@ -91,7 +92,8 @@
 #' (`M-AMBI` = 0.0) and `"high"` (`M-AMBI` = 1.0), as specified in the arguments
 #' `limits_AMBI`, `limits_H`, `limits_S` or taken from data.
 #'
-#' @seealso [AMBI()] which calculates the indices required as input for `MAMBI()`.
+#' @seealso
+#' [AMBI()] which calculates the indices required as input for `MAMBI()`.
 #'
 #' @import tidyr
 #' @import dplyr
@@ -99,17 +101,16 @@
 #' @importFrom stats cov loadings princomp varimax
 #' @examples
 #'
-#' df <- data.frame(station = c(1, 1, 1, 2, 2, 2, 3, 3),
+#'   df <- data.frame(station = c(1, 1, 1, 2, 2, 2, 3, 3),
 #'                  replicates = c("a", "b", "c", "a", "b", "c", "a", "b"),
 #'                  AMBI = c(1.8, 1.5, 1.125, 1.875, 2.133, 1.655, 3.5, 4.75),
 #'                  H = c(1.055, 0.796, 0.562, 2.072, 2.333, 1.789, 1.561, 1.303),
 #'                  S = c(3, 3, 2, 12, 12, 10, 5, 6))
 #'
-#' MAMBI(df, by = c("station"))
+#'  MAMBI(df, by = c("station"))
 #'
 #'
 #' @export
-
 MAMBI <- function(df,
                   by = NULL,
                   var_H = "H",

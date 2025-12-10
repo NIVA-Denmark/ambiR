@@ -1,6 +1,7 @@
 ---
 title: "Interactive mode"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Interactive mode}
   %\VignetteEngine{knitr::rmarkdown}
@@ -13,6 +14,20 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/"
 )
+
+```
+
+
+```{r pandoc_info, echo=FALSE, results='asis'}
+  pandoc_type <- knitr::opts_knit$get('rmarkdown.pandoc.to')
+  if(pandoc_type=="latex"){
+    show_unicode <- FALSE
+    show_text <- TRUE
+    
+  } else {
+    show_unicode <- TRUE
+    show_text <- FALSE
+  }
 ```
 
 By default, the `AMBI()`function works in the same way as many other
@@ -73,7 +88,7 @@ AMBI species groups. See also `vignette("background")`.
 -   `0` - assigning Group `0` means that the species will be inclued in the AMBI 
 calculations and count towards the number of *Not assigned* species.
 
--   `Enter` - the species name will be treated as unrecognised and will *not* 
+-   `<Enter>` - the species name will be treated as unrecognised and will *not* 
 be included in `AMBI` calculations.
 
 -   `s` - a list of recognised species names from the `AMBI` list will be 
@@ -88,7 +103,7 @@ AMBI calculations will continue using the default, unsupervised, method.
 
 ## Interactive AMBI calculation
 
-```{r step1, eval=FALSE, include=TRUE}
+```{r step1, eval=FALSE, include=show_unicode}
 library(ambiR)
 
 AMBI(df, by = c("station"), quiet=F, interactive = T)
@@ -119,12 +134,42 @@ AMBI(df, by = c("station"), quiet=F, interactive = T)
 #>  names. x - abort interactive assignment.
 ```
 
+```{r step1alt, eval=FALSE, include=show_text}
+library(ambiR)
+
+  AMBI(df, by = c("station"), quiet=F, interactive = T)
+#> 
+#> -- Assigning unrecognised species ----------------------------------------------
+#> 
+#> * 7 species names were not recognised. These will now be displayed, one at a
+#> time.
+#> 
+#> * For each species, you can assign it to one of the five AMBI categories (I,
+#> II, III, IV, V). Do this by entering an integer value from 1 to 5.
+#> Alternatively, you can assign a value of 0. This indicates that the species
+#> name is recognised but it is not possible to assign it to one of the five
+#> categories.
+#> 
+#> * If Enter is pressed, without providing a value, no change will be made. The
+#> species name in question will be treated as unrecognised.
+#> 
+#> * Enter s at the prompt to see a list of similar species names and their
+#> corresponding AMBI categories.
+#> 
+#> * Enter x to abort the interactive species selection. Any entries made up to
+#> that point will be discarded. All 7 species will be treated as unrecognised.
+#> 
+#> -- 1 Acholoe squamosa --
+#> 
+#> i enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
 Typing `s` will show species names which are close to the unrecognised species
 when arranged in alphabetical order.
 
-```{r step2, eval=FALSE, include=TRUE}
-s
-
+```{r step2, eval=FALSE, include=show_unicode}
+  s
 #> • Achelous ordwayi                                 (Group 1)
 #> • Acidostoma hancocki                              (Group 2)
 #> • Acidostoma neglectum                             (Group 0)
@@ -139,12 +184,28 @@ s
 #>  names. x - abort interactive assignment.
 ```
 
+```{r step2alt, eval=FALSE, include=show_text}
+s
+#> * Achelous ordwayi                                 (Group 1)
+#> * Acidostoma hancocki                              (Group 2)
+#> * Acidostoma neglectum                             (Group 0)
+#> * Acidostoma nodiferum                             (Group 1)
+#> * Acidostoma obesum                                (Group 1)
+#> * Acidostoma sarsi                                 (Group 1)
+#> * Acidostoma sp.                                   (Group 1)
+#> * Acila castrensis                                 (Group 2)
+#> * Acila insignis                                   (Group 2)
+#> * Aclis gulsonae                                   (Group 1)
+#> i enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
 There were no similar species names which might give us a clue about this 
 species. In this case, we are satisfied that the name is a valid species 
 name[^1] but we are unsure which group the species should be assigned to, so 
 we assign group `0`.
 
-[^1]: <https://www.marinespecies.org/aphia.php?p=taxdetails&id=146474>
+[^1]: <https://www.marinespecies.org/aphia.php?p=taxdetails&id=146474#>
 
 Assigning group `0` means that the species will be included in the count of
 `Not assigned` species when calculating the `AMBI` index. If we typed `Enter`
@@ -154,10 +215,9 @@ A message is displayed confirming our selection (`Not assigned`) and then we
 are asked to consider the next unrecognised species name,
 *Aglaophenia kirchenpaueri*.
 
-```{r step3, eval=FALSE, include=TRUE}
-0
-
-#> ✔ Acholoe squamosa - Not assigned
+```{r step3, eval=FALSE, include=show_unicode}
+  0
+#> ✔  Acholoe squamosa - Not assigned
 #> 
 #> ── 2 Aglaophenia kirchenpaueri ──
 #>
@@ -165,11 +225,20 @@ are asked to consider the next unrecognised species name,
 #>  names. x - abort interactive assignment.
 ```
 
+```{r step3alt, eval=FALSE, include=show_text}
+  0
+#> ¤ Acholoe squamosa - Not assigned
+#> 
+#> -- 2 Aglaophenia kirchenpaueri --
+#>
+#> i enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
 We type `s` to see similar names:
 
-```{r step4, eval=FALSE, include=TRUE}
-s
-
+```{r step4, eval=FALSE, include=show_unicode}
+  s
 #> • Aglaophamus verrilli                             (Group 2)
 #> • Aglaophenia acacia                               (Group 0)
 #> • Aglaophenia pluma                                (Group 0)
@@ -184,13 +253,28 @@ s
 #>  names. x - abort interactive assignment.
 ```
 
+```{r step4alt, eval=FALSE, include=show_text}
+  s
+#> * Aglaophamus verrilli                             (Group 2)
+#> * Aglaophenia acacia                               (Group 0)
+#> * Aglaophenia pluma                                (Group 0)
+#> * Agnezia septentrionalis                          (Group 2)
+#> * Aidanosagitta crassa                             (Group 1)
+#> * Aiptasia diaphana                                (Group 3)
+#> * Aiptasia mutabilis                               (Group 3)
+#> * Akanthophoreus gracilis                          (Group 1)
+#> * Akera bullata                                    (Group 1)
+#> * Akera sp.                                        (Group 1)
+#> i enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
 In this case we can see two species belonging to the same genus, _Aglaophenia_.
 They are both assigned to group `0` (`Not assigned`) so we could make the 
 assumption that our unrecognised species should be assigned to the same group.
 
-```{r step5, eval=FALSE, include=TRUE}
-0
-
+```{r step5, eval=FALSE, include=show_unicode}
+  0
 #> ✔ Aglaophenia kirchenpaueri - Not assigned
 #>
 #> ── 3 Tricellaria sp. ──
@@ -198,6 +282,17 @@ assumption that our unrecognised species should be assigned to the same group.
 #> ℹ enter an integer value from 0 to 5 or press Enter to skip. s - see similar
 #>  names. x - abort interactive assignment.
 ```
+
+```{r step5alt, eval=FALSE, include=show_text}
+  0
+#> ¤ Aglaophenia kirchenpaueri - Not assigned
+#>
+#> -- 3 Tricellaria sp. --
+#>
+#> i enter an integer value from 0 to 5 or press Enter to skip. s - see similar
+#>  names. x - abort interactive assignment.
+```
+
 
 This process is repeated for each unrecognised species name.
 
@@ -210,19 +305,19 @@ An _'I'_ in this column indicates that the group was assigned interactively.
 
 ```{r matched, eval=FALSE, include=TRUE}
 $matched
-   station                   species           species_matched count group source RA
-1        1      Acidostoma neglectum      Acidostoma neglectum     2     0   <NA>  0
-2        1        Acrocirrus validus        Acrocirrus validus     4     4   <NA>  0
-3        1         Acteocina bullata         Acteocina bullata     5     1   <NA>  0
-4        1       Austrohelice crassa       Austrohelice crassa     3     5   <NA>  0
-5        1         Capitella nonatoi         Capitella nonatoi     7     5   <NA>  0
-6        1       Watersipora subatra       Watersipora subatra     2     0      I NA
-7        2        Zanclea giancarloi        Zanclea giancarloi     4     0      I NA
-8        2          Zanclea sessilis          Zanclea sessilis     5     0      I NA
-9        2          Zonorhynchus sp.          Zonorhynchus sp.     3     0      I NA
-10       2          Acholoe squamosa          Acholoe squamosa     7     0      I NA
-11       2 Aglaophenia kirchenpaueri Aglaophenia kirchenpaueri     2     0      I NA
-12       2           Tricellaria sp.           Tricellaria sp.     3     3      I NA
+#>  station                   species           species_matched count group source RA
+#>  1        1      Acidostoma neglectum      Acidostoma neglectum     2     0   <NA>  0
+#>  2        1        Acrocirrus validus        Acrocirrus validus     4     4   <NA>  0
+#>  3        1         Acteocina bullata         Acteocina bullata     5     1   <NA>  0
+#>  4        1       Austrohelice crassa       Austrohelice crassa     3     5   <NA>  0
+#>  5        1         Capitella nonatoi         Capitella nonatoi     7     5   <NA>  0
+#>  6        1       Watersipora subatra       Watersipora subatra     2     0      I NA
+#>  7        2        Zanclea giancarloi        Zanclea giancarloi     4     0      I NA
+#>  8        2          Zanclea sessilis          Zanclea sessilis     5     0      I NA
+#>  9        2          Zonorhynchus sp.          Zonorhynchus sp.     3     0      I NA
+#>  10       2          Acholoe squamosa          Acholoe squamosa     7     0      I NA
+#>  11       2 Aglaophenia kirchenpaueri Aglaophenia kirchenpaueri     2     0      I NA
+#>  12       2           Tricellaria sp.           Tricellaria sp.     3     3      I NA
 ```
 
 ## Aborting interactive mode
@@ -232,9 +327,9 @@ will abort the interactive process. The following message will be
 displayed:
 
 ```{r step6, eval=FALSE, include=TRUE}
-x
-
-#> ! interactive species assignment cancelled
+  x
+  
+> ! interactive species assignment cancelled
 ```
 
 Any species groups assigned manually up to this point will be discarded and 

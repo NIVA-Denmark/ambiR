@@ -17,22 +17,22 @@ MAMBI(
 )
 }
 \arguments{
-\item{df}{a dataframe of diversity metrics}
+\item{df}{a dataframe of diversity metrics.}
 
 \item{by}{a vector of column names found in \code{df} by which calculations
 should be grouped  \emph{e.g.} \code{c("station")}. If grouping columns
 are specified, then the mean values of the 3 metrics will
 be calculated within each group before calculating \code{M-AMBI}
-(default \code{NULL})}
+(default \code{NULL}).}
 
 \item{var_H}{name of the column in \code{df} containing \verb{H'} Shannon species
-diversity  (default \code{"H"})}
+diversity  (default \code{"H"}).}
 
 \item{var_S}{name of the column in \code{df} containing \code{S} species richness
-(default \code{"S"})}
+(default \code{"S"}).}
 
 \item{var_AMBI}{name of the column in \code{df} containing \code{AMBI} index (default
-\code{"AMBI"})}
+\code{"AMBI"}).}
 
 \item{limits_AMBI}{named vector with length 2, specifying the values of \code{AMBI}
 corresponding to \emph{(i)} worst possible condition (\code{"bad"})
@@ -65,15 +65,15 @@ specify the values of M-AMBI corresponding to the boundaries
 between \emph{(i)} \emph{Poor} and \emph{Bad} status (\code{"PB"}), \emph{(ii)}
 \emph{Moderate} and \emph{Poor} status (\code{"MP"}), \emph{(iii)} \emph{Good} and
 \emph{Moderate} status (\code{"GM"}), and \emph{(iv)} \emph{High} and \emph{Good}
-status (\code{"HG"}). Default \code{c("PB" = 0.2, "MP" = 0.39, "GM" = 0.53, "HG" = 0.77)}}
+status (\code{"HG"}). Default \code{c("PB" = 0.2, "MP" = 0.39, "GM" = 0.53, "HG" = 0.77)}.}
 }
 \value{
 a dataframe containing results of the M-AMBI index calculations.
 For each unique combination of \code{by} variables, the following values are
 calculated:
 \itemize{
-\item \code{M-AMBI} : the M-AMBI index value
-\item \code{X},\code{Y},\code{Z} : factor scores giving coordinates in the new factor space.
+\item \code{M-AMBI} : the M-AMBI index value.
+\item \code{x},\code{y},\code{z} : factor scores giving coordinates in the new factor space.
 }
 
 If no \code{by} variables are specified (\code{by = NULL}), then \code{M-AMBI} will be
@@ -116,13 +116,13 @@ data using only using the \code{\link[=AMBI]{AMBI()}} function.
 }
 \examples{
 
-df <- data.frame(station = c(1, 1, 1, 2, 2, 2, 3, 3),
+  df <- data.frame(station = c(1, 1, 1, 2, 2, 2, 3, 3),
                  replicates = c("a", "b", "c", "a", "b", "c", "a", "b"),
                  AMBI = c(1.8, 1.5, 1.125, 1.875, 2.133, 1.655, 3.5, 4.75),
                  H = c(1.055, 0.796, 0.562, 2.072, 2.333, 1.789, 1.561, 1.303),
                  S = c(3, 3, 2, 12, 12, 10, 5, 6))
 
-MAMBI(df, by = c("station"))
+ MAMBI(df, by = c("station"))
 
 
 }

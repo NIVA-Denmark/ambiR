@@ -15,7 +15,7 @@ identified \emph{a}, \emph{b}, \emph{c}}
 }
 }
 \source{
-AZTI.ES
+\href{https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/}{AZTI}
 }
 \usage{
 test_data
@@ -24,7 +24,7 @@ test_data
 Example data included with the AMBI tool from AZTI (\emph{example_BDheader.xls}).
 }
 \examples{
-summary(test_data)
+head(test_data)
 
 }
 \keyword{datasets}

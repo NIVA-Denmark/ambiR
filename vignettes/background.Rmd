@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/"
 )
 ```
-## The AMBI index
 
 The basis of the AMBI index is that soft-bottom macrofauna are divided into 
 groups according to their sensitivity to increasing environmental stress. The 
@@ -124,7 +123,7 @@ The AMBI software was developed as a free standalone software to allow users
 to perform AMBI index calculations. Later versions were updated to include 
 the multivariate index M-AMBI calculations and adjustments to the species list
 used to assign species to ecological groups. The software is maintained and 
-updated by [AZTI](https://www.azti.es/en/?s=AMBI), where the latest version 
+updated by [AZTI](https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/), where the latest version 
 can be downloaded.
 
 The ambiR package has been extensively tested and gives identical results to the

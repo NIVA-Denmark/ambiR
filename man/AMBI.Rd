@@ -121,13 +121,13 @@ Contains the following columns:
 \itemize{
 \item \code{group} : showing the species group. Any species/taxa in \code{df} which were not
 matched will have an \code{NA} value in this column.
-\item \code{RA} : indicating that the species is \emph{reallocatable} according to the
-AMBI list. That is, it could be re-assigned to
-a different species group.
+\item \code{RA} : a value of \code{1} indicates that the species is \emph{reallocatable} according to the
+AMBI list. That is, it could be re-assigned to a different species group.
 \item \code{source} : this column is included only if a user-specified list was
 provided \code{df_species}, or if species groups were assigned interactively.
-An \code{'I'} in this column indicates that the group was assigned interactively.
-A \code{'U'}_\verb{shows that the group information came from a user-provided species list. An}NA` value indicates that no interactive or user-provided changes
+An \code{"I"} in this column indicates that the group was assigned interactively.
+A \code{"U"} shows that the group information came from a user-provided species
+list. An \code{NA} value indicates that no interactive or user-provided changes
 were applied.
 }
 \item \code{warnings} : a dataframe showing warnings for any combination of \code{by}
@@ -169,10 +169,11 @@ situations). These are deposit- feeders, which proliferate in reduced
 sediments.
 }
 
-The distribution of these ecological groups, according to their sensitivity to
-pollution stress, provides a BI with eight levels, from 0 to 7
+The distribution of individuals between these ecological groups, according
+to their sensitivity to pollution stress, gives a biotic index ranging
+from 0.0 to 6.0.
 
-\emph{Biotic Coefficient = (0.0 * GI + l.5 * GII + 3.0 * GIII + 4.5 * GIV + 6.0 * GV)}
+\emph{Biotic Index = 0.0 * G_I + 1.5 * G_II + 3.0 * G_III + 4.5 * G_IV + 6.0 * G_V}
 
 where:
 
@@ -195,10 +196,10 @@ The output of the function consists of a list of at least three dataframes:
 \itemize{
 \item \code{AMBI} containing the calculated \code{AMBI} index, as well as other information.
 \item (\code{AMBI_rep}) generated only if replicates are used, showing the \code{AMBI} index
-for each replicate
-\item \code{matched} showing the species matches used
+for each replicate.
+\item \code{matched} showing the species matches used.
 \item \code{warnings} containing any warnings generated regarding numbers of of species
-or numbers of individuals
+or numbers of individuals.
 }
 }
 
@@ -260,30 +261,23 @@ Any user-provided group information will be recorded in the \code{matched} resul
 
 # example (1) - using test data included with package
 
-AMBI(test_data, by=c("station"), var_rep="replicate")
+  AMBI(test_data, by = c("station"), var_rep = "replicate")
 
 
 # example (2)
-\donttest{
-df <- data.frame(station = c("1","1","2","2","2"),
-species = c("Acidostoma neglectum",
+
+  df <- data.frame(station = c("1", "1", "2", "2", "2"),
+  species = c("Acidostoma neglectum",
             "Acrocirrus validus",
             "Acteocina bullata",
             "Austrohelice crassa",
             "Capitella nonatoi"),
             count = c(2, 4, 5, 3, 7))
 
- AMBI(df, by = c("station"))
+  \donttest{ AMBI(df, by = c("station"))}
 
 
-# example (3) - conflict with AZTI species group
 
-df_user <- data.frame(
-              species = c("Cumopsis fagei"),
-              group = c(1))
-
-AMBI(test_data, by=c("station"), var_rep="replicate", df_species=df_user)
-}
 }
 \seealso{
 \code{\link[=MAMBI]{MAMBI()}} which calculates \emph{M-AMBI} the multivariate AMBI
