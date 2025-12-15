@@ -80,16 +80,19 @@ which include AMBI calculations.
 
 # Features
 
-AMBI functions:
+The package allows the user to match species observations to lists of pollution 
+sensitivity groups and calculate the key AMBI functions:
 
 * AMBI - the AZTI marine biotic index.
-* M-AMBI - the multivariate index.
+* M-AMBI - the multivariate AMBI index.
+
+The package also includes the auxiliary functions:
+
 * DKI - The Danish benthic quality index.
+* H' - the Shannon diversity index  [@6773024].
+* S - species richness [^1]
 
-auxiliary functions:
-
-* H' - the Shannon diversity index.
-* S - species richness.
+[^1]: the number of unique species in a sample.
 
 A key feature of the original AMBI program is the included list of marine
 species and genera which is used to match species names in observations to that
@@ -103,48 +106,32 @@ which accompanies the original program  with real examples of species count
 observations from the Basque coast. Testing has ensured that the results from
 `ambiR` are identical to those calculated by the AMBI program.
 
-The package has an public GitHub repository
-where users will be able to raise issues.
+Full documentation of the package and AMBI index calculations can be found at
+[https://niva-denmark.github.io/ambiR/](https://niva-denmark.github.io/ambiR/)
+including vignettes demonstrating how to reproduce the style of figures generated
+by the standalone AMBI program, `vignette("ambi-figures")`, and how to run the AMBI
+index calculations in *interactive* mode, `vignette("interactive")`. 
 
-
-# Features
-
-$\label{eq: eqnAMBI} Biotic\ Index = 0.0 · f_{I} + 1.5 · f_{II} + 3.0 · f_{III} + 4.5 · f_{IV} + 6.0 · f_V$
-
-where:
-
-$f_i$ = fraction of individuals in Group $i \in\{I, II, III, IV, V\}$
-
-The multivariate *M-AMBI* method combines the `AMBI` index with *H'*, the Shannon
-diversity index [@6773024], and `S`, the species richness[^1] to give an *ecological quality status* (EcoQS) index :
-
-$EcoQS = K + a · AMBI + b · H' + c · S$
-
-where:  $K$, $a$, $b$ and $c$ are determined by factorial analysis.
-
-[^1]: the number of unique species in a sample
-
-All required functionality is included in the package: `Hdash` `S` `MAMBI`
-
-and refer to \autoref{eq:eqnAMBI} from text.
+The source code for the package is available in a public
+[GitHub](https://github.com/NIVA-Denmark/ambiR) repository. Users can report
+bugs or other issues regarding functionality and the label [Species
+data](https://github.com/NIVA-Denmark/ambiR/issues?q=label%3A%22Species%20data%22)
+can be assigned to notify the package maintainers about issues specifically
+related to the AMBI species list and classification of species and genera
+according to pollution sensitivity which can then be addressed in regular
+updates of the species list.
 
 
 # Acknowledgements
 
-Steen Knudsen created the artwork used in the ambiR logo.
+Steen Knudsen
+^[![](https://orcid.org/assets/vectors/orcid.logo.icon.svg){width=12}](https://orcid.org/0000-0003-0428-9940)^
+created the artwork used in the ambiR logo.
 
-Ángel Borja, Sarai Pouso, Iñigo Muxika and Joxe Mikel Garmendia received 
-financial support from the HORIZON project GES4SEAS [^2]
-
-[^2]: Grant Agreement 101059877 - GES4SEAS. The GES4SEAS project has been approved
-under the HORIZON-CL6-2021-BIODIV-01-04 call: 'Assess and predict integrated
-impacts of cumulative direct and indirect stressors on coastal and marine
-biodiversity, ecosystems and their services'. Funded by the European Union.
-Views and opinions expressed are however those of the authors only and do not
-necessarily reflect those of the European Union or UK Research and Innovation.
-Neither the European Union nor the granting authority can be held responsible
-for them.
-
-
+ÁB, SP, IM and JMG received support from the GES4SEAS - Grant
+Agreement 101059877. The GES4SEAS project has been approved under the
+HORIZON-CL6-2021-BIODIV-01-04 call: 'Assess and predict integrated impacts of
+cumulative direct and indirect stressors on coastal and marine biodiversity,
+ecosystems and their services'. Funded by the European Union.
 
 # References
