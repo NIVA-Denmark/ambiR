@@ -122,6 +122,9 @@ Steen Knudsen
 valign="baseline" href="https://orcid.org/0000-0003-0428-9940"} created the
 artwork used in the ambiR logo.
 
+Nanna M. Christensen and Marie N. Jørgensen provided valuable feedback in testing 
+a prototype of this R-package.
+
 ÁB, SP, IM and JMG received support from the GES4SEAS project, approved under
 the HORIZON-CL6-2021-BIODIV-01-04 call: 'Assess and predict integrated impacts
 of cumulative direct and indirect stressors on coastal and marine biodiversity,
