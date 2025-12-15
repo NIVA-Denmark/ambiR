@@ -124,8 +124,8 @@ updates of the species list.
 # Acknowledgements
 
 Steen Knudsen
-![](https://orcid.org/assets/vectors/orcid.logo.icon.svg){height="11pt"
-valign="center" href="https://orcid.org/0000-0003-0428-9940"} created the
+![](https://orcid.org/assets/vectors/orcid.logo.icon.svg){height="9pt"
+valign="baseline" href="https://orcid.org/0000-0003-0428-9940"} created the
 artwork used in the ambiR logo.
 
 ÁB, SP, IM and JMG received support from the GES4SEAS - Grant
