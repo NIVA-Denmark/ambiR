@@ -9,23 +9,18 @@ tags:
 authors:
   - name: Ciarán J. Murray
     orcid: 0000-0003-0260-2008
-    equal-contrib: true
     affiliation: "1, 2"
   - name: Sarai Pouso
     orcid: 0000-0003-3208-9882
-    equal-contrib: true
     affiliation: 3
   - name: Iñigo Muxika
     orcid: 0000-0002-9181-3781
-    equal-contrib: true
     affiliation: 3
   - name: Joxe Mikel Garmendia
     orcid: 0000-0002-9403-1777
-    equal-contrib: true
     affiliation: 3    
   - name: Ángel Borja
     orcid: 0000-0003-1601-2025
-    equal-contrib: true
     affiliation: 3
 affiliations:
   - name: NIVA Denmark Water Research, Copenhagen, Denmark
