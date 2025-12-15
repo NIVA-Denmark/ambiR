@@ -56,23 +56,22 @@ the multivariate M-AMBI index [@MUXIKA200716].
 
 # Statement of need
 
-R is used widely by researchers in biological and environmental sciences.
+R is widely used by researchers in biological and environmental sciences.
 `ambiR` will allow students and researchers to incorporate AMBI and M-AMBI
 calculations directly in an R workflow.The motivation for creating the `ambiR`
-package began with attempts to calculate DKI in an R workflow. DKI (Dansk
+package began with attempts to calculate DKI in using R. DKI (Dansk
 Kvalitetsindeks) is a Danish benthic biotic index which essentially adjusts the
-AMBI index to regions where relatively lower species diversity in pristine
+AMBI index for regions where relatively lower species diversity in pristine
 conditions might be expected, for example where salinity levels are lower
 [@carstensen_development_2014]. To calculate DKI, one must first calculate AMBI.
-With the exception of the actual AMBI calculations, all other steps from input
-data to performing analyses and plotting results could be carried out in R. To
-calculate AMBI, observations have to be exported from R, imported to the AMBI
-program and the results exported before being imported to R. The AMBI index is
-already a well-established assessment methodology for assessing ecological
-status [@borja_forever_2019] and the authors expect that the ease with which the
-package allows users to reproduce AMBI calculations in R will lead to a wide
-uptake. This will also improve reproducibility of analyses which include AMBI
-calculations.
+With the exception of the actual AMBI calculations, all other steps from reading
+input data to performing analyses and plotting results could be carried out in
+R. To calculate AMBI, observations have to be exported from R and then imported
+to the AMBI program. Here calculations are run before results are exported from
+AMBI and  imported back to R. The AMBI index is already a well-established
+methodology for assessing ecological status [@borja_forever_2019] and the
+authors expect that the ease with which the package allows users to perform
+AMBI calculations without leaving R will lead to a wide uptake. This will also facilitate improved reproducibility of analyses which include AMBI calculations.
 
 # Features
 
