@@ -1,5 +1,5 @@
 ---
-title: 'ambiR: an R package for calculating AMBI marine biotic index'
+title: 'ambiR: an R package for calculating the AMBI marine biotic index'
 tags:
   - R
   - biotic index
