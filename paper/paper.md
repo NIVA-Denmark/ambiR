@@ -51,12 +51,13 @@ indication of a heavily polluted system.
 The AZTI marine biotic index (AMBI) was developed to *"establish the ecological
 quality of soft-bottom benthos within European estuarine and coastal
 environments"* and presented in a paper by @BORJA20001100, which currently has
-1291 citations in peer-reviwed articles (Web of Science, 11. December 2025). A
+1291 citations in peer-reviewed articles (Web of Science, 11. December 2025). A
 standalone program for calculating the AMBI index was developed as a Matlab®
-distributable and made available free of charge by AZTI [@borja_biotic_2004]. It
-has since has been widely used by students, other researchers and managers. The
-R package `ambiR` allows the user to perform the same calculations as the
-original AZTI software, including the multivariate M-AMBI index [@MUXIKA200716].
+distributable and made available free of charge by AZTI
+[@borja_biotic_2004;@Borja_2012_instructions]. It has since has been widely used
+by students, other researchers and managers. The R package `ambiR` allows the
+user to perform the same calculations as the original AZTI software, including
+the multivariate M-AMBI index [@MUXIKA200716].
 
 # Statement of need
 
@@ -72,10 +73,11 @@ With the exception of the actual AMBI calculations, all other steps from input
 data to performing analyses and plotting results could be carried out in R. To
 calculate AMBI, observations have to be exported from R, imported to the AMBI
 program and the results exported before being imported to R. The AMBI index is
-already a well-established assessment methodology and the authors expect that
-the ease with which the package allows users to reproduce AMBI calculations in R
-will lead to a wide uptake. This will also improve reproducibility of analyses  
-which include AMBI calculations.
+already a well-established assessment methodology for assessing ecological
+status [@borja_forever_2019] and the authors expect that the ease with which the
+package allows users to reproduce AMBI calculations in R will lead to a wide
+uptake. This will also improve reproducibility of analyses which include AMBI
+calculations.
 
 # Features
 
