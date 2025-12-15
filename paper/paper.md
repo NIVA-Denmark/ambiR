@@ -89,11 +89,9 @@ sensitivity groups and calculate the key AMBI functions:
 
 The package also includes the auxiliary functions:
 
-* DKI - The Danish benthic quality index.
-* H' - the Shannon diversity index  [@6773024].
-* S - species richness [^1]
-
-[^1]: the number of unique species in a sample.
+* DKI - The Danish benthic quality index (2 alternative versions).
+* H' - the Shannon diversity index [@6773024].
+* S - species richness, the number of unique species in a sample.
 
 A key feature of the original AMBI program is the included list of marine
 species and genera which is used to match species names in observations to that
@@ -115,13 +113,12 @@ index calculations in *interactive* mode, `vignette("interactive")`.
 
 The source code for the package is available in a public
 [GitHub](https://github.com/NIVA-Denmark/ambiR) repository. Users can report
-bugs or other issues regarding functionality and the label [Species
-data](https://github.com/NIVA-Denmark/ambiR/issues?q=label%3A%22Species%20data%22)
+bugs or other issues regarding functionality and the label *'[Species
+data](https://github.com/NIVA-Denmark/ambiR/issues?q=label%3A%22Species%20data%22)'*
 can be assigned to notify the package maintainers about issues specifically
 related to the AMBI species list and classification of species and genera
-according to pollution sensitivity which can then be addressed in regular
-updates of the species list.
-
+according to pollution sensitivity. These issues will be addressed in the
+regular updates of the species list.
 
 # Acknowledgements
 
