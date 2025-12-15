@@ -33,7 +33,6 @@ affiliations:
   - name: Aquatic Synthesis Research Centre (AquaSYNC), Copenhagen, Denmark
     index: 2
   - name: AZTI, Marine Research, Basque Research and Technology Alliance (BRTA), Spain
-    ror: 00jgbqj86
     index: 3 
 date: 20 December 2025
 bibliography: paper.bib
@@ -125,8 +124,9 @@ updates of the species list.
 # Acknowledgements
 
 Steen Knudsen
-^[![](https://orcid.org/assets/vectors/orcid.logo.icon.svg){width=12}](https://orcid.org/0000-0003-0428-9940)^
-created the artwork used in the ambiR logo.
+![](https://orcid.org/assets/vectors/orcid.logo.icon.svg){height="11pt"
+valign="center" href="https://orcid.org/0000-0003-0428-9940"} created the
+artwork used in the ambiR logo.
 
 ÁB, SP, IM and JMG received support from the GES4SEAS - Grant
 Agreement 101059877. The GES4SEAS project has been approved under the
