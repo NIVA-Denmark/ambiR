@@ -5,11 +5,13 @@ benthic fauna species according to their sensitivity to pollution.
 Matching species in sample data to the list allows the calculation of
 fractions of individuals in the different sensitivity categories and
 thereafter the AMBI index. The Shannon Diversity Index H' and the Danish
-benthic fauna quality index DKI can also be calculated, as well as the
-multivariate M-AMBI index. Borja, A., Franco, J. ,Pérez, V. (2000). A
-marine biotic index to establish the ecological quality of soft bottom
-benthos within European estuarine and coastal environments Marine
-Pollution Bulletin 40(12) 1100-1114.
+benthic fauna quality index DKI (Dansk Kvalitetsindeks) can also be
+calculated, as well as the multivariate M-AMBI index. Borja, A., Franco,
+J. ,Pérez, V. (2000) "A marine biotic index to establish the ecological
+quality of soft bottom benthos within European estuarine and coastal
+environments"
+[doi:10.1016/S0025-326X(00)00061-8](https://doi.org/10.1016/S0025-326X%2800%2900061-8)
+.
 
 ## See also
 
