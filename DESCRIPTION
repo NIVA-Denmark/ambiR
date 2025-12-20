@@ -1,7 +1,7 @@
 Package: ambiR
 Type: Package
 Title: Calculate AZTI’s Marine Biotic Index
-Version: 0.0.1
+Version: 0.1.1.9000
 Authors@R: c( 
     person("Ciarán J.", "Murray", ,"cjm@niva-dk.dk", role = c("aut", "cre", "cph"),
     comment = c(ORCID = "0000-0003-0260-2008")),
@@ -30,12 +30,11 @@ Description: Calculate AZTI’s Marine Biotic Index - AMBI. The included list of
     to pollution. Matching species in sample data to the list allows the
     calculation of fractions of individuals in the different sensitivity
     categories and thereafter the AMBI index. The Shannon Diversity Index H'
-    and the Danish benthic fauna quality index DKI can also be calculated,
-    as well as the multivariate M-AMBI index.
-    Borja, A., Franco, J. ,Pérez, V. (2000). A marine biotic index to
+    and the Danish benthic fauna quality index DKI (Dansk Kvalitetsindeks) can
+    also be calculated, as well as the multivariate M-AMBI index.
+    Borja, A., Franco, J. ,Pérez, V. (2000) "A marine biotic index to
     establish the ecological quality of soft bottom benthos within European 
-    estuarine and coastal environments Marine Pollution Bulletin 40(12)
-    1100-1114. 
+    estuarine and coastal environments" <doi:10.1016/S0025-326X(00)00061-8>. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
