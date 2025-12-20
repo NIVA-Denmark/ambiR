@@ -4,7 +4,7 @@
 
 CRAN release: 2025-12-19
 
-CRAN release
+- CRAN release.
 
 ## ambiR 0.0.1
 
