@@ -1,8 +1,6 @@
-# ambiR (development version)
-
 # ambiR 0.1.1
 
-# ambiR 0.1.0
+CRAN release
 
 # ambiR 0.0.1
 
