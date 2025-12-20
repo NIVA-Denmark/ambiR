@@ -1,6 +1,6 @@
 # ambiR 0.1.1
 
-CRAN release
+* CRAN release.
 
 # ambiR 0.0.1
 
