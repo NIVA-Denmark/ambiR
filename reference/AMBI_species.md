@@ -88,6 +88,7 @@ uses the species list to calculate the AMBI index.
 ## Examples
 
 ``` r
+
 AMBI_species() %>% head()
 #>                         species group RA
 #> 1             Aartsenia candida     1  0

@@ -323,6 +323,7 @@ which calculates *M-AMBI* the multivariate AMBI index using results of
 ## Examples
 
 ``` r
+
 # example (1) - using test data included with package
 
   AMBI(test_data, by = c("station"), var_rep = "replicate")

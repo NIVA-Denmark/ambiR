@@ -157,6 +157,7 @@ calculates the indices required as input for `MAMBI()`.
 ## Examples
 
 ``` r
+
   df <- data.frame(station = c(1, 1, 1, 2, 2, 2, 3, 3),
                  replicates = c("a", "b", "c", "a", "b", "c", "a", "b"),
                  AMBI = c(1.8, 1.5, 1.125, 1.875, 2.133, 1.655, 3.5, 4.75),

@@ -31,7 +31,7 @@ The test dataset `test_data` has 53 rows and 4 variables:
 
 ## Source
 
-[AZTI](https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/)
+[AZTI](https://www.azti.es/en/news/ambi-international-reference-for-marine-environment-assessment/)
 
 ## Examples
 

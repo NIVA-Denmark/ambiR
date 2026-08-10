@@ -93,6 +93,7 @@ salinity-normalised version of DKI.
 ## Examples
 
 ``` r
+
 # Simple example
 
 DKI(AMBI = 1.61, H = 2.36, N = 25, S = 6)

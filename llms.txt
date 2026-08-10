@@ -40,6 +40,7 @@ You can also find a link to download the original AMBI software.
 Install from [CRAN](https://cran.r-project.org/) with:
 
 ``` r
+
 install.packages("ambiR")
 ```
 
@@ -47,6 +48,7 @@ You can install the development version of ambiR from
 [GitHub](https://github.com/niva-denmark/ambiR/) with:
 
 ``` r
+
 # install.packages("remotes)
 remotes::install_github("NIVA-Denmark/ambiR")
 ```
@@ -54,6 +56,7 @@ remotes::install_github("NIVA-Denmark/ambiR")
 or, if you prefer to use devtools:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("NIVA-Denmark/ambiR")
 ```
@@ -73,6 +76,7 @@ details:
 [`AMBI()`](https://niva-denmark.github.io/ambiR/reference/AMBI.md).
 
 ``` r
+
 library(ambiR)
 
 df <- data.frame(station = c("1","1","1","2","2","2"),
@@ -106,6 +110,7 @@ AMBI(df, by = c("station"), format_pct=1)
 Another example using the supplied `test_data`.
 
 ``` r
+
 library(ambiR)
 
 ## calling AMBI using the test data set

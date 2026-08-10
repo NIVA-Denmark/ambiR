@@ -35,6 +35,7 @@ Using the test data set included with the package, we generate some AMBI
 index results to be plotted.
 
 ``` r
+
   library(ambiR)
   library(dplyr)
 #> 
@@ -58,6 +59,7 @@ convert the group variable to a factor so that the groups are arranged
 in the order we want, rather than in alphabetical order.
 
 ``` r
+
   df <- res$AMBI_rep
   
   df_group_freq <- df %>%
@@ -86,6 +88,7 @@ We can now create this first version of the figure which includes all
 required features but uses only default formatting.
 
 ``` r
+
   p <- ggplot() +
     geom_bar(data = df_group_freq, 
          aes(x = replicate, y = f, fill = EcoGroup),
@@ -114,6 +117,7 @@ we can modify the figure to give it a similar feel to the figures
 produced by the original AMBI software.
 
 ``` r
+
   p <- ggplot() +
     geom_bar(data = df_group_freq,
              aes(x = replicate, y = f, fill = EcoGroup), 

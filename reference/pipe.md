@@ -1,6 +1,6 @@
 # Pipe operator
 
-See `magrittr::%>%` for details.
+See `magrittr::[\%>\%][magrittr::pipe]` for details.
 
 ## Usage
 

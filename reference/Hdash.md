@@ -92,6 +92,7 @@ Bell System Technical Journal*, vol. 27, no. 3, pp. 379-423.
 ## Examples
 
 ``` r
+
 Hdash(test_data, by=c("station"))
 #> $H
 #> # A tibble: 3 × 4

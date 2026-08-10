@@ -83,6 +83,7 @@ function call. See the examples below.
 ## Examples
 
 ``` r
+
 # Simple example
 
 DKI2(AMBI = 1.61, H = 2.36, N = 25, psal = 21.4)

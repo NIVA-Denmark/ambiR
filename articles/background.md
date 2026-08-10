@@ -18,7 +18,7 @@ then calculates the `AMBI` index resulting from the distribution of
 individuals between the groups.
 
 The AMBI species list gives the groups (I, II, III, IV, V) in which each
-species is classified, as described by Borja, Franco, and Pérez
+species is classified, as described by Borja et al.
 ([2000](#ref-BORJA20001100)).
 
 - *Group I*  
@@ -70,8 +70,8 @@ separate species diversity metrics:
 - Shannon Wiener diversity index *H’*
 - Species richness *S*
 
-The principles of the M-AMBI index are described by Muxika, Borja, and
-Bald ([2007](#ref-MUXIKA200716))
+The principles of the M-AMBI index are described by Muxika et al.
+([2007](#ref-MUXIKA200716))
 
 *“AMBI, richness and diversity, combined with the use, in a further
 development, of factor analysis together with discriminant analysis, is
@@ -120,7 +120,7 @@ users to perform AMBI index calculations. Later versions were updated to
 include the multivariate index M-AMBI calculations and adjustments to
 the species list used to assign species to ecological groups. The
 software is maintained and updated by AZTI
-[https://www.azti.es](https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/),
+[https://www.azti.es](https://www.azti.es/en/news/ambi-international-reference-for-marine-environment-assessment/),
 where the latest version can be downloaded.
 
 The ambiR package has been extensively tested and gives identical

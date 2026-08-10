@@ -32,6 +32,9 @@ Useful links:
 
 Authors:
 
+- Ciarán J. Murray <cjm@niva-dk.dk>
+  ([ORCID](https://orcid.org/0000-0003-0260-2008)) \[copyright holder\]
+
 - Ángel Borja <aborja@azti.es>
   ([ORCID](https://orcid.org/0000-0003-1601-2025))
 

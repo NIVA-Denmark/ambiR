@@ -25,6 +25,7 @@ assign the species to an `AMBI` species group.
 We create a test data set with species names and counts
 
 ``` r
+
 df <- data.frame(station = c("1","1","1","1","1","1",
                              "2","2","2","2","2","2"),
                  species = c("Acidostoma neglectum",
@@ -82,6 +83,7 @@ To proceed you should type at the console prompt:
 ## Interactive AMBI calculation
 
 ``` r
+
 library(ambiR)
 
 AMBI(df, by = c("station"), quiet=F, interactive = T)
@@ -116,6 +118,7 @@ Typing `s` will show species names which are close to the unrecognised
 species when arranged in alphabetical order.
 
 ``` r
+
   s
 #> • Achelous ordwayi                                 (Group 1)
 #> • Acidostoma hancocki                              (Group 2)
@@ -133,8 +136,8 @@ species when arranged in alphabetical order.
 
 There were no similar species names which might give us a clue about
 this species. In this case, we are satisfied that the name is a valid
-species name[¹](#fn1) but we are unsure which group the species should
-be assigned to, so we assign group `0`.
+species name[^1] but we are unsure which group the species should be
+assigned to, so we assign group `0`.
 
 Assigning group `0` means that the species will be included in the count
 of `Not assigned` species when calculating the `AMBI` index. If we typed
@@ -146,6 +149,7 @@ then we are asked to consider the next unrecognised species name,
 *Aglaophenia kirchenpaueri*.
 
 ``` r
+
   0
 #> ✔  Acholoe squamosa - Not assigned
 #> 
@@ -158,6 +162,7 @@ then we are asked to consider the next unrecognised species name,
 We type `s` to see similar names:
 
 ``` r
+
   s
 #> • Aglaophamus verrilli                             (Group 2)
 #> • Aglaophenia acacia                               (Group 0)
@@ -179,6 +184,7 @@ we could make the assumption that our unrecognised species should be
 assigned to the same group.
 
 ``` r
+
   0
 #> ✔ Aglaophenia kirchenpaueri - Not assigned
 #>
@@ -231,6 +237,4 @@ Any species groups assigned manually up to this point will be discarded
 and the AMBI calculations will proceed using the default, unsupervised,
 method.
 
-------------------------------------------------------------------------
-
-1.  <https://www.marinespecies.org/aphia.php?p=taxdetails&id=146474#>
+[^1]: <https://www.marinespecies.org/aphia.php?p=taxdetails&id=146474#>

@@ -14,6 +14,7 @@ Looking at the `test_data` example dataset included with the ambiR
 package, one can see how the data should be arranged:
 
 ``` r
+
 library(ambiR)
 
 head(test_data)
@@ -38,6 +39,7 @@ Here is an example dataframe where there are counts for species in
 separate columns:
 
 ``` r
+
 head(wide_data_species)
 #> # A tibble: 6 × 36
 #>   station replicate `Cumopsis fagei` `Diogenes pugilator` `Paradoneis armata`
@@ -61,6 +63,7 @@ To arrange the data in the correct form, use
 [`tidyr::pivot_longer()`](https://tidyr.tidyverse.org/reference/pivot_longer.html):
 
 ``` r
+
 # columns 1 and 2 contain station and replicate information
 # so, select all columns from 3 to be pivoted 
 
@@ -89,6 +92,7 @@ ID *1, 2, …* and the second row contains the replicate ID *a, b, …*. The
 first column of the table contains species names.
 
 ``` r
+
 head(wide_data_stns)
 #>                                      
 #> 1                <NA> 1 1 1 2 2 2 3 3
@@ -119,6 +123,7 @@ another suitable character should be used when joining and splitting
 station/replicate IDs.
 
 ``` r
+
 sep_character <- "_"
 
 # get the station IDs from row 1, excluding column 1 (this contains species names)
@@ -153,6 +158,7 @@ We can see that the column names now contain the combined station and
 replicate information. We are ready to transpose the data.
 
 ``` r
+
 # column 1 contains species names
 # so, select all columns from 2 to be pivoted 
 
@@ -180,6 +186,7 @@ Now we can split the *stn_rep* column into separate columns for
 earlier to identify where the split should occur:
 
 ``` r
+
 long_data <- long_data %>%
   separate_wider_delim(cols="stn_rep", 
                        delim = sep_character,
@@ -205,6 +212,7 @@ We have now ensured that our species abundance/count data have the
 correct structure, as in the example `test_data` provided:
 
 ``` r
+
 head(test_data)
 #> # A tibble: 6 × 4
 #>   station replicate species             count
@@ -222,6 +230,7 @@ Call the
 function:
 
 ``` r
+
 res <- AMBI(test_data, by="station", var_rep="replicate", 
             var_species="species", var_count="count")
 ```
@@ -244,6 +253,7 @@ diversity index* `H'` and the *Species richness* `S`, the three metrics
 which are necessary to calculate [M-AMBI](#calculate-m-ambi).
 
 ``` r
+
 res$AMBI
 #> # A tibble: 3 × 13
 #>   station  AMBI AMBI_SD     H     S   fNA     N     I    II   III     IV      V
@@ -259,6 +269,7 @@ also returns results calculated for each replicate, within each unique
 combination of `by` variables:
 
 ``` r
+
 res$AMBI_rep
 #> # A tibble: 8 × 11
 #>   station replicate  AMBI     S   fNA     N     I     II   III    IV      V
@@ -279,6 +290,7 @@ also shows the `AMBI` species group assigned. This dataframe has the
 same number of rows as the input data.
 
 ``` r
+
 head(res$matched)
 #> # A tibble: 6 × 7
 #>   station replicate species             species_matched     count group    RA
@@ -317,13 +329,14 @@ In addition to index values calculated from observed species data, the
 M-AMBI factor analysis requires values defining the limits for the three
 metrics, corresponding to the best and worst possible conditions.
 
-See Muxika, Borja, and Bald (2007) for more details.
+See Muxika et al. (2007) for more details.
 
 The default limit values used by
 [`MAMBI()`](https://niva-denmark.github.io/ambiR/reference/MAMBI.md)
 are:
 
 ``` r
+
 limits_AMBI <- c("bad" = 6, "high" = 0)
 
 limits_H  <- c("bad" = 0, "high" = NA)
@@ -353,6 +366,7 @@ classes.
 The default values for the class boundaries are:
 
 ``` r
+
 bounds <-c("PB" = 0.2, "MP" = 0.39, "GM" = 0.53, "HG" = 0.77)
 ```
 
@@ -363,6 +377,7 @@ We call
 using the previously generated `AMBI` results:
 
 ``` r
+
 res_mambi <- MAMBI(res$AMBI, var_H = "H", var_S = "S", var_AMBI = "AMBI")
 ```
 
@@ -383,6 +398,7 @@ input data contained 3 rows (1 for each `station`). The results contain
 three metrics used in the M-AMBI calculations.
 
 ``` r
+
 res_mambi %>%
   select(station, AMBI, H, S, x, y, z, MAMBI, Status, EQR)
 #> # A tibble: 5 × 10
