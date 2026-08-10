@@ -13,6 +13,7 @@ import(cli)
 import(dplyr)
 import(tidyr)
 import(utils)
+importFrom(lifecycle,deprecated)
 importFrom(magrittr,"%>%")
 importFrom(stats,
   cov,

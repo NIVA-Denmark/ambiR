@@ -56,7 +56,8 @@ Imports:
     cli,
     magrittr,
     utils,
-    stats
+    stats,
+    lifecycle
 Roxygen: list(markdown = TRUE)
 URL: https://niva-denmark.github.io/ambiR/, https://github.com/niva-denmark/ambiR/, https://github.com/NIVA-Denmark/ambiR
 BugReports: https://github.com/NIVA-Denmark/ambiR/issues
