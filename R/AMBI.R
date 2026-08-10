@@ -455,6 +455,7 @@
                           roman(AMBI),")",symbol$arrow_right,"(",
                           roman(U),")")) %>%
         ungroup()
+
       msgs <- df_changed$msg
       if(quiet==F){
         cli::cli_alert_info("User-assigned group change{?s} applied for {length(msgs)} AMBI species:")
@@ -703,7 +704,7 @@
       merge(dfall_rep, all=T)
 
     dfFrep <- dfall_rep %>%
-      left_join(dfFrep, by=dplyr::all_of(vars_group))
+      left_join(dfFrep, by=stats::setNames(nm=vars_group))
 
     dfFrep <- dfFrep %>%
       mutate(NNA=ifelse(is.na(NNA),0,NNA)) %>%
@@ -745,7 +746,7 @@
     merge(dfall, all=T)
 
   dfF <- dfall %>%
-    left_join(dfF, by=dplyr::all_of(vars_group_f))
+    left_join(dfF, by=stats::setNames(nm=vars_group_f))
 
   dfF <- dfF %>%
     mutate(NNA=ifelse(is.na(NNA),0,NNA)) %>%
@@ -762,7 +763,7 @@
 
   dfF <- dfF %>%
     select(-c(N,NNA)) %>%
-    pivot_wider(names_from = var_group_AMBI, values_from = fGroup,
+    pivot_wider(names_from = all_of(var_group_AMBI), values_from = fGroup,
                 values_fill=fill_val)
 
 
@@ -781,7 +782,7 @@
 
   if(!is.na(var_rep)){
     dfrep <- df %>%
-      left_join(dfFrep, by=all_of(by_rep)) %>%
+      left_join(dfFrep, by=stats::setNames(nm=by_rep)) %>%
       relocate(S, fNA, N, .after = AMBI)
 
     if(!is.na(format_pct)){
@@ -809,9 +810,9 @@
       bind_cols(dfF)
   }else{
     df <- df %>%
-      left_join(dfH, by=all_of(by))
+      left_join(dfH, by=stats::setNames(nm=by))
     df <- df %>%
-      left_join(dfF, by=all_of(by))
+      left_join(dfF, by=stats::setNames(nm=by))
   }
   df <- df %>%
     relocate(H, S, .after = AMBI)

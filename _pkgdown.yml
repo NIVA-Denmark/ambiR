@@ -2,8 +2,18 @@ url: https://niva-denmark.github.io/ambiR/
 template:
   bootstrap: 5
   math-rendering: mathjax
-reference:
 
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    news:
+      text: News
+      href: news/index.html
+
+reference:
 - subtitle: AMBI functions
   desc: >
     Core AMBI functions.
@@ -30,7 +40,6 @@ reference:
   - test_data
 
 news:
-- title: News
   one_page: true
   releases:
 
@@ -41,6 +50,7 @@ articles:
   - background
   - interactive
   - ambi-figures
+
 
 authors:
   GES4SEAS:

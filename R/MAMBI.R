@@ -222,7 +222,7 @@ MAMBI <- function(df,
 
   df <- df %>%
     bind_rows(limits) %>%
-    relocate("Bounds", .before=var_AMBI)
+    relocate("Bounds", .before=all_of(var_AMBI))
 
   # join the results (x, y, z, MAMBI, EQR) to the original data
   df <- df %>%

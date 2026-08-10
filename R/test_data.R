@@ -12,7 +12,7 @@
 #'   }
 #'
 #'
-#' @source [AZTI](https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/)
+#' @source [AZTI](https://www.azti.es/en/news/ambi-international-reference-for-marine-environment-assessment/)
 #' @examples
 #' head(test_data)
 #'

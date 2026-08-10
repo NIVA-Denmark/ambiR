@@ -1,0 +1,45 @@
+# Platform
+
+|field    |value                                                                                |
+|:--------|:------------------------------------------------------------------------------------|
+|version  |R version 4.5.2 (2025-10-31 ucrt)                                                    |
+|os       |Windows 11 x64 (build 26200)                                                         |
+|system   |x86_64, mingw32                                                                      |
+|ui       |RStudio                                                                              |
+|language |(EN)                                                                                 |
+|collate  |Danish_Denmark.utf8                                                                  |
+|ctype    |Danish_Denmark.utf8                                                                  |
+|tz       |Europe/Berlin                                                                        |
+|date     |2026-08-10                                                                           |
+|rstudio  |2026.06.0+242 Blue Plumbago (desktop)                                                |
+|pandoc   |3.8.3 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown) |
+|quarto   |1.9.38 @ C:\PROGRA~1\RStudio\RESOUR~1\app\bin\quarto\bin\quarto.exe                  |
+
+# Dependencies
+
+|package    |old    |new        |Δ  |
+|:----------|:------|:----------|:--|
+|ambiR      |0.1.1  |0.1.1.9000 |*  |
+|cli        |3.6.6  |3.6.6      |   |
+|cpp11      |0.5.5  |0.5.5      |   |
+|dplyr      |1.2.1  |1.2.1      |   |
+|generics   |0.1.4  |0.1.4      |   |
+|glue       |1.8.1  |1.8.1      |   |
+|lifecycle  |1.0.5  |1.0.5      |   |
+|magrittr   |2.0.5  |2.0.5      |   |
+|pillar     |1.11.1 |1.11.1     |   |
+|pkgconfig  |2.0.3  |2.0.3      |   |
+|purrr      |1.2.2  |1.2.2      |   |
+|R6         |2.6.1  |2.6.1      |   |
+|rlang      |1.3.0  |1.3.0      |   |
+|stringi    |1.8.9  |1.8.9      |   |
+|stringr    |1.6.0  |1.6.0      |   |
+|tibble     |3.3.1  |3.3.1      |   |
+|tidyr      |1.3.2  |1.3.2      |   |
+|tidyselect |1.2.1  |1.2.1      |   |
+|utf8       |1.2.6  |1.2.6      |   |
+|vctrs      |0.7.3  |0.7.3      |   |
+|withr      |3.0.3  |3.0.3      |   |
+
+# Revdeps
+

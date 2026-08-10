@@ -15,7 +15,7 @@ identified \emph{a}, \emph{b}, \emph{c}}
 }
 }
 \source{
-\href{https://www.azti.es/en/ambi-international-reference-for-marine-environment-assessment/}{AZTI}
+\href{https://www.azti.es/en/news/ambi-international-reference-for-marine-environment-assessment/}{AZTI}
 }
 \usage{
 test_data
