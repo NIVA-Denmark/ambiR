@@ -14,8 +14,10 @@ import(dplyr)
 import(tidyr)
 import(utils)
 importFrom(magrittr,"%>%")
-importFrom(stats,cov)
-importFrom(stats,loadings)
-importFrom(stats,princomp)
-importFrom(stats,sd)
-importFrom(stats,varimax)
+importFrom(stats,
+  cov,
+  loadings,
+  princomp,
+  sd,
+  varimax
+)

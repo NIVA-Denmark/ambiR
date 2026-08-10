@@ -449,10 +449,12 @@
 
     if(nrow(df_changed)>0){
       df_changed <- df_changed %>%
+        rowwise() %>%
         mutate(group=U, group_note=paste0("original group: ",AMBI), source="U") %>%
         mutate(msg=paste0(col_green(symbol$tick)," {.emph ",species,"} (",
                           roman(AMBI),")",symbol$arrow_right,"(",
-                          roman(U),")"))
+                          roman(U),")")) %>%
+        ungroup()
       msgs <- df_changed$msg
       if(quiet==F){
         cli::cli_alert_info("User-assigned group change{?s} applied for {length(msgs)} AMBI species:")
