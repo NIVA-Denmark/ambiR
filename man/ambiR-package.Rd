@@ -25,6 +25,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Ciarán J. Murray \email{cjm@niva-dk.dk} (\href{https://orcid.org/0000-0003-0260-2008}{ORCID}) [copyright holder]
   \item Ángel Borja \email{aborja@azti.es} (\href{https://orcid.org/0000-0003-1601-2025}{ORCID})
   \item Sarai Pouso \email{spouso@azti.es} (\href{https://orcid.org/0000-0003-3208-9882}{ORCID})
   \item Iñigo Muxika \email{imuxika@azti.es} (\href{https://orcid.org/0000-0002-9181-3781}{ORCID})

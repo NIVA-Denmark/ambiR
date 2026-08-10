@@ -56,4 +56,16 @@ test_that("AMBI with exact name match", {
   expect_equal(n, 1)
 })
 
+df4 <- data.frame(species=c("Acromegalomma sp.","Acteocina sp.","Cumopsis fagei","Diogenes pugilator"),
+                  group=c(1,1,1,1))
+
+test_that("AMBI with user-supplied species data", {
+  n <- ambiR::AMBI(df1, df_species=df4)$matched %>%
+    filter(!is.na(group_note)) %>%
+    nrow()
+  expect_equal(n, 3)
+})
+
+
+
 
