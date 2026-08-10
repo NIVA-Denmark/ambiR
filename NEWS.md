@@ -1,4 +1,4 @@
-# ambiR (development version)
+# ambiR 0.2.0
 
 ## Minor improvements and bug fixes
 
