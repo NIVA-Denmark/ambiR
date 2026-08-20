@@ -32,7 +32,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/NIVA-Denmark/ambiR/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/NIVA-Denmark/ambiR/blob/v0.2.0/inst/CITATION)
 
 Murray CJ, Borja Á, Pouso S, Muxika I, Garmendia JM (2025). *ambiR: R
 package implementing the AZTI Marine Biotic Index*. NIVA Denmark,
