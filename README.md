@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/NIVA-Denmark/ambiR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NIVA-Denmark/ambiR/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/ambiR)](https://CRAN.R-project.org/package=ambiR)
 <!-- badges: end -->
 
 Implementing **AZTI’s Marine Biotic Index** [(Borja et al.,
