@@ -1,4 +1,8 @@
 url: https://niva-denmark.github.io/ambiR/
+
+development:
+  mode: auto
+
 template:
   bootstrap: 5
   math-rendering: mathjax
