@@ -53,15 +53,26 @@
 #' @noRd
 
 .AMBI_species <- function(version = ""){
+
+  group_AMBI <- species <- NULL
+
   version <- as.character(version)
 
   # list of available species list versions
   versions <- .species_versions()
 
-  cli_div(theme = list(
+  cli::cli_div(theme = list(
     span.classavailable = list(color = "#96CBFE"),
     span.classunavailable = list(color = "orange" )))
 
+  if(version=="NO") {
+    selection <- c(species="species",
+                   group="group_AMBI")
+    df <- get("NO_species_list") %>%
+      select(all_of(selection)) %>%
+      mutate(RA=0)
+    return(df)
+  }
 
   if(version!="" & !version %in% names(versions)){
 
@@ -96,11 +107,9 @@
 # return a list of available versions for the species lists
 .species_versions <- function(){
 
-  version_names <- c("2024","2022")
-  versions <- c("20241008", "20220531")
-
+  version_names <- c("2024","2022","2017","2014")
+  versions <- c("20241008", "20220531", "20170605", "20141113")
   names(versions) <- version_names
-
   return(versions)
 
 }

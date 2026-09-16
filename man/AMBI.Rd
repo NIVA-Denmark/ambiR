@@ -17,7 +17,8 @@ AMBI(
   interactive = FALSE,
   format_pct = NA,
   show_class = TRUE,
-  exact_species_match = FALSE
+  exact_species_match = FALSE,
+  version = ""
 )
 }
 \arguments{
@@ -92,6 +93,11 @@ be matched with a family name on the AMBI (or
 user-specified) species list which includes \emph{sp.}. If
 the option \code{exact_species_match = TRUE} is used, species
 names will be matched only with identical names.}
+
+\item{version}{(default \code{""}) This argument is passed to
+\code{AMBI_species()} when retrieving the list of species and AMBI
+groups. By default, species names will be matched with the most
+recent AMBI species list.}
 }
 \value{
 a list of dataframes:

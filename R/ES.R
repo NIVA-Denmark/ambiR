@@ -1,0 +1,195 @@
+#' Calculates ES the Hurlbert diversity index
+#'
+#' @description
+#' [ES()] matches a list of species counts with the AMBI species list
+#' and calculates *ES* the Hurlbert diversity index, which gives the
+#' expected sample species richness for a subsample of the population.
+#' [(Hurlbert, 1971)](#references)
+#'
+#' @references
+#' Hurlbert, S.H. (1971), The Nonconcept of Species Diversity: A Critique and Alternative Parameters. Ecology, 52: 577-586.
+#' \doi{doi:10.2307/1934145}
+#'
+#' @details
+#' If the function is called with the argument `check_species = TRUE` then
+#' only species which are successfully matched with the specified species
+#' list are included in the calculations. This is the default. If the function
+#' is called with `check_species = FALSE`then all rows are counted.
+#'
+#' @seealso
+#' For more details, see`vignette("other-indices").
+#'
+#' @param df          a dataframe of species observations
+#' @param by          a vector of column names found in `df` by which calculations
+#'                    should be grouped _e.g. c("station","date")_
+#' @param var_species name of the column in `df` containing species names
+#' @param var_count   name of the column in `df` containing count/density/abundance
+#' @param check_species boolean, default = TRUE. If TRUE, then only species found
+#'                      in the species list are included in *H'* index. By default,
+#'                      the AZTI species list is used.
+#' @param df_species  _optional_ dataframe with user-specified species list.
+#' @param n          subsample size, usually indicated in the abbreviated name for the index.
+#'                   e.g. `ES100` is ES calculated with a subsample of 100 individuals
+#'                   (the default) The sampling is done for each _by_ group.
+#'
+#' @return a list of two dataframes:
+#'
+#'  * `ES` : results of the ES index calculations. For each unique
+#'  combination of `by`variables the following values are calculated:
+#'    - `ES<n>` : the expected sample species richness, *ES*
+#'                for a sample size `n` of 100, the variable name is `ES100`
+#'    - `S` : the number of species
+#'    - `N` : the number of individuals
+#'
+#'  * `match` : the original dataframe with columns added from the species list.
+#'  For a user-specified list provided `df_species`, all columns will be included.
+#'  If the user-specified species list contains only a single column with species
+#'   names, then a new column `match` will be created, with a value of `1` indicating
+#'   a match and an `NA` value where no match was found.
+#'
+#'  For the default AZTI species list the following additional columns will be
+#'  included:
+#'    - `group` : showing the AMBI species group
+#'    -  `RA` : indicating that the species is _reallocatable_ according to the
+#'    AZTI list. That is, it could be re-assigned to a different species group.
+#'
+#' @import tidyr
+#' @import dplyr
+#' @import cli
+#'
+#' @examples
+#'
+#' ES(test_data)
+#'
+#' @export
+
+ES <- function(df,
+               by = NULL,
+               var_species = "species",
+               var_count = "count",
+               check_species = TRUE,
+               df_species = NULL,
+               n = 100
+){
+
+  group_var <- p <- plnp <- species <- N <- ln_num_i <- ln_denom <- es_i <- NULL
+
+  if(!"data.frame" %in% class(df)){
+    msg <- paste0("ES() was expecting the argument `df` to be a data.frame. You provided a an object of class '", class(df),"'")
+    stop(msg)
+  }
+
+  if (length(n) != 1L) {
+    stop("`n` should be a single integer value.", call. = FALSE)
+  }
+
+  if (!is.numeric(n)) {
+    stop("`n` should be a single integer value.", call. = FALSE)
+  }
+
+
+  for(var in c(by, var_species, var_count)){
+    missing <- c()
+    if(!var %in% names(df)){
+      missing <- c(missing, var)
+    }
+  }
+  if(length(missing)>0){
+    msg <- paste0(missing, collapse="','")
+    msg <- paste0(length(missing)," column(s) not found in observation data: '", msg, "'")
+    stop(msg)
+  }
+
+  if(check_species==T){
+
+    if(is.null(df_species)){
+      # matching using the AZTI species list
+      df_species <- AMBI_species()
+
+      df <- df %>%
+        left_join(df_species, by=join_by(!!var_species==species))
+      match_var <- "group" # an NA in this column indicates that species was not matched
+
+    }else{
+      # !is.null(df_species)
+
+      if(!"data.frame" %in% class(df_species)){
+        msg <- paste0("ES() was expecting the argument df_species to be a data.frame. You provided an object of class '", class(df_species),"'")
+        stop(msg)
+      }
+
+      # matching using a user-specified species list
+      missing <- c()
+      for(var in c(var_species, group_var)){
+        if(!var %in% names(df_species)){
+          missing <- c(missing, var)
+        }
+      }
+      if(length(missing)>0){
+        msg <- paste0(missing, collapse="','")
+        msg <- paste0(length(missing),
+                      " column(s) not found in user-specified species list: '",
+                      msg, "'")
+        stop(msg)
+      }
+      if(ncol(df_species)==1){
+        df_species <- df_species %>%
+          mutate(match=1)
+        match_var <- "match" # an NA in this column indicates that species was not matched
+      }
+      df <- df %>%
+        left_join(df_species, by=join_by(!!var_species))
+    }
+
+    df_matched <- df
+
+    df <- df %>%
+      dplyr::filter(!is.na(!!as.name(match_var)))
+  }else{
+    # check_species != TRUE
+    df_matched <- NULL
+  }
+
+  df <- df %>%
+    dplyr::filter(!is.na(!!as.name(var_count))) %>%
+    dplyr::filter(!!as.name(var_count) > 0)
+
+  # there could be multiple records for each species if the observations
+  # include station and replicate but we are calculating by station only
+  # then we need to calculate sums of counts within selected groups
+  sum_by <- c(by, var_species)
+
+  df <- df %>%
+    dplyr::group_by(across(all_of(sum_by))) %>%
+    dplyr::summarise(!!as.name(var_count) := sum(!!as.name(var_count)),
+                     .groups="drop")
+
+
+  df <- df %>%
+    dplyr::group_by(across(all_of(by)))
+
+  # browser()
+
+  ES_n <- paste0("ES",n)
+
+  df <- df %>%
+    mutate(N = sum(!!as.name(var_count))) %>%
+    mutate(ln_denom = lchoose(N, n)) %>%
+    mutate(ln_num_i = lchoose(N - !!as.name(var_count), n)) %>%
+    mutate(es_i = 1 - exp(ln_num_i - ln_denom))
+
+  df <- df %>%
+    dplyr::summarise(!!as.name(ES_n) := sum(es_i),
+                     N = sum(!!as.name(var_count), na.rm=T),
+                     S=n(), .groups="drop")
+
+  # the sample size was greater than the population, then
+  # the estimated ES will be `NaN`
+
+  df <- df %>%
+    mutate(warning = ifelse(N<n,
+                            paste0("N < ",n),
+                            NA_character_))
+
+  return(list(ES=df, matched=df_matched))
+}

@@ -10,8 +10,12 @@ AMBI_species(version = "")
 \item{version}{\emph{string}, version of the species list to return.
 The default value is the empty string (\code{""})
 which returns the latest version of the list
-\emph{(8. October 2024)}. Currently, the only other valid value for
-\code{version} is \code{"2022"} \emph{(31. May 2022)}.}
+\emph{(8th October 2024)}. Other valid values for
+\code{version} are \code{"2022"}  \emph{(31st May 2022)},
+\code{"2017"} \emph{(5th June 2017)} or \code{"2014"}
+\emph{(13th November 2014)}. Using \code{version = "NO"}
+will return the latest version used by Norwegian
+authorities (see \code{\link[=NO_species]{NO_species()}})}
 }
 \value{
 A data frame with 11,952 rows* and 3 columns:
