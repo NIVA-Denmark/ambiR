@@ -129,12 +129,12 @@ select corresponds to the to the version used by the software.
 
 ## References
 
-Borja, Á, J Franco, and V Pérez. 2000. “A Marine Biotic Index to
+Borja, Á., J. Franco, and V. Pérez. 2000. “A Marine Biotic Index to
 Establish the Ecological Quality of Soft-Bottom Benthos Within European
 Estuarine and Coastal Environments.” *Marine Pollution Bulletin* 40
 (12): 1100–1114. <https://doi.org/10.1016/S0025-326X(00)00061-8>.
 
-Muxika, I, Á Borja, and J Bald. 2007. “Using Historical Data, Expert
+Muxika, I., Á. Borja, and J. Bald. 2007. “Using Historical Data, Expert
 Judgement and Multivariate Analysis in Assessing Reference Conditions
 and Benthic Ecological Status, According to the European Water Framework
 Directive.” *Marine Pollution Bulletin* 55 (1): 16–29.

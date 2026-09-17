@@ -434,7 +434,7 @@ The normalised EQR value is given by linear interpolation: \\ EQR =
 
 ## References
 
-Muxika, I, Á Borja, and J Bald. 2007. “Using Historical Data, Expert
+Muxika, I., Á. Borja, and J. Bald. 2007. “Using Historical Data, Expert
 Judgement and Multivariate Analysis in Assessing Reference Conditions
 and Benthic Ecological Status, According to the European Water Framework
 Directive.” *Marine Pollution Bulletin* 55 (1): 16–29.

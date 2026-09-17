@@ -30,6 +30,7 @@ and calculates the AMBI index."><meta property="og:image" content="https://niva-
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/background.html">The AMBI index</a></li>
     <li><a class="dropdown-item" href="../articles/interactive.html">Interactive mode</a></li>
     <li><a class="dropdown-item" href="../articles/ambi-figures.html">AMBI figures</a></li>
+    <li><a class="dropdown-item" href="../articles/other-indices.html">Other Indices</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -67,7 +68,8 @@ and calculates the AMBI index.</p>
 <span>  interactive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  format_pct <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show_class <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  exact_species_match <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  exact_species_match <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  version <span class="op">=</span> <span class="st">""</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -171,6 +173,13 @@ be matched with a family name on the AMBI (or
 user-specified) species list which includes <em>sp.</em>. If
 the option <code>exact_species_match = TRUE</code> is used, species
 names will be matched only with identical names.</p></dd>
+
+
+<dt id="arg-version">version<a class="anchor" aria-label="anchor" href="#arg-version"></a></dt>
+<dd><p>(default <code>""</code>) This argument is passed to
+<code><a href="AMBI_species.html">AMBI_species()</a></code> when retrieving the list of species and AMBI
+groups. By default, species names will be matched with the most
+recent AMBI species list.</p></dd>
 
 </dl></div>
     <div class="section level2">

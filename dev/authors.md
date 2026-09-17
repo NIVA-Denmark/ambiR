@@ -34,7 +34,7 @@
 Source:
 [`inst/CITATION`](https://github.com/NIVA-Denmark/ambiR/blob/main/inst/CITATION)
 
-Murray CJ, Borja Á, Pouso S, Muxika I, Garmendia JM (2025). *ambiR: R
+Murray CJ, Borja Á, Pouso S, Muxika I, Garmendia JM (2026). *ambiR: R
 package implementing the AZTI Marine Biotic Index*. NIVA Denmark,
 Copenhagen, Denmark. <https://github.com/NIVA-Denmark/ambiR>.
 
@@ -43,6 +43,6 @@ Copenhagen, Denmark. <https://github.com/NIVA-Denmark/ambiR>.
       author = {Ciarán J. Murray and Ángel Borja and Sarai Pouso and Iñigo Muxika and Joxe Mikel Garmendia},
       organization = {NIVA Denmark},
       address = {Copenhagen, Denmark},
-      year = {2025},
+      year = {2026},
       url = {https://github.com/NIVA-Denmark/ambiR},
     }

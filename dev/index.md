@@ -3,15 +3,15 @@
 Implementing **AZTI’s Marine Biotic Index** [(Borja et al.,
 2000)](https://doi.org/10.1016/S0025-326X(00)00061-8)
 
+*You are currently viewing documentation for the development version of
+ambiR. Find the documentation for the release version
+[here](https://niva-denmark.github.io/ambiR/).*
+
 ## Overview
 
 The ambiR package allows the user to calculate both the *AMBI* index and
 the multivariate *M-AMBI* from count or abundance data for benthic fauna
 species, using the included species list.
-
-In addition, this package includes functions to calculate different
-versions of the *Danish Quality Index* (*DKI*) (*Dansk
-Kvalitetsindeks*), a derived benthic index based on AMBI.
 
 - [`AMBI()`](https://niva-denmark.github.io/ambiR/dev/reference/AMBI.md) -
   calculates the *AMBI* index.
@@ -19,10 +19,6 @@ Kvalitetsindeks*), a derived benthic index based on AMBI.
   calculates the multivariate *M-AMBI* index.
 - [`Hdash()`](https://niva-denmark.github.io/ambiR/dev/reference/Hdash.md) -
   calculates *H’*, the Shannon diversity index.
-- [`DKI2()`](https://niva-denmark.github.io/ambiR/dev/reference/DKI2.md) -
-  calculates the salinity-normalised Danish quality index *DKI (v2)*.
-- [`DKI()`](https://niva-denmark.github.io/ambiR/dev/reference/DKI.md) -
-  calculates the Danish quality index *DKI*.
 
 To get started, see
 [`vignette("ambiR")`](https://niva-denmark.github.io/ambiR/dev/articles/ambiR.md).
@@ -51,14 +47,6 @@ You can install the development version of ambiR from
 
 # install.packages("remotes)
 remotes::install_github("NIVA-Denmark/ambiR")
-```
-
-or, if you prefer to use devtools:
-
-``` r
-
-# install.packages("devtools")
-devtools::install_github("NIVA-Denmark/ambiR")
 ```
 
 ## Examples
@@ -153,6 +141,39 @@ AMBI(test_data, by=c("station"), var_rep = "replicate", format_pct=1)
 #> 10       2 a         Glycera tridactyla  Glycera tridactyla      2     2     0
 #> # ℹ 43 more rows
 ```
+
+## Other Benthic Indices
+
+See
+[`vignette("other-indices")`](https://niva-denmark.github.io/ambiR/dev/articles/other-indices.md)
+for more information and examples demonstrating other index
+calculations.
+
+### Derived from AMBI
+
+As well as the *AMBI* index itself, this package provides functions to
+calculate other benthic indices derived from *AMBI*. This includes two
+versions of the *Danish Quality Index* (*DKI*) and the *Norwegian
+Quality Index* (*NQI1*):
+
+- [`DKI2()`](https://niva-denmark.github.io/ambiR/dev/reference/DKI2.md) -
+  calculates the salinity-normalised Danish quality index *DKI (v2)*.
+- [`DKI()`](https://niva-denmark.github.io/ambiR/dev/reference/DKI.md) -
+  calculates the original version of the Danish quality index *DKI*.
+- [`NQI1()`](https://niva-denmark.github.io/ambiR/dev/reference/NQI1.md) -
+  calculates the Norwegian quality index *NQI1*.
+
+### Others
+
+Functions are also available to calculate the Hurlbert diversity index
+(*ES*) and two other Norwegian benthic indices:
+
+- [`ES()`](https://niva-denmark.github.io/ambiR/dev/reference/ES.md) -
+  calculates the Hurlbert diversity index *ES*.
+- [`NSI()`](https://niva-denmark.github.io/ambiR/dev/reference/NSI.md) -
+  calculates the Norwegian Sensitivity Index *NSI*.
+- [`ISI()`](https://niva-denmark.github.io/ambiR/dev/reference/ISI.md) -
+  calculates the Indicator Species Index *ISI*.
 
 ## Acknowledgements
 

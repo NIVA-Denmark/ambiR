@@ -8,6 +8,7 @@
 <url><loc>https://niva-denmark.github.io/ambiR/dev/articles/background.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/articles/index.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/articles/interactive.html</loc></url>
+<url><loc>https://niva-denmark.github.io/ambiR/dev/articles/other-indices.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/authors.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/index.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/news/index.html</loc></url>
@@ -16,12 +17,19 @@
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/AMBI_species.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/DKI.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/DKI2.html</loc></url>
+<url><loc>https://niva-denmark.github.io/ambiR/dev/reference/ES.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/H_sal.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/Hdash.html</loc></url>
+<url><loc>https://niva-denmark.github.io/ambiR/dev/reference/ISI.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/MAMBI.html</loc></url>
+<url><loc>https://niva-denmark.github.io/ambiR/dev/reference/NO_species.html</loc></url>
+<url><loc>https://niva-denmark.github.io/ambiR/dev/reference/NQI1.html</loc></url>
+<url><loc>https://niva-denmark.github.io/ambiR/dev/reference/NSI.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/ambiR-package.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/index.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/pipe.html</loc></url>
 <url><loc>https://niva-denmark.github.io/ambiR/dev/reference/test_data.html</loc></url>
+<url><loc>https://niva-denmark.github.io/ambiR/dev/reference/test_data_DK.html</loc></url>
+<url><loc>https://niva-denmark.github.io/ambiR/dev/reference/test_data_NO.html</loc></url>
 </urlset>
 

@@ -1,6 +1,6 @@
-# Calculates DKI (v2)
+# Calculates DKI (v2), the revised Danish Quality Index
 
-`DKI2()` calculate a salinity-normalised version of the Danish quality
+`DKI2()` calculates a salinity-normalised version of the Danish quality
 index (DKI) [(Carstensen et al., 2014)](#references)
 
 The *DKI* index is based on AMBI and can only be calculated after first
@@ -14,13 +14,6 @@ expected lower species diversity in regions with lower salinity.
 
 Since the index is normalised to salinity, the function also requires
 measured or estimated salinity `psal` as an argument.
-
-\#' @references Carstensen, J., Krause-Jensen, D., Josefson, A. (2014).
-"Development and testing of tools for intercalibration of phytoplankton,
-macrovegetation and benthic fauna in Danish coastal areas." Aarhus
-University, DCE – Danish Centre for Environment and Energy, 85 pp.
-*Scientific Report from DCE – Danish Centre for Environment and Energy*
-No. 93. <https://dce2.au.dk/pub/SR93.pdf>
 
 ## Usage
 
@@ -72,7 +65,18 @@ from e.g. within a
 [`dplyr::mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
 function call. See the examples below.
 
+## References
+
+Carstensen, J., Krause-Jensen, D., Josefson, A. (2014). "Development and
+testing of tools for intercalibration of phytoplankton, macrovegetation
+and benthic fauna in Danish coastal areas." Aarhus University, DCE –
+Danish Centre for Environment and Energy, 85 pp. *Scientific Report from
+DCE – Danish Centre for Environment and Energy* No. 93.
+<https://dce2.au.dk/pub/SR93.pdf>
+
 ## See also
+
+For more details, see\`vignette("other-indices").
 
 - [`DKI()`](https://niva-denmark.github.io/ambiR/dev/reference/DKI.md)
   calculate DKI using the original method
@@ -96,21 +100,44 @@ DKI2(AMBI = 1.61, H = 2.36, N = 25, psal = 21.4)
 # ------ Example workflow for calculating DKI (v2) from species counts ----
 
 # calculate AMBI index
-dfAMBI <- AMBI(test_data, by = c("station"), var_rep = "replicate")[["AMBI"]]
+df <- AMBI(test_data_DK, by = c("station"), var_rep = "sample")[["AMBI"]]
+#> ℹ 7 species names were not recognised:
+#> 1. Bivalvia indet.
+#> 2. Enteropneusta indet.
+#> 3. Gastropoda indet.
+#> 4. Holothuroidea indet.
+#> 5. Hydrozoa indet.
+#> 6. Nemertini indet.
+#> 7. Terebellida indet.
+
+# modify names which were not recognized by AMBI() and recalculate
+df_obs <- dplyr::mutate(test_data_DK, species = gsub(" indet\\.", "", species))
+df <- ambiR::AMBI(df_obs, by = c("station"), var_rep="sample")[["AMBI"]]
+#> ℹ 4 species names were not recognised:
+#> 1. Bivalvia
+#> 2. Gastropoda
+#> 3. Nemertini
+#> 4. Terebellida
 
 # show AMBI results
-dfAMBI
-#> # A tibble: 3 × 13
-#>   station  AMBI AMBI_SD     H     S   fNA     N     I    II   III     IV      V
-#>     <dbl> <dbl>   <dbl> <dbl> <int> <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl>  <dbl>
-#> 1       1  1.48   0.338  1.80     6     0    16 0.125 0.75  0.125 0      0     
-#> 2       2  1.89   0.238  3.54    22     0    80 0.4   0.138 0.3   0.15   0.0125
-#> 3       3  4.12   0.884  2.50     9     0    24 0     0.125 0.292 0.0833 0.5   
-#> # ℹ 1 more variable: Disturbance <chr>
+df
+#> # A tibble: 2 × 13
+#>   station  AMBI AMBI_SD     H     S     fNA     N     I    II   III     IV
+#>   <chr>   <dbl>   <dbl> <dbl> <int>   <dbl> <dbl> <dbl> <dbl> <dbl>  <dbl>
+#> 1 42      0.970   0.712  4.24    28 0          76 0.461 0.158 0.355 0.0132
+#> 2 49      1.98    0.232  3.25    29 0.00337   297 0.115 0.470 0.389 0.0270
+#> # ℹ 2 more variables: V <dbl>, Disturbance <chr>
 
 # add salinity values - these are realistic but invented values
-dfAMBI <- dplyr::mutate(dfAMBI, psal=ifelse(station == 1, 21.3, 26.5))
+df$psal <- c(21.3, 26.5)
 
 # calculate DKI from AMBI results
-dfAMBI <- dplyr::mutate(dfAMBI, DKI=DKI2(AMBI, H, N, psal))
+df <- dplyr::mutate(df, DKI=DKI2(AMBI, H, N, psal))
+
+dplyr::select(df, station, AMBI, H, N, psal, DKI)
+#> # A tibble: 2 × 6
+#>   station  AMBI     H     N  psal   DKI
+#>   <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
+#> 1 42      0.970  4.24    76  21.3 0.969
+#> 2 49      1.98   3.25   297  26.5 0.736
 ```

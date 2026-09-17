@@ -19,8 +19,11 @@ AMBI_species(version = "")
 
   *string*, version of the species list to return. The default value is
   the empty string (`""`) which returns the latest version of the list
-  *(8. October 2024)*. Currently, the only other valid value for
-  `version` is `"2022"` *(31. May 2022)*.
+  *(8th October 2024)*. Other valid values for `version` are `"2022"`
+  *(31st May 2022)*, `"2017"` *(5th June 2017)* or `"2014"` *(13th
+  November 2014)*. Using `version = "NO"` will return the latest version
+  used by Norwegian authorities (see
+  [`NO_species()`](https://niva-denmark.github.io/ambiR/dev/reference/NO_species.md))
 
 ## Value
 
