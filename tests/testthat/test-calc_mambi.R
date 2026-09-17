@@ -12,7 +12,7 @@ test_that("MAMBI", {
 })
 
 test_that("MAMBI with by variable", {
-  res <- ambiR::MAMBI(df1, by = all_of(c("station")))$MAMBI %>% sum()
+  res <- ambiR::MAMBI(df1, by = c("station"))$MAMBI %>% sum()
   expect_equal(res, 2.85433737037172, tolerance=0.000001)
 })
 

@@ -12,5 +12,9 @@ for(version in version_names){
 
 }
 
+# Norwegian data
+test_that("AMBINorwegian species data", {
+  testthat::expect_no_error(ambiR::NO_species())
+})
 
 

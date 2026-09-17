@@ -5,6 +5,7 @@
 ^_notes
 ^_working
 ^_install
+^paper
 ^data-raw$
 ^README\.Rmd$
 ^LICENSE\.md$

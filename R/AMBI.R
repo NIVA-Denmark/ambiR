@@ -192,6 +192,11 @@
 #'                    the option `exact_species_match = TRUE` is used, species
 #'                    names will be matched only with identical names.
 #'
+#' @param version (default `""`) This argument is passed to
+#'                `AMBI_species()` when retrieving the list of species and AMBI
+#'                groups. By default, species names will be matched with the most
+#'                 recent AMBI species list.
+#'
 #' @return a list of dataframes:
 #'
 #'  * `AMBI` : results of the AMBI index calculations. For each unique
@@ -285,7 +290,8 @@
                  interactive = FALSE,
                  format_pct = NA,
                  show_class = TRUE,
-                 exact_species_match = FALSE
+                 exact_species_match = FALSE,
+                 version = ""
 ){
 
   if(!interactive()){
@@ -342,7 +348,7 @@
   }
 
   # eliminate duplicates - this should really be fixed in the data
-  df_ambi <- AMBI_species() %>%
+  df_ambi <- AMBI_species(version=version) %>%
     group_by(species) %>%
     slice(1) %>%
     ungroup()
@@ -720,8 +726,8 @@
     }
 
     dfFrep <- dfFrep %>%
-      select(-c(N,NNA)) %>%
-      pivot_wider(names_from = var_group_AMBI, values_from = fGroup,
+      select(-dplyr::any_of(c("N","NNA"))) %>%
+      pivot_wider(names_from = dplyr::all_of(var_group_AMBI), values_from = fGroup,
                   values_fill=fill_val)
 
   }
@@ -1025,6 +1031,7 @@ get_user_entry <- function(i, name, list, df_species,
 # auxiliary function to convert numeric group to roman numerals
 roman <- function(n, roman_numbers=c("I","II","III","IV","V"),
                   zero="not assigned"){
+  n <- ifelse(is.na(n), 0, n)
   if(n==0){
     return(zero)
   }else{

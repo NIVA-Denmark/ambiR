@@ -4,6 +4,6 @@ bibentry(
   author   = "Ciarán J. Murray, Ángel Borja, Sarai Pouso, Iñigo Muxika, Joxe Mikel Garmendia",
   organization = "NIVA Denmark",
   address = "Copenhagen, Denmark",
-  year     = "2025",
+  year     = "2026",
   url = "https://github.com/NIVA-Denmark/ambiR"
 )

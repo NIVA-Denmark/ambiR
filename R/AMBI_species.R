@@ -56,8 +56,12 @@
 #' @param version _string_, version of the species list to return.
 #'                The default value is the empty string (`""`)
 #'                which returns the latest version of the list
-#'                _(8. October 2024)_. Currently, the only other valid value for
-#'                `version` is `"2022"` _(31. May 2022)_.
+#'                _(8th October 2024)_. Other valid values for
+#'                `version` are `"2022"`  _(31st May 2022)_,
+#'                `"2017"` _(5th June 2017)_ or `"2014"`
+#'                 _(13th November 2014)_. Using `version = "NO"`
+#'                 will return the latest version used by Norwegian
+#'                 authorities (see [NO_species()])
 #'
 #' @examples
 #'

@@ -1,7 +1,7 @@
-#' Calculates DKI (v2)
+#' Calculates DKI (v2), the revised Danish Quality Index
 #'
 #' @description
-#' [DKI2()] calculate a salinity-normalised version of the Danish quality
+#' [DKI2()] calculates a salinity-normalised version of the Danish quality
 #' index (DKI) [(Carstensen et al., 2014)](#references)
 #'
 #' The *DKI* index is based on AMBI and can only be calculated after first calculating
@@ -15,7 +15,7 @@
 #' Since the index is normalised to salinity, the function also requires
 #' measured or estimated salinity `psal` as an argument.
 #'
-#'#' @references
+#' @references
 #' Carstensen, J., Krause-Jensen, D., Josefson, A. (2014). "Development and testing of tools for intercalibration of phytoplankton, macrovegetation and benthic fauna in Danish coastal areas." Aarhus University, DCE – Danish Centre for Environment and Energy, 85 pp. _Scientific Report from DCE – Danish Centre for Environment and Energy_ No. 93.
 #' <https://dce2.au.dk/pub/SR93.pdf>
 #'
@@ -29,6 +29,7 @@
 #' e.g. within a [dplyr::mutate()] function call. See the examples below.
 #'
 #' @seealso
+#' For more details, see`vignette("other-indices").
 #' * [DKI()] calculate DKI using the original method
 #' * [AMBI_sal()] minimum AMBI for normalisation _= f(salinity)_
 #' * [H_sal()] maximum H' for normalisation _= f(salinity)_
@@ -52,16 +53,22 @@
 #' # ------ Example workflow for calculating DKI (v2) from species counts ----
 #'
 #' # calculate AMBI index
-#' dfAMBI <- AMBI(test_data, by = c("station"), var_rep = "replicate")[["AMBI"]]
+#' df <- AMBI(test_data_DK, by = c("station"), var_rep = "sample")[["AMBI"]]
+#'
+#' # modify names which were not recognized by AMBI() and recalculate
+#' df_obs <- dplyr::mutate(test_data_DK, species = gsub(" indet\\.", "", species))
+#' df <- ambiR::AMBI(df_obs, by = c("station"), var_rep="sample")[["AMBI"]]
 #'
 #' # show AMBI results
-#' dfAMBI
+#' df
 #'
 #' # add salinity values - these are realistic but invented values
-#' dfAMBI <- dplyr::mutate(dfAMBI, psal=ifelse(station == 1, 21.3, 26.5))
+#' df$psal <- c(21.3, 26.5)
 #'
 #' # calculate DKI from AMBI results
-#' dfAMBI <- dplyr::mutate(dfAMBI, DKI=DKI2(AMBI, H, N, psal))
+#' df <- dplyr::mutate(df, DKI=DKI2(AMBI, H, N, psal))
+#'
+#' dplyr::select(df, station, AMBI, H, N, psal, DKI)
 #'
 #' @export
 

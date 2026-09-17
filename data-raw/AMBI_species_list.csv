@@ -1733,7 +1733,6 @@
 "Bylgides sarsi",1,0
 "Bylgides sp.",1,1
 "Bythinia fuchsiana",1,0
-"CREPIDULIDAE",1,1
 "Cabira incerta",3,0
 "Cabira pilargiformis",3,0
 "Cabira sp.",3,0
@@ -2722,6 +2721,7 @@
 "Crepidula plana",3,0
 "Crepidula sp.",3,1
 "Crepidula unguiformis",3,0
+"CREPIDULIDAE",1,1
 "Crepipatella dilatata",2,0
 "Crepipatella dorsata",2,0
 "Cressa cristata",0,0
@@ -6155,6 +6155,7 @@
 "Macrophthalmus (Macrophthalmus) convexus",1,0
 "Macrophthalmus (Macrophthalmus) graeffei",2,0
 "Macrophthalmus (Macrophthalmus) sulcatus",1,0
+"Macrophthalmus (Macrophthalmus) sulcatus",1,0
 "Macrophthalmus (Mareotis) definitus",1,0
 "Macrophthalmus (Mareotis) depressus",1,0
 "Macrophthalmus (Mareotis) japonicus",1,0
@@ -7288,7 +7289,7 @@
 "Neomysis sp.",2,0
 "Neorhynchoplax alcocki",3,0
 "Neorhynchoplax demeloi",3,0
-"Neorhynchoplaxsp.",3,0
+"Neorhynchoplax sp.",3,0
 "Neosabellaria cementarium",2,0
 "Neosabellides elongatus",2,0
 "Neoterebra dislocata",1,0
@@ -7939,6 +7940,7 @@
 "Ophiuridae",2,0
 "Ophiuroconis bispinosa",2,0
 "Ophiuroglypha kinbergi",2,0
+"Ophiuroidea",2,0
 "Ophiuroidea",2,1
 "Ophryotrocha alborana",4,0
 "Ophryotrocha baccii",4,0
@@ -8453,6 +8455,7 @@
 "Parexogone wolfi",2,0
 "Parhalimedon turqueti",1,0
 "Parheteromastus sp.",3,1
+"Parheteromastus tenuis",5,0
 "Parheteromastus tenuis",5,0
 "Parhyale aquilina",1,0
 "Parhyale eburnea",1,0
@@ -9498,6 +9501,7 @@
 "Procladius sp.",4,0
 "Proclea graffi",1,0
 "Proclea graffii",1,0
+"Proclea graffii",1,0
 "Proclea malmgreni",2,0
 "Proclea sp.",1,0
 "Prodentalium calvertensis",2,0
@@ -10012,6 +10016,7 @@
 "Sabaco elongatus",1,0
 "Sabaco gangeticus",2,0
 "Sabatieria celtica",5,0
+"Sabatieria elongata ",5,0
 "Sabatieria elongata ",5,0
 "Sabatieria furcillata ",5,0
 "Sabatieria lyonessa",5,0
@@ -11728,7 +11733,7 @@
 "Urticina sp.",2,0
 "Urticinopsis antarctica",3,0
 "Valencinia longirostris",3,0
-"Valenciniasp.",3,0
+"Valencinia sp.",3,0
 "Valfinia retrorsus",1,0
 "Valfinia sp.",1,0
 "Vanadis crystallina",0,0

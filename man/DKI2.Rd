@@ -2,7 +2,7 @@
 % Please edit documentation in R/DKI_v2.R
 \name{DKI2}
 \alias{DKI2}
-\title{Calculates DKI (v2)}
+\title{Calculates DKI (v2), the revised Danish Quality Index}
 \usage{
 DKI2(AMBI, H, N, psal)
 }
@@ -19,7 +19,7 @@ DKI2(AMBI, H, N, psal)
 \code{DKI} index value
 }
 \description{
-\code{\link[=DKI2]{DKI2()}} calculate a salinity-normalised version of the Danish quality
+\code{\link[=DKI2]{DKI2()}} calculates a salinity-normalised version of the Danish quality
 index (DKI) \href{#references}{(Carstensen et al., 2014)}
 
 The \emph{DKI} index is based on AMBI and can only be calculated after first calculating
@@ -32,10 +32,6 @@ lower species diversity in regions with lower salinity.
 
 Since the index is normalised to salinity, the function also requires
 measured or estimated salinity \code{psal} as an argument.
-
-#' @references
-Carstensen, J., Krause-Jensen, D., Josefson, A. (2014). "Development and testing of tools for intercalibration of phytoplankton, macrovegetation and benthic fauna in Danish coastal areas." Aarhus University, DCE – Danish Centre for Environment and Energy, 85 pp. \emph{Scientific Report from DCE – Danish Centre for Environment and Energy} No. 93.
-\url{https://dce2.au.dk/pub/SR93.pdf}
 }
 \details{
 The \code{\link[=AMBI]{AMBI()}} and \code{\link[=Hdash]{Hdash()}} functions take a dataframe of observations as an
@@ -56,19 +52,30 @@ DKI2(AMBI = 1.61, H = 2.36, N = 25, psal = 21.4)
 # ------ Example workflow for calculating DKI (v2) from species counts ----
 
 # calculate AMBI index
-dfAMBI <- AMBI(test_data, by = c("station"), var_rep = "replicate")[["AMBI"]]
+df <- AMBI(test_data_DK, by = c("station"), var_rep = "sample")[["AMBI"]]
+
+# modify names which were not recognized by AMBI() and recalculate
+df_obs <- dplyr::mutate(test_data_DK, species = gsub(" indet\\\\.", "", species))
+df <- ambiR::AMBI(df_obs, by = c("station"), var_rep="sample")[["AMBI"]]
 
 # show AMBI results
-dfAMBI
+df
 
 # add salinity values - these are realistic but invented values
-dfAMBI <- dplyr::mutate(dfAMBI, psal=ifelse(station == 1, 21.3, 26.5))
+df$psal <- c(21.3, 26.5)
 
 # calculate DKI from AMBI results
-dfAMBI <- dplyr::mutate(dfAMBI, DKI=DKI2(AMBI, H, N, psal))
+df <- dplyr::mutate(df, DKI=DKI2(AMBI, H, N, psal))
+
+dplyr::select(df, station, AMBI, H, N, psal, DKI)
 
 }
+\references{
+Carstensen, J., Krause-Jensen, D., Josefson, A. (2014). "Development and testing of tools for intercalibration of phytoplankton, macrovegetation and benthic fauna in Danish coastal areas." Aarhus University, DCE – Danish Centre for Environment and Energy, 85 pp. \emph{Scientific Report from DCE – Danish Centre for Environment and Energy} No. 93.
+\url{https://dce2.au.dk/pub/SR93.pdf}
+}
 \seealso{
+For more details, see`vignette("other-indices").
 \itemize{
 \item \code{\link[=DKI]{DKI()}} calculate DKI using the original method
 \item \code{\link[=AMBI_sal]{AMBI_sal()}} minimum AMBI for normalisation \emph{= f(salinity)}

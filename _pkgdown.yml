@@ -31,8 +31,21 @@ reference:
     including those derived from AMBI.
 - contents:
   - Hdash
+  - ES
   - DKI
   - DKI2
+  - NSI
+  - ISI
+  - NQI1
+
+- subtitle: Example data
+  desc: >
+    Data included with the package for testing.
+- contents:
+  - test_data
+  - test_data_DK
+  - test_data_NO
+
 
 - subtitle: Utility functions
   desc: >
@@ -41,7 +54,7 @@ reference:
   - AMBI_species
   - H_sal
   - AMBI_sal
-  - test_data
+  - NO_species
 
 news:
   one_page: true
@@ -54,7 +67,7 @@ articles:
   - background
   - interactive
   - ambi-figures
-
+  - other-indices
 
 authors:
   GES4SEAS:
