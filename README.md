@@ -15,6 +15,14 @@ status](https://www.r-pkg.org/badges/version/ambiR)](https://CRAN.R-project.org/
 Implementing **AZTI’s Marine Biotic Index** [(Borja et al.,
 2000)](https://doi.org/10.1016/S0025-326X(00)00061-8)
 
+<div class="pkgdown-devel">
+
+*You are currently viewing documentation for the development version of
+ambiR. Find the documentation for the release version
+[here](https://niva-denmark.github.io/ambiR/).*
+
+</div>
+
 ## Overview
 
 The ambiR package allows the user to calculate both the *AMBI* index and
@@ -48,6 +56,13 @@ You can install the development version of ambiR from
 # install.packages("remotes)
 remotes::install_github("NIVA-Denmark/ambiR")
 ```
+
+<div class="pkgdown-release">
+
+Documentation for the current development version can be found
+[here](https://niva-denmark.github.io/ambiR/dev/).
+
+</div>
 
 ## Examples
 
